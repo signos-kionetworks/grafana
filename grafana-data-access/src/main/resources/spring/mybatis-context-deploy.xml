@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/tx	http://www.springframework.org/schema/tx/spring-tx-4.2.xsd 
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
+       http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<util:properties id="mybatisPropertyConfigurer"
+		location="classpath:properties/database.properties" />
+
+	<tx:annotation-driven />
+	<!-- Enable @Autowired -->
+	<context:annotation-config />
+	<context:component-scan
+		base-package="com.kio.applications.validator.dao" />
+
+	<context:property-placeholder
+		properties-ref="mybatisPropertyConfigurer" order="1"
+		ignore-unresolvable="true" />
+	<!-- Begin MyBatis -->
+	<bean id="dataSource"
+		class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="resourceRef">
+			<value>false</value>
+		</property>
+		<property name="jndiName">
+			<value>${database.jndi}</value>
+		</property>
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage"
+			value="com.kio.applications.validator.model" />
+		<property name="configurationProperties"
+			ref="mybatisPropertyConfigurer"></property>
+	</bean>
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage"
+			value="com.kio.applications.validator.dao" />
+		<property name="sqlSessionFactoryBeanName"
+			value="sqlSessionFactory" />
+	</bean>
+	<!--End MyBatis -->
+</beans>
