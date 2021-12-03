@@ -1,10 +1,10 @@
 /*
-* ****************************************************
-* * Grafana *
-* * KIO Networks *
-* * @Author Julio Galindo *
-* ****************************************************
-*/
+ * ****************************************************
+ * * Grafana *
+ * * KIO Networks *
+ * * @Author Julio Galindo *
+ * ****************************************************
+ */
 
 package com.kio.applications.validator.bo.impl;
 
@@ -15,8 +15,8 @@ import org.mybatis.dynamic.sql.SqlBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kio.applications.validator.bo.IfzAutomationBO;
 import com.kio.applications.validator.bo.IfzSaveBO;
+import com.kio.applications.validator.bo.IfzSearchByKeyBO;
 import com.kio.applications.validator.dao.AutomationMapper;
 import com.kio.applications.validator.exception.GenericException;
 import com.kio.applications.validator.model.Automation;
@@ -25,41 +25,14 @@ import com.kio.applications.validator.model.Automation;
  * The Class AutomationBO.
  */
 @Service
-public class AutomationBO implements IfzSaveBO<Automation>, IfzAutomationBO, Serializable {
+public class AutomationBO implements IfzSaveBO<Automation>, IfzSearchByKeyBO<Automation>, Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8798643153312463893L;
-	
+
 	/** The automation mapper. */
 	@Autowired
 	private AutomationMapper automationMapper;
-
-	/**
-	 * Select automation.
-	 *
-	 * @param value the value
-	 * @return the automation
-	 * @throws GenericException the generic exception
-	 */
-	@Override
-	public Automation selectAutomation(Automation value) throws GenericException {
-		//TODO: Agregar las demas validaciones para buscar el automation id
-		final Optional<Automation> automation = this.automationMapper.selectOne(c -> c
-				.where(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.areaid,
-						SqlBuilder.isEqualTo(value.getAreaid()))
-				.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.dirid,
-						SqlBuilder.isEqualTo(value.getDirid()))
-				.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.clienteid,
-						SqlBuilder.isEqualTo(value.getClienteid()))
-				
-				);
-
-		if (automation.isPresent()) {
-			return automation.get();
-		} else {
-			return value;
-		}
-	}
 
 	/**
 	 * Save.
@@ -77,6 +50,42 @@ public class AutomationBO implements IfzSaveBO<Automation>, IfzAutomationBO, Ser
 			this.automationMapper.insertSelective(object);
 		}
 		return object;
+	}
+
+	/**
+	 * Search by key values.
+	 *
+	 * @param value the value
+	 * @return the automation
+	 * @throws GenericException the generic exception
+	 */
+	@Override
+	public Automation searchByKeyValues(Automation value) throws GenericException {
+		final Optional<Automation> automation = this.automationMapper.selectOne(c -> c
+				.where(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.areaid,
+						SqlBuilder.isEqualTo(value.getAreaid()))
+				.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.dirid,
+						SqlBuilder.isEqualTo(value.getDirid()))
+				.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.platformid,
+						SqlBuilder.isEqualTo(value.getPlatformid()))
+				.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.tipoautid,
+						SqlBuilder.isEqualTo(value.getTipoautid()))
+				.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.tipoexecid,
+						SqlBuilder.isEqualTo(value.getTipoexecid()))
+				.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.devtypeid,
+						SqlBuilder.isEqualTo(value.getDevtypeid()))
+				.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.catopid,
+						SqlBuilder.isEqualTo(value.getCatopid()))
+				.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.clienteid,
+						SqlBuilder.isEqualTo(value.getClienteid()))
+				.orderBy(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.id).limit(1)
+				);
+
+		if (automation.isPresent()) {
+			return  automation.get();
+		} else {
+			return value;
+		}
 	}
 
 }

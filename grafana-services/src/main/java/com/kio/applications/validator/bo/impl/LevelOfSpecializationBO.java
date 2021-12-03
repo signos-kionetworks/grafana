@@ -1,10 +1,10 @@
 /*
-* ****************************************************
-* * Grafana *
-* * KIO Networks *
-* * @Author Julio Galindo *
-* ****************************************************
-*/
+ * ****************************************************
+ * * Grafana *
+ * * KIO Networks *
+ * * @Author Julio Galindo *
+ * ****************************************************
+ */
 
 package com.kio.applications.validator.bo.impl;
 
@@ -33,6 +33,25 @@ public class LevelOfSpecializationBO implements IfzSelectBO<LevelOfSpecializatio
 	private LevelOfSpecializationMapper levelOfSpecializationMapper;
 
 	/**
+	 * Select by id.
+	 *
+	 * @param id the id
+	 * @return the level of specialization
+	 * @throws GenericException the generic exception
+	 */
+	@Override
+	public LevelOfSpecialization selectById(int id) throws GenericException {
+		final Optional<com.kio.applications.validator.model.LevelOfSpecialization> result = this.levelOfSpecializationMapper
+				.selectOne(c -> c.where(com.kio.applications.validator.dao.LevelOfSpecializationDynamicSqlSupport.id,
+						SqlBuilder.isEqualTo(id)));
+		if (result.isPresent()) {
+			return result.get();
+		} else {
+			return null;
+		}
+	}
+
+	/**
 	 * Select by name.
 	 *
 	 * @param value the value
@@ -46,26 +65,7 @@ public class LevelOfSpecializationBO implements IfzSelectBO<LevelOfSpecializatio
 						.where(com.kio.applications.validator.dao.LevelOfSpecializationDynamicSqlSupport.name,
 								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase()))
 						.or(com.kio.applications.validator.dao.LevelOfSpecializationDynamicSqlSupport.descr,
-								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())));
-		if (result.isPresent()) {
-			return result.get();
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * Select by id.
-	 *
-	 * @param id the id
-	 * @return the level of specialization
-	 * @throws GenericException the generic exception
-	 */
-	@Override
-	public LevelOfSpecialization selectById(int id) throws GenericException {
-		final Optional<com.kio.applications.validator.model.LevelOfSpecialization> result = this.levelOfSpecializationMapper
-				.selectOne(c -> c.where(com.kio.applications.validator.dao.LevelOfSpecializationDynamicSqlSupport.id,
-						SqlBuilder.isEqualTo(id)));
+								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())).limit(1));
 		if (result.isPresent()) {
 			return result.get();
 		} else {

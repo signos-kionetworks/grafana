@@ -18,6 +18,52 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class IndicatorDynamicSqlSupport {
 
+	/**
+	 * The Class Indicator.
+	 */
+	public static final class Indicator extends SqlTable {
+		
+		/** The id. */
+		public final SqlColumn<Long> id = column("id", JDBCType.BIGINT);
+
+		/** The time. */
+		public final SqlColumn<Date> time = column("time", JDBCType.TIMESTAMP);
+
+		/** The autid. */
+		public final SqlColumn<Long> autid = column("autid", JDBCType.BIGINT);
+
+		/** The autotime. */
+		public final SqlColumn<Float> autotime = column("autotime", JDBCType.REAL);
+
+		/** The svtime. */
+		public final SqlColumn<Float> svtime = column("svtime", JDBCType.REAL);
+
+		/** The transactionid. */
+		public final SqlColumn<String> transactionid = column("transactionid", JDBCType.VARCHAR);
+
+		/** The ticketid. */
+		public final SqlColumn<String> ticketid = column("ticketid", JDBCType.VARCHAR);
+
+		/** The svfte. */
+		public final SqlColumn<Float> svfte = column("svfte", JDBCType.REAL);
+
+		/** The impacted cis. */
+		public final SqlColumn<Integer> impactedCis = column("impacted_cis", JDBCType.INTEGER);
+
+		/** The total impacted cis. */
+		public final SqlColumn<Integer> totalImpactedCis = column("total_impacted_cis", JDBCType.INTEGER);
+
+		/** The mantime. */
+		public final SqlColumn<Float> mantime = column("mantime", JDBCType.REAL);
+
+		/**
+		 * Instantiates a new indicator.
+		 */
+		public Indicator() {
+			super("indicadores");
+		}
+	}
+
 	/** The Constant indicator. */
 	public static final Indicator indicator = new Indicator();
 
@@ -51,52 +97,6 @@ public final class IndicatorDynamicSqlSupport {
 	/** The Constant totalImpactedCis. */
 	public static final SqlColumn<Integer> totalImpactedCis = indicator.totalImpactedCis;
 
-	/** The Constant totalExecutionTime. */
-	public static final SqlColumn<Integer> totalExecutionTime = indicator.totalExecutionTime;
-
-	/**
-	 * The Class Indicator.
-	 */
-	public static final class Indicator extends SqlTable {
-
-		/** The id. */
-		public final SqlColumn<Long> id = column("id", JDBCType.BIGINT);
-
-		/** The time. */
-		public final SqlColumn<Date> time = column("time", JDBCType.TIMESTAMP);
-
-		/** The autid. */
-		public final SqlColumn<Long> autid = column("autid", JDBCType.BIGINT);
-
-		/** The autotime. */
-		public final SqlColumn<Float> autotime = column("autotime", JDBCType.REAL);
-
-		/** The svtime. */
-		public final SqlColumn<Float> svtime = column("svtime", JDBCType.REAL);
-
-		/** The transactionid. */
-		public final SqlColumn<String> transactionid = column("transactionid", JDBCType.VARCHAR);
-
-		/** The ticketid. */
-		public final SqlColumn<String> ticketid = column("ticketid", JDBCType.VARCHAR);
-
-		/** The svfte. */
-		public final SqlColumn<Float> svfte = column("svfte", JDBCType.REAL);
-
-		/** The impacted cis. */
-		public final SqlColumn<Integer> impactedCis = column("impacted_cis", JDBCType.INTEGER);
-
-		/** The total impacted cis. */
-		public final SqlColumn<Integer> totalImpactedCis = column("total_impacted_cis", JDBCType.INTEGER);
-
-		/** The total execution time. */
-		public final SqlColumn<Integer> totalExecutionTime = column("total_execution_time", JDBCType.INTEGER);
-
-		/**
-		 * Instantiates a new indicator.
-		 */
-		public Indicator() {
-			super("indicadores");
-		}
-	}
+	/** The Constant mantime. */
+	public static final SqlColumn<Float> mantime = indicator.mantime;
 }

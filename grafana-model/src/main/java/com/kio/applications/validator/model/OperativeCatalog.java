@@ -16,7 +16,7 @@ public class OperativeCatalog {
 	private Integer id;
 
 	/** The catalogo. */
-	private Integer catalogo = 1;
+	private Integer catalogo;
 
 	/** The catnivel 1. */
 	private Integer catnivel1;
@@ -31,30 +31,21 @@ public class OperativeCatalog {
 	private Integer producto;
 
 	/** The tipo. */
-	private Integer tipo = 3;
+	private Integer tipo;
 
 	/** The automatizable. */
-	private Boolean automatizable = true;
+	private Boolean automatizable;
 
 	/** The tiempominutos. */
-	private Float tiempominutos = (float) 0.0;
+	private Float tiempominutos;
 
 	/**
-	 * Gets the id.
+	 * Gets the automatizable.
 	 *
-	 * @return the id
+	 * @return the automatizable
 	 */
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	 * Sets the id.
-	 *
-	 * @param id the new id
-	 */
-	public void setId(Integer id) {
-		this.id = id;
+	public Boolean getAutomatizable() {
+		return automatizable;
 	}
 
 	/**
@@ -67,30 +58,12 @@ public class OperativeCatalog {
 	}
 
 	/**
-	 * Sets the catalogo.
-	 *
-	 * @param catalogo the new catalogo
-	 */
-	public void setCatalogo(Integer catalogo) {
-		this.catalogo = catalogo;
-	}
-
-	/**
 	 * Gets the catnivel 1.
 	 *
 	 * @return the catnivel 1
 	 */
 	public Integer getCatnivel1() {
 		return catnivel1;
-	}
-
-	/**
-	 * Sets the catnivel 1.
-	 *
-	 * @param catnivel1 the new catnivel 1
-	 */
-	public void setCatnivel1(Integer catnivel1) {
-		this.catnivel1 = catnivel1;
 	}
 
 	/**
@@ -103,15 +76,6 @@ public class OperativeCatalog {
 	}
 
 	/**
-	 * Sets the catnivel 2.
-	 *
-	 * @param catnivel2 the new catnivel 2
-	 */
-	public void setCatnivel2(Integer catnivel2) {
-		this.catnivel2 = catnivel2;
-	}
-
-	/**
 	 * Gets the catnivel 3.
 	 *
 	 * @return the catnivel 3
@@ -121,12 +85,12 @@ public class OperativeCatalog {
 	}
 
 	/**
-	 * Sets the catnivel 3.
+	 * Gets the id.
 	 *
-	 * @param catnivel3 the new catnivel 3
+	 * @return the id
 	 */
-	public void setCatnivel3(Integer catnivel3) {
-		this.catnivel3 = catnivel3;
+	public Integer getId() {
+		return id;
 	}
 
 	/**
@@ -139,12 +103,12 @@ public class OperativeCatalog {
 	}
 
 	/**
-	 * Sets the producto.
+	 * Gets the tiempominutos.
 	 *
-	 * @param producto the new producto
+	 * @return the tiempominutos
 	 */
-	public void setProducto(Integer producto) {
-		this.producto = producto;
+	public Float getTiempominutos() {
+		return tiempominutos;
 	}
 
 	/**
@@ -157,24 +121,6 @@ public class OperativeCatalog {
 	}
 
 	/**
-	 * Sets the tipo.
-	 *
-	 * @param tipo the new tipo
-	 */
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
-	}
-
-	/**
-	 * Gets the automatizable.
-	 *
-	 * @return the automatizable
-	 */
-	public Boolean getAutomatizable() {
-		return automatizable;
-	}
-
-	/**
 	 * Sets the automatizable.
 	 *
 	 * @param automatizable the new automatizable
@@ -184,12 +130,57 @@ public class OperativeCatalog {
 	}
 
 	/**
-	 * Gets the tiempominutos.
+	 * Sets the catalogo.
 	 *
-	 * @return the tiempominutos
+	 * @param catalogo the new catalogo
 	 */
-	public Float getTiempominutos() {
-		return tiempominutos;
+	public void setCatalogo(Integer catalogo) {
+		this.catalogo = catalogo;
+	}
+
+	/**
+	 * Sets the catnivel 1.
+	 *
+	 * @param catnivel1 the new catnivel 1
+	 */
+	public void setCatnivel1(Integer catnivel1) {
+		this.catnivel1 = catnivel1;
+	}
+
+	/**
+	 * Sets the catnivel 2.
+	 *
+	 * @param catnivel2 the new catnivel 2
+	 */
+	public void setCatnivel2(Integer catnivel2) {
+		this.catnivel2 = catnivel2;
+	}
+
+	/**
+	 * Sets the catnivel 3.
+	 *
+	 * @param catnivel3 the new catnivel 3
+	 */
+	public void setCatnivel3(Integer catnivel3) {
+		this.catnivel3 = catnivel3;
+	}
+
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	/**
+	 * Sets the producto.
+	 *
+	 * @param producto the new producto
+	 */
+	public void setProducto(Integer producto) {
+		this.producto = producto;
 	}
 
 	/**
@@ -199,5 +190,14 @@ public class OperativeCatalog {
 	 */
 	public void setTiempominutos(Float tiempominutos) {
 		this.tiempominutos = tiempominutos;
+	}
+
+	/**
+	 * Sets the tipo.
+	 *
+	 * @param tipo the new tipo
+	 */
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
 	}
 }

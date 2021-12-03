@@ -66,9 +66,9 @@ public class Automation {
 	private Integer devtypeid;
 
 	/** The manexecs. */
-	private Float manexecs = (float) 0.0;
+	private Float manexecs = (float) 1.0;
 	/** The autoexecs. */
-	private Float autoexecs = (float) 0.0;
+	private Float autoexecs = (float) 1.0;
 
 	/** The mantime. */
 	private Float mantime = (float) 0.0;
@@ -86,7 +86,7 @@ public class Automation {
 	private Date lastModified = new Date();
 
 	/** The aut enabled. */
-	private Boolean autEnabled;
+	private Boolean autEnabled = true;
 
 	/** The impacted cis. */
 	private Integer impactedCis = 0;

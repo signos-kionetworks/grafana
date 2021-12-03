@@ -1,10 +1,10 @@
 /*
-* ****************************************************
-* * Grafana *
-* * KIO Networks *
-* * @Author Julio Galindo *
-* ****************************************************
-*/
+ * ****************************************************
+ * * Grafana *
+ * * KIO Networks *
+ * * @Author Julio Galindo *
+ * ****************************************************
+ */
 
 package com.kio.applications.validator.bo.impl;
 
@@ -33,6 +33,25 @@ public class BussinessUnitBO implements IfzSelectBO<BussinessUnit>, Serializable
 	private BussinessUnitMapper bussinessUnitMapper;
 
 	/**
+	 * Select by id.
+	 *
+	 * @param id the id
+	 * @return the bussiness unit
+	 * @throws GenericException the generic exception
+	 */
+	@Override
+	public BussinessUnit selectById(int id) throws GenericException {
+		final Optional<com.kio.applications.validator.model.BussinessUnit> result = this.bussinessUnitMapper
+				.selectOne(c -> c.where(com.kio.applications.validator.dao.BussinessUnitDynamicSqlSupport.id,
+						SqlBuilder.isEqualTo(id)));
+		if (result.isPresent()) {
+			return result.get();
+		} else {
+			return null;
+		}
+	}
+
+	/**
 	 * Select by name.
 	 *
 	 * @param value the value
@@ -46,26 +65,7 @@ public class BussinessUnitBO implements IfzSelectBO<BussinessUnit>, Serializable
 						.where(com.kio.applications.validator.dao.BussinessUnitDynamicSqlSupport.name,
 								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase()))
 						.or(com.kio.applications.validator.dao.BussinessUnitDynamicSqlSupport.descr,
-								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())));
-		if (result.isPresent()) {
-			return result.get();
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * Select by id.
-	 *
-	 * @param id the id
-	 * @return the bussiness unit
-	 * @throws GenericException the generic exception
-	 */
-	@Override
-	public BussinessUnit selectById(int id) throws GenericException {
-		final Optional<com.kio.applications.validator.model.BussinessUnit> result = this.bussinessUnitMapper
-				.selectOne(c -> c.where(com.kio.applications.validator.dao.BussinessUnitDynamicSqlSupport.id,
-						SqlBuilder.isEqualTo(id)));
+								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())).limit(1));
 		if (result.isPresent()) {
 			return result.get();
 		} else {

@@ -17,23 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class CategoryNameDynamicSqlSupport {
 
-	/** The Constant categoryName. */
-	public static final CategoryName categoryName = new CategoryName();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = categoryName.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = categoryName.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = categoryName.descr;
-
 	/**
 	 * The Class CategoryName.
 	 */
 	public static final class CategoryName extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -50,4 +38,16 @@ public final class CategoryNameDynamicSqlSupport {
 			super("conombrecat");
 		}
 	}
+
+	/** The Constant categoryName. */
+	public static final CategoryName categoryName = new CategoryName();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = categoryName.id;
+
+	/** The Constant name. */
+	public static final SqlColumn<String> name = categoryName.name;
+
+	/** The Constant descr. */
+	public static final SqlColumn<String> descr = categoryName.descr;
 }

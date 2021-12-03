@@ -17,23 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class TypeAutomationDynamicSqlSupport {
 
-	/** The Constant typeAutomation. */
-	public static final TypeAutomation typeAutomation = new TypeAutomation();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = typeAutomation.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = typeAutomation.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = typeAutomation.descr;
-
 	/**
 	 * The Class TypeAutomation.
 	 */
 	public static final class TypeAutomation extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -50,4 +38,16 @@ public final class TypeAutomationDynamicSqlSupport {
 			super("tipoaut");
 		}
 	}
+
+	/** The Constant typeAutomation. */
+	public static final TypeAutomation typeAutomation = new TypeAutomation();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = typeAutomation.id;
+
+	/** The Constant name. */
+	public static final SqlColumn<String> name = typeAutomation.name;
+
+	/** The Constant descr. */
+	public static final SqlColumn<String> descr = typeAutomation.descr;
 }

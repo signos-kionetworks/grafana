@@ -17,23 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class BussinessUnitDynamicSqlSupport {
 
-	/** The Constant bussinessUnit. */
-	public static final BussinessUnit bussinessUnit = new BussinessUnit();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = bussinessUnit.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = bussinessUnit.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = bussinessUnit.descr;
-
 	/**
 	 * The Class BussinessUnit.
 	 */
 	public static final class BussinessUnit extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -50,4 +38,16 @@ public final class BussinessUnitDynamicSqlSupport {
 			super("unidad_negocio");
 		}
 	}
+
+	/** The Constant bussinessUnit. */
+	public static final BussinessUnit bussinessUnit = new BussinessUnit();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = bussinessUnit.id;
+
+	/** The Constant name. */
+	public static final SqlColumn<String> name = bussinessUnit.name;
+
+	/** The Constant descr. */
+	public static final SqlColumn<String> descr = bussinessUnit.descr;
 }

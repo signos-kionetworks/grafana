@@ -60,78 +60,35 @@ public interface OperativeCatalogMapper {
 			automatizable, tiempominutos);
 
 	/**
-	 * Count.
+	 * Update all columns.
 	 *
-	 * @param selectStatement the select statement
-	 * @return the long
+	 * @param record the record
+	 * @param dsl    the dsl
+	 * @return the update DSL
 	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	long count(SelectStatementProvider selectStatement);
+	static UpdateDSL<UpdateModel> updateAllColumns(OperativeCatalog record, UpdateDSL<UpdateModel> dsl) {
+		return dsl.set(id).equalTo(record::getId).set(catalogo).equalTo(record::getCatalogo).set(catnivel1)
+				.equalTo(record::getCatnivel1).set(catnivel2).equalTo(record::getCatnivel2).set(catnivel3)
+				.equalTo(record::getCatnivel3).set(producto).equalTo(record::getProducto).set(tipo)
+				.equalTo(record::getTipo).set(automatizable).equalTo(record::getAutomatizable).set(tiempominutos)
+				.equalTo(record::getTiempominutos);
+	}
 
 	/**
-	 * Delete.
+	 * Update selective columns.
 	 *
-	 * @param deleteStatement the delete statement
-	 * @return the int
+	 * @param record the record
+	 * @param dsl    the dsl
+	 * @return the update DSL
 	 */
-	@DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
-	int delete(DeleteStatementProvider deleteStatement);
-
-	/**
-	 * Insert.
-	 *
-	 * @param insertStatement the insert statement
-	 * @return the int
-	 */
-	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
-	int insert(InsertStatementProvider<OperativeCatalog> insertStatement);
-
-	/**
-	 * Insert multiple.
-	 *
-	 * @param multipleInsertStatement the multiple insert statement
-	 * @return the int
-	 */
-	@InsertProvider(type = SqlProviderAdapter.class, method = "insertMultiple")
-	int insertMultiple(MultiRowInsertStatementProvider<OperativeCatalog> multipleInsertStatement);
-
-	/**
-	 * Select one.
-	 *
-	 * @param selectStatement the select statement
-	 * @return the optional
-	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@ResultMap("OperativeCatalogResult")
-	Optional<OperativeCatalog> selectOne(SelectStatementProvider selectStatement);
-
-	/**
-	 * Select many.
-	 *
-	 * @param selectStatement the select statement
-	 * @return the list
-	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@Results(id = "OperativeCatalogResult", value = {
-			@Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
-			@Result(column = "catalogo", property = "catalogo", jdbcType = JdbcType.INTEGER),
-			@Result(column = "catnivel1", property = "catnivel1", jdbcType = JdbcType.INTEGER),
-			@Result(column = "catnivel2", property = "catnivel2", jdbcType = JdbcType.INTEGER),
-			@Result(column = "catnivel3", property = "catnivel3", jdbcType = JdbcType.INTEGER),
-			@Result(column = "producto", property = "producto", jdbcType = JdbcType.INTEGER),
-			@Result(column = "tipo", property = "tipo", jdbcType = JdbcType.INTEGER),
-			@Result(column = "automatizable", property = "automatizable", jdbcType = JdbcType.BIT),
-			@Result(column = "tiempominutos", property = "tiempominutos", jdbcType = JdbcType.REAL) })
-	List<OperativeCatalog> selectMany(SelectStatementProvider selectStatement);
-
-	/**
-	 * Update.
-	 *
-	 * @param updateStatement the update statement
-	 * @return the int
-	 */
-	@UpdateProvider(type = SqlProviderAdapter.class, method = "update")
-	int update(UpdateStatementProvider updateStatement);
+	static UpdateDSL<UpdateModel> updateSelectiveColumns(OperativeCatalog record, UpdateDSL<UpdateModel> dsl) {
+		return dsl.set(id).equalToWhenPresent(record::getId).set(catalogo).equalToWhenPresent(record::getCatalogo)
+				.set(catnivel1).equalToWhenPresent(record::getCatnivel1).set(catnivel2)
+				.equalToWhenPresent(record::getCatnivel2).set(catnivel3).equalToWhenPresent(record::getCatnivel3)
+				.set(producto).equalToWhenPresent(record::getProducto).set(tipo).equalToWhenPresent(record::getTipo)
+				.set(automatizable).equalToWhenPresent(record::getAutomatizable).set(tiempominutos)
+				.equalToWhenPresent(record::getTiempominutos);
+	}
 
 	/**
 	 * Count.
@@ -144,6 +101,15 @@ public interface OperativeCatalogMapper {
 	}
 
 	/**
+	 * Count.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the long
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	long count(SelectStatementProvider selectStatement);
+
+	/**
 	 * Delete.
 	 *
 	 * @param completer the completer
@@ -154,6 +120,15 @@ public interface OperativeCatalogMapper {
 	}
 
 	/**
+	 * Delete.
+	 *
+	 * @param deleteStatement the delete statement
+	 * @return the int
+	 */
+	@DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
+	int delete(DeleteStatementProvider deleteStatement);
+
+	/**
 	 * Delete by primary key.
 	 *
 	 * @param id_ the id
@@ -162,6 +137,15 @@ public interface OperativeCatalogMapper {
 	default int deleteByPrimaryKey(Integer id_) {
 		return delete(c -> c.where(id, isEqualTo(id_)));
 	}
+
+	/**
+	 * Insert.
+	 *
+	 * @param insertStatement the insert statement
+	 * @return the int
+	 */
+	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
+	int insert(InsertStatementProvider<OperativeCatalog> insertStatement);
 
 	/**
 	 * Insert.
@@ -192,6 +176,15 @@ public interface OperativeCatalogMapper {
 	}
 
 	/**
+	 * Insert multiple.
+	 *
+	 * @param multipleInsertStatement the multiple insert statement
+	 * @return the int
+	 */
+	@InsertProvider(type = SqlProviderAdapter.class, method = "insertMultiple")
+	int insertMultiple(MultiRowInsertStatementProvider<OperativeCatalog> multipleInsertStatement);
+
+	/**
 	 * Insert selective.
 	 *
 	 * @param record the record
@@ -211,16 +204,6 @@ public interface OperativeCatalogMapper {
 	}
 
 	/**
-	 * Select one.
-	 *
-	 * @param completer the completer
-	 * @return the optional
-	 */
-	default Optional<OperativeCatalog> selectOne(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectOne(this::selectOne, selectList, operativeCatalog, completer);
-	}
-
-	/**
 	 * Select.
 	 *
 	 * @param completer the completer
@@ -228,16 +211,6 @@ public interface OperativeCatalogMapper {
 	 */
 	default List<OperativeCatalog> select(SelectDSLCompleter completer) {
 		return MyBatis3Utils.selectList(this::selectMany, selectList, operativeCatalog, completer);
-	}
-
-	/**
-	 * Select distinct.
-	 *
-	 * @param completer the completer
-	 * @return the list
-	 */
-	default List<OperativeCatalog> selectDistinct(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectDistinct(this::selectMany, selectList, operativeCatalog, completer);
 	}
 
 	/**
@@ -251,6 +224,56 @@ public interface OperativeCatalogMapper {
 	}
 
 	/**
+	 * Select distinct.
+	 *
+	 * @param completer the completer
+	 * @return the list
+	 */
+	default List<OperativeCatalog> selectDistinct(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectDistinct(this::selectMany, selectList, operativeCatalog, completer);
+	}
+
+	/**
+	 * Select many.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the list
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	@Results(
+			id = "OperativeCatalogResult",
+			value = { @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
+					@Result(column = "catalogo", property = "catalogo", jdbcType = JdbcType.INTEGER),
+					@Result(column = "catnivel1", property = "catnivel1", jdbcType = JdbcType.INTEGER),
+					@Result(column = "catnivel2", property = "catnivel2", jdbcType = JdbcType.INTEGER),
+					@Result(column = "catnivel3", property = "catnivel3", jdbcType = JdbcType.INTEGER),
+					@Result(column = "producto", property = "producto", jdbcType = JdbcType.INTEGER),
+					@Result(column = "tipo", property = "tipo", jdbcType = JdbcType.INTEGER),
+					@Result(column = "automatizable", property = "automatizable", jdbcType = JdbcType.BIT),
+					@Result(column = "tiempominutos", property = "tiempominutos", jdbcType = JdbcType.REAL) })
+	List<OperativeCatalog> selectMany(SelectStatementProvider selectStatement);
+
+	/**
+	 * Select one.
+	 *
+	 * @param completer the completer
+	 * @return the optional
+	 */
+	default Optional<OperativeCatalog> selectOne(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectOne(this::selectOne, selectList, operativeCatalog, completer);
+	}
+
+	/**
+	 * Select one.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the optional
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	@ResultMap("OperativeCatalogResult")
+	Optional<OperativeCatalog> selectOne(SelectStatementProvider selectStatement);
+
+	/**
 	 * Update.
 	 *
 	 * @param completer the completer
@@ -261,35 +284,13 @@ public interface OperativeCatalogMapper {
 	}
 
 	/**
-	 * Update all columns.
+	 * Update.
 	 *
-	 * @param record the record
-	 * @param dsl    the dsl
-	 * @return the update DSL
+	 * @param updateStatement the update statement
+	 * @return the int
 	 */
-	static UpdateDSL<UpdateModel> updateAllColumns(OperativeCatalog record, UpdateDSL<UpdateModel> dsl) {
-		return dsl.set(id).equalTo(record::getId).set(catalogo).equalTo(record::getCatalogo).set(catnivel1)
-				.equalTo(record::getCatnivel1).set(catnivel2).equalTo(record::getCatnivel2).set(catnivel3)
-				.equalTo(record::getCatnivel3).set(producto).equalTo(record::getProducto).set(tipo)
-				.equalTo(record::getTipo).set(automatizable).equalTo(record::getAutomatizable).set(tiempominutos)
-				.equalTo(record::getTiempominutos);
-	}
-
-	/**
-	 * Update selective columns.
-	 *
-	 * @param record the record
-	 * @param dsl    the dsl
-	 * @return the update DSL
-	 */
-	static UpdateDSL<UpdateModel> updateSelectiveColumns(OperativeCatalog record, UpdateDSL<UpdateModel> dsl) {
-		return dsl.set(id).equalToWhenPresent(record::getId).set(catalogo).equalToWhenPresent(record::getCatalogo)
-				.set(catnivel1).equalToWhenPresent(record::getCatnivel1).set(catnivel2)
-				.equalToWhenPresent(record::getCatnivel2).set(catnivel3).equalToWhenPresent(record::getCatnivel3)
-				.set(producto).equalToWhenPresent(record::getProducto).set(tipo).equalToWhenPresent(record::getTipo)
-				.set(automatizable).equalToWhenPresent(record::getAutomatizable).set(tiempominutos)
-				.equalToWhenPresent(record::getTiempominutos);
-	}
+	@UpdateProvider(type = SqlProviderAdapter.class, method = "update")
+	int update(UpdateStatementProvider updateStatement);
 
 	/**
 	 * Update by primary key.

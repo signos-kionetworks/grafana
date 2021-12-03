@@ -9,12 +9,7 @@
 package com.kio.applications.validator.model.web;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -71,15 +66,15 @@ public class ExtraVars implements Serializable {
 
 	/** The manual time. */
 	@JsonProperty("manual_time")
-	private String manualTime;
+	private Float manualTime;
 
 	/** The total impacted cis. */
 	@JsonProperty("total_impacted_cis")
-	private String totalImpactedCis;
+	private Integer totalImpactedCis;
 
 	/** The total cis. */
 	@JsonProperty("total_cis")
-	private String totalCis;
+	private Integer totalCis;
 
 	/** The client. */
 	@JsonProperty("client")
@@ -88,10 +83,6 @@ public class ExtraVars implements Serializable {
 	/** The organization. */
 	@JsonProperty("organization")
 	private String organization;
-
-	/** The additional properties. */
-	@JsonIgnore
-	private Map<String, Object> additionalProperties = new HashMap<>();
 
 	/** The Constant serialVersionUID. */
 	private final static long serialVersionUID = -6266287387738858329L;
@@ -292,7 +283,7 @@ public class ExtraVars implements Serializable {
 	 * @return the manual time
 	 */
 	@JsonProperty("manual_time")
-	public String getManualTime() {
+	public Float getManualTime() {
 		return manualTime;
 	}
 
@@ -302,7 +293,7 @@ public class ExtraVars implements Serializable {
 	 * @param manualTime the new manual time
 	 */
 	@JsonProperty("manual_time")
-	public void setManualTime(String manualTime) {
+	public void setManualTime(Float manualTime) {
 		this.manualTime = manualTime;
 	}
 
@@ -312,7 +303,7 @@ public class ExtraVars implements Serializable {
 	 * @return the total impacted cis
 	 */
 	@JsonProperty("total_impacted_cis")
-	public String getTotalImpactedCis() {
+	public Integer getTotalImpactedCis() {
 		return totalImpactedCis;
 	}
 
@@ -322,7 +313,7 @@ public class ExtraVars implements Serializable {
 	 * @param totalImpactedCis the new total impacted cis
 	 */
 	@JsonProperty("total_impacted_cis")
-	public void setTotalImpactedCis(String totalImpactedCis) {
+	public void setTotalImpactedCis(Integer totalImpactedCis) {
 		this.totalImpactedCis = totalImpactedCis;
 	}
 
@@ -332,7 +323,7 @@ public class ExtraVars implements Serializable {
 	 * @return the total cis
 	 */
 	@JsonProperty("total_cis")
-	public String getTotalCis() {
+	public Integer getTotalCis() {
 		return totalCis;
 	}
 
@@ -342,7 +333,7 @@ public class ExtraVars implements Serializable {
 	 * @param totalCis the new total cis
 	 */
 	@JsonProperty("total_cis")
-	public void setTotalCis(String totalCis) {
+	public void setTotalCis(Integer totalCis) {
 		this.totalCis = totalCis;
 	}
 
@@ -384,27 +375,6 @@ public class ExtraVars implements Serializable {
 	@JsonProperty("organization")
 	public void setOrganization(String organization) {
 		this.organization = organization;
-	}
-
-	/**
-	 * Gets the additional properties.
-	 *
-	 * @return the additional properties
-	 */
-	@JsonAnyGetter
-	public Map<String, Object> getAdditionalProperties() {
-		return this.additionalProperties;
-	}
-
-	/**
-	 * Sets the additional property.
-	 *
-	 * @param name  the name
-	 * @param value the value
-	 */
-	@JsonAnySetter
-	public void setAdditionalProperty(String name, Object value) {
-		this.additionalProperties.put(name, value);
 	}
 
 }

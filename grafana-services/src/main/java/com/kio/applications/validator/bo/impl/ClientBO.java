@@ -1,10 +1,10 @@
 /*
-* ****************************************************
-* * Grafana *
-* * KIO Networks *
-* * @Author Julio Galindo *
-* ****************************************************
-*/
+ * ****************************************************
+ * * Grafana *
+ * * KIO Networks *
+ * * @Author Julio Galindo *
+ * ****************************************************
+ */
 
 package com.kio.applications.validator.bo.impl;
 
@@ -34,6 +34,24 @@ public class ClientBO implements IfzSelectBO<Client>, Serializable {
 	private ClientMapper clientMapper;
 
 	/**
+	 * Select by id.
+	 *
+	 * @param id the id
+	 * @return the client
+	 * @throws GenericException the generic exception
+	 */
+	@Override
+	public Client selectById(int id) throws GenericException {
+		final Optional<com.kio.applications.validator.model.Client> client = this.clientMapper.selectOne(
+				c -> c.where(com.kio.applications.validator.dao.ClientDynamicSqlSupport.id, SqlBuilder.isEqualTo(id)));
+		if (client.isPresent()) {
+			return client.get();
+		} else {
+			return null;
+		}
+	}
+
+	/**
 	 * Select by name.
 	 *
 	 * @param value the value
@@ -46,25 +64,7 @@ public class ClientBO implements IfzSelectBO<Client>, Serializable {
 				.where(com.kio.applications.validator.dao.ClientDynamicSqlSupport.name,
 						SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase()))
 				.or(com.kio.applications.validator.dao.ClientDynamicSqlSupport.descr,
-						SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())));
-		if (client.isPresent()) {
-			return client.get();
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * Select by id.
-	 *
-	 * @param id the id
-	 * @return the client
-	 * @throws GenericException the generic exception
-	 */
-	@Override
-	public Client selectById(int id) throws GenericException {
-		final Optional<com.kio.applications.validator.model.Client> client = this.clientMapper.selectOne(
-				c -> c.where(com.kio.applications.validator.dao.ClientDynamicSqlSupport.id, SqlBuilder.isEqualTo(id)));
+						SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())).limit(1));
 		if (client.isPresent()) {
 			return client.get();
 		} else {

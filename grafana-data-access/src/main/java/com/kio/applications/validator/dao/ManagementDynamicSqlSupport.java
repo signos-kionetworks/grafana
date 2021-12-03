@@ -17,26 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class ManagementDynamicSqlSupport {
 
-	/** The Constant management. */
-	public static final Management management = new Management();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = management.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = management.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = management.descr;
-
-	/** The Constant idUnidadNegocio. */
-	public static final SqlColumn<Integer> idUnidadNegocio = management.idUnidadNegocio;
-
 	/**
 	 * The Class Management.
 	 */
 	public static final class Management extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -56,4 +41,19 @@ public final class ManagementDynamicSqlSupport {
 			super("direccion");
 		}
 	}
+
+	/** The Constant management. */
+	public static final Management management = new Management();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = management.id;
+
+	/** The Constant name. */
+	public static final SqlColumn<String> name = management.name;
+
+	/** The Constant descr. */
+	public static final SqlColumn<String> descr = management.descr;
+
+	/** The Constant idUnidadNegocio. */
+	public static final SqlColumn<Integer> idUnidadNegocio = management.idUnidadNegocio;
 }

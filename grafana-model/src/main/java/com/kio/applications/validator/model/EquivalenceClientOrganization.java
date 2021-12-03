@@ -28,21 +28,21 @@ public class EquivalenceClientOrganization {
 	}
 
 	/**
-	 * Sets the id cliente.
-	 *
-	 * @param idCliente the new id cliente
-	 */
-	public void setIdCliente(Integer idCliente) {
-		this.idCliente = idCliente;
-	}
-
-	/**
 	 * Gets the id organizacion awx.
 	 *
 	 * @return the id organizacion awx
 	 */
 	public Integer getIdOrganizacionAwx() {
 		return idOrganizacionAwx;
+	}
+
+	/**
+	 * Sets the id cliente.
+	 *
+	 * @param idCliente the new id cliente
+	 */
+	public void setIdCliente(Integer idCliente) {
+		this.idCliente = idCliente;
 	}
 
 	/**

@@ -17,23 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class SupportGroupDynamicSqlSupport {
 
-	/** The Constant supportGroup. */
-	public static final SupportGroup supportGroup = new SupportGroup();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = supportGroup.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = supportGroup.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = supportGroup.descr;
-
 	/**
 	 * The Class SupportGroup.
 	 */
 	public static final class SupportGroup extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -50,4 +38,16 @@ public final class SupportGroupDynamicSqlSupport {
 			super("suppgroup");
 		}
 	}
+
+	/** The Constant supportGroup. */
+	public static final SupportGroup supportGroup = new SupportGroup();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = supportGroup.id;
+
+	/** The Constant name. */
+	public static final SqlColumn<String> name = supportGroup.name;
+
+	/** The Constant descr. */
+	public static final SqlColumn<String> descr = supportGroup.descr;
 }

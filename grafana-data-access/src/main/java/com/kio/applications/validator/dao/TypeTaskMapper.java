@@ -1,10 +1,10 @@
 /*
-* ****************************************************
-* * Grafana *
-* * KIO Networks *
-* * @Author Julio Galindo *
-* ****************************************************
-*/
+ * ****************************************************
+ * * Grafana *
+ * * KIO Networks *
+ * * @Author Julio Galindo *
+ * ****************************************************
+ */
 package com.kio.applications.validator.dao;
 
 import static com.kio.applications.validator.dao.TypeTaskDynamicSqlSupport.descr;
@@ -53,72 +53,28 @@ public interface TypeTaskMapper {
 	BasicColumn[] selectList = BasicColumn.columnList(id, name, descr);
 
 	/**
-	 * Count.
+	 * Update all columns.
 	 *
-	 * @param selectStatement the select statement
-	 * @return the long
+	 * @param record the record
+	 * @param dsl    the dsl
+	 * @return the update DSL
 	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	long count(SelectStatementProvider selectStatement);
+	static UpdateDSL<UpdateModel> updateAllColumns(TypeTask record, UpdateDSL<UpdateModel> dsl) {
+		return dsl.set(id).equalTo(record::getId).set(name).equalTo(record::getName).set(descr)
+				.equalTo(record::getDescr);
+	}
 
 	/**
-	 * Delete.
+	 * Update selective columns.
 	 *
-	 * @param deleteStatement the delete statement
-	 * @return the int
+	 * @param record the record
+	 * @param dsl    the dsl
+	 * @return the update DSL
 	 */
-	@DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
-	int delete(DeleteStatementProvider deleteStatement);
-
-	/**
-	 * Insert.
-	 *
-	 * @param insertStatement the insert statement
-	 * @return the int
-	 */
-	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
-	int insert(InsertStatementProvider<TypeTask> insertStatement);
-
-	/**
-	 * Insert multiple.
-	 *
-	 * @param multipleInsertStatement the multiple insert statement
-	 * @return the int
-	 */
-	@InsertProvider(type = SqlProviderAdapter.class, method = "insertMultiple")
-	int insertMultiple(MultiRowInsertStatementProvider<TypeTask> multipleInsertStatement);
-
-	/**
-	 * Select one.
-	 *
-	 * @param selectStatement the select statement
-	 * @return the optional
-	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@ResultMap("TaskTypeResult")
-	Optional<TypeTask> selectOne(SelectStatementProvider selectStatement);
-
-	/**
-	 * Select many.
-	 *
-	 * @param selectStatement the select statement
-	 * @return the list
-	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@Results(id = "TaskTypeResult", value = {
-			@Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
-			@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
-			@Result(column = "descr", property = "descr", jdbcType = JdbcType.VARCHAR) })
-	List<TypeTask> selectMany(SelectStatementProvider selectStatement);
-
-	/**
-	 * Update.
-	 *
-	 * @param updateStatement the update statement
-	 * @return the int
-	 */
-	@UpdateProvider(type = SqlProviderAdapter.class, method = "update")
-	int update(UpdateStatementProvider updateStatement);
+	static UpdateDSL<UpdateModel> updateSelectiveColumns(TypeTask record, UpdateDSL<UpdateModel> dsl) {
+		return dsl.set(id).equalToWhenPresent(record::getId).set(name).equalToWhenPresent(record::getName).set(descr)
+				.equalToWhenPresent(record::getDescr);
+	}
 
 	/**
 	 * Count.
@@ -131,6 +87,15 @@ public interface TypeTaskMapper {
 	}
 
 	/**
+	 * Count.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the long
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	long count(SelectStatementProvider selectStatement);
+
+	/**
 	 * Delete.
 	 *
 	 * @param completer the completer
@@ -141,6 +106,15 @@ public interface TypeTaskMapper {
 	}
 
 	/**
+	 * Delete.
+	 *
+	 * @param deleteStatement the delete statement
+	 * @return the int
+	 */
+	@DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
+	int delete(DeleteStatementProvider deleteStatement);
+
+	/**
 	 * Delete by primary key.
 	 *
 	 * @param id_ the id
@@ -149,6 +123,15 @@ public interface TypeTaskMapper {
 	default int deleteByPrimaryKey(Integer id_) {
 		return delete(c -> c.where(id, isEqualTo(id_)));
 	}
+
+	/**
+	 * Insert.
+	 *
+	 * @param insertStatement the insert statement
+	 * @return the int
+	 */
+	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
+	int insert(InsertStatementProvider<TypeTask> insertStatement);
 
 	/**
 	 * Insert.
@@ -173,6 +156,15 @@ public interface TypeTaskMapper {
 	}
 
 	/**
+	 * Insert multiple.
+	 *
+	 * @param multipleInsertStatement the multiple insert statement
+	 * @return the int
+	 */
+	@InsertProvider(type = SqlProviderAdapter.class, method = "insertMultiple")
+	int insertMultiple(MultiRowInsertStatementProvider<TypeTask> multipleInsertStatement);
+
+	/**
 	 * Insert selective.
 	 *
 	 * @param record the record
@@ -186,16 +178,6 @@ public interface TypeTaskMapper {
 	}
 
 	/**
-	 * Select one.
-	 *
-	 * @param completer the completer
-	 * @return the optional
-	 */
-	default Optional<TypeTask> selectOne(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectOne(this::selectOne, selectList, taskType, completer);
-	}
-
-	/**
 	 * Select.
 	 *
 	 * @param completer the completer
@@ -203,16 +185,6 @@ public interface TypeTaskMapper {
 	 */
 	default List<TypeTask> select(SelectDSLCompleter completer) {
 		return MyBatis3Utils.selectList(this::selectMany, selectList, taskType, completer);
-	}
-
-	/**
-	 * Select distinct.
-	 *
-	 * @param completer the completer
-	 * @return the list
-	 */
-	default List<TypeTask> selectDistinct(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectDistinct(this::selectMany, selectList, taskType, completer);
 	}
 
 	/**
@@ -226,6 +198,50 @@ public interface TypeTaskMapper {
 	}
 
 	/**
+	 * Select distinct.
+	 *
+	 * @param completer the completer
+	 * @return the list
+	 */
+	default List<TypeTask> selectDistinct(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectDistinct(this::selectMany, selectList, taskType, completer);
+	}
+
+	/**
+	 * Select many.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the list
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	@Results(
+			id = "TaskTypeResult",
+			value = { @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
+					@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
+					@Result(column = "descr", property = "descr", jdbcType = JdbcType.VARCHAR) })
+	List<TypeTask> selectMany(SelectStatementProvider selectStatement);
+
+	/**
+	 * Select one.
+	 *
+	 * @param completer the completer
+	 * @return the optional
+	 */
+	default Optional<TypeTask> selectOne(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectOne(this::selectOne, selectList, taskType, completer);
+	}
+
+	/**
+	 * Select one.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the optional
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	@ResultMap("TaskTypeResult")
+	Optional<TypeTask> selectOne(SelectStatementProvider selectStatement);
+
+	/**
 	 * Update.
 	 *
 	 * @param completer the completer
@@ -236,28 +252,13 @@ public interface TypeTaskMapper {
 	}
 
 	/**
-	 * Update all columns.
+	 * Update.
 	 *
-	 * @param record the record
-	 * @param dsl    the dsl
-	 * @return the update DSL
+	 * @param updateStatement the update statement
+	 * @return the int
 	 */
-	static UpdateDSL<UpdateModel> updateAllColumns(TypeTask record, UpdateDSL<UpdateModel> dsl) {
-		return dsl.set(id).equalTo(record::getId).set(name).equalTo(record::getName).set(descr)
-				.equalTo(record::getDescr);
-	}
-
-	/**
-	 * Update selective columns.
-	 *
-	 * @param record the record
-	 * @param dsl    the dsl
-	 * @return the update DSL
-	 */
-	static UpdateDSL<UpdateModel> updateSelectiveColumns(TypeTask record, UpdateDSL<UpdateModel> dsl) {
-		return dsl.set(id).equalToWhenPresent(record::getId).set(name).equalToWhenPresent(record::getName).set(descr)
-				.equalToWhenPresent(record::getDescr);
-	}
+	@UpdateProvider(type = SqlProviderAdapter.class, method = "update")
+	int update(UpdateStatementProvider updateStatement);
 
 	/**
 	 * Update by primary key.

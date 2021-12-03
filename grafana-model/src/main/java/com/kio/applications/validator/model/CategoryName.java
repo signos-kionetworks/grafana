@@ -22,21 +22,21 @@ public class CategoryName {
 	private String descr;
 
 	/**
+	 * Gets the descr.
+	 *
+	 * @return the descr
+	 */
+	public String getDescr() {
+		return descr;
+	}
+
+	/**
 	 * Gets the id.
 	 *
 	 * @return the id
 	 */
 	public Integer getId() {
 		return id;
-	}
-
-	/**
-	 * Sets the id.
-	 *
-	 * @param id the new id
-	 */
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	/**
@@ -49,29 +49,29 @@ public class CategoryName {
 	}
 
 	/**
-	 * Sets the name.
-	 *
-	 * @param name the new name
-	 */
-	public void setName(String name) {
-		this.name = name == null ? null : name.trim();
-	}
-
-	/**
-	 * Gets the descr.
-	 *
-	 * @return the descr
-	 */
-	public String getDescr() {
-		return descr;
-	}
-
-	/**
 	 * Sets the descr.
 	 *
 	 * @param descr the new descr
 	 */
 	public void setDescr(String descr) {
 		this.descr = descr == null ? null : descr.trim();
+	}
+
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
 	}
 }

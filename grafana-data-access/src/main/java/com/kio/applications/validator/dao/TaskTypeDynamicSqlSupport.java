@@ -13,14 +13,14 @@ import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
 
 /**
- * The Class TechnologicalDomainDynamicSqlSupport.
+ * The Class TaskTypeDynamicSqlSupport.
  */
-public final class TechnologicalDomainDynamicSqlSupport {
+public final class TaskTypeDynamicSqlSupport {
 
 	/**
-	 * The Class TechnologicalDomain.
+	 * The Class TaskType.
 	 */
-	public static final class TechnologicalDomain extends SqlTable {
+	public static final class TaskType extends SqlTable {
 		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
@@ -32,22 +32,22 @@ public final class TechnologicalDomainDynamicSqlSupport {
 		public final SqlColumn<String> descr = column("descr", JDBCType.VARCHAR);
 
 		/**
-		 * Instantiates a new technological domain.
+		 * Instantiates a new task type.
 		 */
-		public TechnologicalDomain() {
-			super("cocatnivel1");
+		public TaskType() {
+			super("cocatnivel3");
 		}
 	}
 
-	/** The Constant technologicalDomain. */
-	public static final TechnologicalDomain technologicalDomain = new TechnologicalDomain();
+	/** The Constant taskType. */
+	public static final TaskType taskType = new TaskType();
 
 	/** The Constant id. */
-	public static final SqlColumn<Integer> id = technologicalDomain.id;
+	public static final SqlColumn<Integer> id = taskType.id;
 
 	/** The Constant name. */
-	public static final SqlColumn<String> name = technologicalDomain.name;
+	public static final SqlColumn<String> name = taskType.name;
 
 	/** The Constant descr. */
-	public static final SqlColumn<String> descr = technologicalDomain.descr;
+	public static final SqlColumn<String> descr = taskType.descr;
 }

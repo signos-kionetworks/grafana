@@ -56,85 +56,26 @@ public interface TypeExecutionMapper {
 	BasicColumn[] selectList = BasicColumn.columnList(id, name, descr);
 
 	/**
-	 * Count.
+	 * Update all columns.
 	 *
-	 * @param selectStatement the select statement
-	 * @return the long
+	 * @param record the record
+	 * @param dsl    the dsl
+	 * @return the update DSL
 	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	long count(SelectStatementProvider selectStatement);
-
-	/**
-	 * Delete.
-	 *
-	 * @param deleteStatement the delete statement
-	 * @return the int
-	 */
-	@DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
-	int delete(DeleteStatementProvider deleteStatement);
-
-	/**
-	 * Insert.
-	 *
-	 * @param insertStatement the insert statement
-	 * @return the int
-	 */
-	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
-	@Options(useGeneratedKeys = true, keyProperty = "record.id")
-	int insert(InsertStatementProvider<TypeExecution> insertStatement);
-
-	/**
-	 * Insert multiple.
-	 *
-	 * @param insertStatement the insert statement
-	 * @param records         the records
-	 * @return the int
-	 */
-	@Insert({ "${insertStatement}" })
-	@Options(useGeneratedKeys = true, keyProperty = "records.id")
-	int insertMultiple(@Param("insertStatement") String insertStatement, @Param("records") List<TypeExecution> records);
-
-	/**
-	 * Insert multiple.
-	 *
-	 * @param multipleInsertStatement the multiple insert statement
-	 * @return the int
-	 */
-	default int insertMultiple(MultiRowInsertStatementProvider<TypeExecution> multipleInsertStatement) {
-		return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
+	static UpdateDSL<UpdateModel> updateAllColumns(TypeExecution record, UpdateDSL<UpdateModel> dsl) {
+		return dsl.set(name).equalTo(record::getName).set(descr).equalTo(record::getDescr);
 	}
 
 	/**
-	 * Select one.
+	 * Update selective columns.
 	 *
-	 * @param selectStatement the select statement
-	 * @return the optional
+	 * @param record the record
+	 * @param dsl    the dsl
+	 * @return the update DSL
 	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@ResultMap("TypeExecutionResult")
-	Optional<TypeExecution> selectOne(SelectStatementProvider selectStatement);
-
-	/**
-	 * Select many.
-	 *
-	 * @param selectStatement the select statement
-	 * @return the list
-	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@Results(id = "TypeExecutionResult", value = {
-			@Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
-			@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
-			@Result(column = "descr", property = "descr", jdbcType = JdbcType.VARCHAR) })
-	List<TypeExecution> selectMany(SelectStatementProvider selectStatement);
-
-	/**
-	 * Update.
-	 *
-	 * @param updateStatement the update statement
-	 * @return the int
-	 */
-	@UpdateProvider(type = SqlProviderAdapter.class, method = "update")
-	int update(UpdateStatementProvider updateStatement);
+	static UpdateDSL<UpdateModel> updateSelectiveColumns(TypeExecution record, UpdateDSL<UpdateModel> dsl) {
+		return dsl.set(name).equalToWhenPresent(record::getName).set(descr).equalToWhenPresent(record::getDescr);
+	}
 
 	/**
 	 * Count.
@@ -147,6 +88,15 @@ public interface TypeExecutionMapper {
 	}
 
 	/**
+	 * Count.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the long
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	long count(SelectStatementProvider selectStatement);
+
+	/**
 	 * Delete.
 	 *
 	 * @param completer the completer
@@ -157,6 +107,15 @@ public interface TypeExecutionMapper {
 	}
 
 	/**
+	 * Delete.
+	 *
+	 * @param deleteStatement the delete statement
+	 * @return the int
+	 */
+	@DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
+	int delete(DeleteStatementProvider deleteStatement);
+
+	/**
 	 * Delete by primary key.
 	 *
 	 * @param id_ the id
@@ -165,6 +124,16 @@ public interface TypeExecutionMapper {
 	default int deleteByPrimaryKey(Integer id_) {
 		return delete(c -> c.where(id, isEqualTo(id_)));
 	}
+
+	/**
+	 * Insert.
+	 *
+	 * @param insertStatement the insert statement
+	 * @return the int
+	 */
+	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
+	@Options(useGeneratedKeys = true, keyProperty = "record.id")
+	int insert(InsertStatementProvider<TypeExecution> insertStatement);
 
 	/**
 	 * Insert.
@@ -189,6 +158,27 @@ public interface TypeExecutionMapper {
 	}
 
 	/**
+	 * Insert multiple.
+	 *
+	 * @param multipleInsertStatement the multiple insert statement
+	 * @return the int
+	 */
+	default int insertMultiple(MultiRowInsertStatementProvider<TypeExecution> multipleInsertStatement) {
+		return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
+	}
+
+	/**
+	 * Insert multiple.
+	 *
+	 * @param insertStatement the insert statement
+	 * @param records         the records
+	 * @return the int
+	 */
+	@Insert({ "${insertStatement}" })
+	@Options(useGeneratedKeys = true, keyProperty = "records.id")
+	int insertMultiple(@Param("insertStatement") String insertStatement, @Param("records") List<TypeExecution> records);
+
+	/**
 	 * Insert selective.
 	 *
 	 * @param record the record
@@ -198,16 +188,6 @@ public interface TypeExecutionMapper {
 		return MyBatis3Utils.insert(this::insert, record, typeExecution,
 				c -> c.map(name).toPropertyWhenPresent("name", record::getName).map(descr)
 						.toPropertyWhenPresent("descr", record::getDescr));
-	}
-
-	/**
-	 * Select one.
-	 *
-	 * @param completer the completer
-	 * @return the optional
-	 */
-	default Optional<TypeExecution> selectOne(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectOne(this::selectOne, selectList, typeExecution, completer);
 	}
 
 	/**
@@ -221,6 +201,16 @@ public interface TypeExecutionMapper {
 	}
 
 	/**
+	 * Select by primary key.
+	 *
+	 * @param id_ the id
+	 * @return the optional
+	 */
+	default Optional<TypeExecution> selectByPrimaryKey(Integer id_) {
+		return selectOne(c -> c.where(id, isEqualTo(id_)));
+	}
+
+	/**
 	 * Select distinct.
 	 *
 	 * @param completer the completer
@@ -231,14 +221,38 @@ public interface TypeExecutionMapper {
 	}
 
 	/**
-	 * Select by primary key.
+	 * Select many.
 	 *
-	 * @param id_ the id
+	 * @param selectStatement the select statement
+	 * @return the list
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	@Results(
+			id = "TypeExecutionResult",
+			value = { @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
+					@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
+					@Result(column = "descr", property = "descr", jdbcType = JdbcType.VARCHAR) })
+	List<TypeExecution> selectMany(SelectStatementProvider selectStatement);
+
+	/**
+	 * Select one.
+	 *
+	 * @param completer the completer
 	 * @return the optional
 	 */
-	default Optional<TypeExecution> selectByPrimaryKey(Integer id_) {
-		return selectOne(c -> c.where(id, isEqualTo(id_)));
+	default Optional<TypeExecution> selectOne(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectOne(this::selectOne, selectList, typeExecution, completer);
 	}
+
+	/**
+	 * Select one.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the optional
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	@ResultMap("TypeExecutionResult")
+	Optional<TypeExecution> selectOne(SelectStatementProvider selectStatement);
 
 	/**
 	 * Update.
@@ -251,26 +265,13 @@ public interface TypeExecutionMapper {
 	}
 
 	/**
-	 * Update all columns.
+	 * Update.
 	 *
-	 * @param record the record
-	 * @param dsl    the dsl
-	 * @return the update DSL
+	 * @param updateStatement the update statement
+	 * @return the int
 	 */
-	static UpdateDSL<UpdateModel> updateAllColumns(TypeExecution record, UpdateDSL<UpdateModel> dsl) {
-		return dsl.set(name).equalTo(record::getName).set(descr).equalTo(record::getDescr);
-	}
-
-	/**
-	 * Update selective columns.
-	 *
-	 * @param record the record
-	 * @param dsl    the dsl
-	 * @return the update DSL
-	 */
-	static UpdateDSL<UpdateModel> updateSelectiveColumns(TypeExecution record, UpdateDSL<UpdateModel> dsl) {
-		return dsl.set(name).equalToWhenPresent(record::getName).set(descr).equalToWhenPresent(record::getDescr);
-	}
+	@UpdateProvider(type = SqlProviderAdapter.class, method = "update")
+	int update(UpdateStatementProvider updateStatement);
 
 	/**
 	 * Update by primary key.

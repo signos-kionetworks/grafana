@@ -17,23 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class FunctionDynamicSqlSupport {
 
-	/** The Constant function. */
-	public static final Function function = new Function();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = function.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = function.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = function.descr;
-
 	/**
 	 * The Class Function.
 	 */
 	public static final class Function extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -50,4 +38,16 @@ public final class FunctionDynamicSqlSupport {
 			super("funcionaut");
 		}
 	}
+
+	/** The Constant function. */
+	public static final Function function = new Function();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = function.id;
+
+	/** The Constant name. */
+	public static final SqlColumn<String> name = function.name;
+
+	/** The Constant descr. */
+	public static final SqlColumn<String> descr = function.descr;
 }

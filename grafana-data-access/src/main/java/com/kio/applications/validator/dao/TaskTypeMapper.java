@@ -7,10 +7,10 @@
 */
 package com.kio.applications.validator.dao;
 
-import static com.kio.applications.validator.dao.TypeTicketDynamicSqlSupport.descr;
-import static com.kio.applications.validator.dao.TypeTicketDynamicSqlSupport.id;
-import static com.kio.applications.validator.dao.TypeTicketDynamicSqlSupport.name;
-import static com.kio.applications.validator.dao.TypeTicketDynamicSqlSupport.typeTicket;
+import static com.kio.applications.validator.dao.TaskTypeDynamicSqlSupport.descr;
+import static com.kio.applications.validator.dao.TaskTypeDynamicSqlSupport.id;
+import static com.kio.applications.validator.dao.TaskTypeDynamicSqlSupport.name;
+import static com.kio.applications.validator.dao.TaskTypeDynamicSqlSupport.taskType;
 import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
 
 import java.util.Collection;
@@ -41,13 +41,13 @@ import org.mybatis.dynamic.sql.update.render.UpdateStatementProvider;
 import org.mybatis.dynamic.sql.util.SqlProviderAdapter;
 import org.mybatis.dynamic.sql.util.mybatis3.MyBatis3Utils;
 
-import com.kio.applications.validator.model.TypeTicket;
+import com.kio.applications.validator.model.TaskType;
 
 /**
- * The Interface TypeTicketMapper.
+ * The Interface TaskTypeMapper.
  */
 @Mapper
-public interface TypeTicketMapper {
+public interface TaskTypeMapper {
 
 	/** The select list. */
 	BasicColumn[] selectList = BasicColumn.columnList(id, name, descr);
@@ -59,7 +59,7 @@ public interface TypeTicketMapper {
 	 * @param dsl    the dsl
 	 * @return the update DSL
 	 */
-	static UpdateDSL<UpdateModel> updateAllColumns(TypeTicket record, UpdateDSL<UpdateModel> dsl) {
+	static UpdateDSL<UpdateModel> updateAllColumns(TaskType record, UpdateDSL<UpdateModel> dsl) {
 		return dsl.set(id).equalTo(record::getId).set(name).equalTo(record::getName).set(descr)
 				.equalTo(record::getDescr);
 	}
@@ -71,7 +71,7 @@ public interface TypeTicketMapper {
 	 * @param dsl    the dsl
 	 * @return the update DSL
 	 */
-	static UpdateDSL<UpdateModel> updateSelectiveColumns(TypeTicket record, UpdateDSL<UpdateModel> dsl) {
+	static UpdateDSL<UpdateModel> updateSelectiveColumns(TaskType record, UpdateDSL<UpdateModel> dsl) {
 		return dsl.set(id).equalToWhenPresent(record::getId).set(name).equalToWhenPresent(record::getName).set(descr)
 				.equalToWhenPresent(record::getDescr);
 	}
@@ -83,7 +83,7 @@ public interface TypeTicketMapper {
 	 * @return the long
 	 */
 	default long count(CountDSLCompleter completer) {
-		return MyBatis3Utils.countFrom(this::count, typeTicket, completer);
+		return MyBatis3Utils.countFrom(this::count, taskType, completer);
 	}
 
 	/**
@@ -102,7 +102,7 @@ public interface TypeTicketMapper {
 	 * @return the int
 	 */
 	default int delete(DeleteDSLCompleter completer) {
-		return MyBatis3Utils.deleteFrom(this::delete, typeTicket, completer);
+		return MyBatis3Utils.deleteFrom(this::delete, taskType, completer);
 	}
 
 	/**
@@ -131,7 +131,7 @@ public interface TypeTicketMapper {
 	 * @return the int
 	 */
 	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
-	int insert(InsertStatementProvider<TypeTicket> insertStatement);
+	int insert(InsertStatementProvider<TaskType> insertStatement);
 
 	/**
 	 * Insert.
@@ -139,8 +139,8 @@ public interface TypeTicketMapper {
 	 * @param record the record
 	 * @return the int
 	 */
-	default int insert(TypeTicket record) {
-		return MyBatis3Utils.insert(this::insert, record, typeTicket,
+	default int insert(TaskType record) {
+		return MyBatis3Utils.insert(this::insert, record, taskType,
 				c -> c.map(id).toProperty("id").map(name).toProperty("name").map(descr).toProperty("descr"));
 	}
 
@@ -150,8 +150,8 @@ public interface TypeTicketMapper {
 	 * @param records the records
 	 * @return the int
 	 */
-	default int insertMultiple(Collection<TypeTicket> records) {
-		return MyBatis3Utils.insertMultiple(this::insertMultiple, records, typeTicket,
+	default int insertMultiple(Collection<TaskType> records) {
+		return MyBatis3Utils.insertMultiple(this::insertMultiple, records, taskType,
 				c -> c.map(id).toProperty("id").map(name).toProperty("name").map(descr).toProperty("descr"));
 	}
 
@@ -162,7 +162,7 @@ public interface TypeTicketMapper {
 	 * @return the int
 	 */
 	@InsertProvider(type = SqlProviderAdapter.class, method = "insertMultiple")
-	int insertMultiple(MultiRowInsertStatementProvider<TypeTicket> multipleInsertStatement);
+	int insertMultiple(MultiRowInsertStatementProvider<TaskType> multipleInsertStatement);
 
 	/**
 	 * Insert selective.
@@ -170,8 +170,8 @@ public interface TypeTicketMapper {
 	 * @param record the record
 	 * @return the int
 	 */
-	default int insertSelective(TypeTicket record) {
-		return MyBatis3Utils.insert(this::insert, record, typeTicket,
+	default int insertSelective(TaskType record) {
+		return MyBatis3Utils.insert(this::insert, record, taskType,
 				c -> c.map(id).toPropertyWhenPresent("id", record::getId).map(name)
 						.toPropertyWhenPresent("name", record::getName).map(descr)
 						.toPropertyWhenPresent("descr", record::getDescr));
@@ -183,8 +183,8 @@ public interface TypeTicketMapper {
 	 * @param completer the completer
 	 * @return the list
 	 */
-	default List<TypeTicket> select(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectList(this::selectMany, selectList, typeTicket, completer);
+	default List<TaskType> select(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectList(this::selectMany, selectList, taskType, completer);
 	}
 
 	/**
@@ -193,7 +193,7 @@ public interface TypeTicketMapper {
 	 * @param id_ the id
 	 * @return the optional
 	 */
-	default Optional<TypeTicket> selectByPrimaryKey(Integer id_) {
+	default Optional<TaskType> selectByPrimaryKey(Integer id_) {
 		return selectOne(c -> c.where(id, isEqualTo(id_)));
 	}
 
@@ -203,8 +203,8 @@ public interface TypeTicketMapper {
 	 * @param completer the completer
 	 * @return the list
 	 */
-	default List<TypeTicket> selectDistinct(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectDistinct(this::selectMany, selectList, typeTicket, completer);
+	default List<TaskType> selectDistinct(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectDistinct(this::selectMany, selectList, taskType, completer);
 	}
 
 	/**
@@ -215,11 +215,11 @@ public interface TypeTicketMapper {
 	 */
 	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
 	@Results(
-			id = "TypeTicketResult",
+			id = "TaskTypeResult",
 			value = { @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
 					@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
 					@Result(column = "descr", property = "descr", jdbcType = JdbcType.VARCHAR) })
-	List<TypeTicket> selectMany(SelectStatementProvider selectStatement);
+	List<TaskType> selectMany(SelectStatementProvider selectStatement);
 
 	/**
 	 * Select one.
@@ -227,8 +227,8 @@ public interface TypeTicketMapper {
 	 * @param completer the completer
 	 * @return the optional
 	 */
-	default Optional<TypeTicket> selectOne(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectOne(this::selectOne, selectList, typeTicket, completer);
+	default Optional<TaskType> selectOne(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectOne(this::selectOne, selectList, taskType, completer);
 	}
 
 	/**
@@ -238,8 +238,8 @@ public interface TypeTicketMapper {
 	 * @return the optional
 	 */
 	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@ResultMap("TypeTicketResult")
-	Optional<TypeTicket> selectOne(SelectStatementProvider selectStatement);
+	@ResultMap("TaskTypeResult")
+	Optional<TaskType> selectOne(SelectStatementProvider selectStatement);
 
 	/**
 	 * Update.
@@ -248,7 +248,7 @@ public interface TypeTicketMapper {
 	 * @return the int
 	 */
 	default int update(UpdateDSLCompleter completer) {
-		return MyBatis3Utils.update(this::update, typeTicket, completer);
+		return MyBatis3Utils.update(this::update, taskType, completer);
 	}
 
 	/**
@@ -266,7 +266,7 @@ public interface TypeTicketMapper {
 	 * @param record the record
 	 * @return the int
 	 */
-	default int updateByPrimaryKey(TypeTicket record) {
+	default int updateByPrimaryKey(TaskType record) {
 		return update(c -> c.set(name).equalTo(record::getName).set(descr).equalTo(record::getDescr).where(id,
 				isEqualTo(record::getId)));
 	}
@@ -277,7 +277,7 @@ public interface TypeTicketMapper {
 	 * @param record the record
 	 * @return the int
 	 */
-	default int updateByPrimaryKeySelective(TypeTicket record) {
+	default int updateByPrimaryKeySelective(TaskType record) {
 		return update(c -> c.set(name).equalToWhenPresent(record::getName).set(descr)
 				.equalToWhenPresent(record::getDescr).where(id, isEqualTo(record::getId)));
 	}

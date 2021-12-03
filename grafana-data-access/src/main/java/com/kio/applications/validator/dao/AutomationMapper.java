@@ -83,271 +83,6 @@ public interface AutomationMapper {
 			impactedCis, totalImpactedCis);
 
 	/**
-	 * Count.
-	 *
-	 * @param selectStatement the select statement
-	 * @return the long
-	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	long count(SelectStatementProvider selectStatement);
-
-	/**
-	 * Delete.
-	 *
-	 * @param deleteStatement the delete statement
-	 * @return the int
-	 */
-	@DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
-	int delete(DeleteStatementProvider deleteStatement);
-
-	/**
-	 * Insert.
-	 *
-	 * @param insertStatement the insert statement
-	 * @return the int
-	 */
-	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
-	@Options(useGeneratedKeys = true, keyProperty = "record.id")
-	int insert(InsertStatementProvider<Automation> insertStatement);
-
-	/**
-	 * Insert multiple.
-	 *
-	 * @param insertStatement the insert statement
-	 * @param records         the records
-	 * @return the int
-	 */
-	@Insert({ "${insertStatement}" })
-	@Options(useGeneratedKeys = true, keyProperty = "records.id")
-	int insertMultiple(@Param("insertStatement") String insertStatement, @Param("records") List<Automation> records);
-
-	/**
-	 * Insert multiple.
-	 *
-	 * @param multipleInsertStatement the multiple insert statement
-	 * @return the int
-	 */
-	default int insertMultiple(MultiRowInsertStatementProvider<Automation> multipleInsertStatement) {
-		return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
-	}
-
-	/**
-	 * Select one.
-	 *
-	 * @param selectStatement the select statement
-	 * @return the optional
-	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@ResultMap("AutomationResult")
-	Optional<Automation> selectOne(SelectStatementProvider selectStatement);
-
-	/**
-	 * Select many.
-	 *
-	 * @param selectStatement the select statement
-	 * @return the list
-	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@Results(id = "AutomationResult", value = {
-			@Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
-			@Result(column = "botname", property = "botname", jdbcType = JdbcType.VARCHAR),
-			@Result(column = "bot_descr", property = "botDescr", jdbcType = JdbcType.VARCHAR),
-			@Result(column = "areaid", property = "areaid", jdbcType = JdbcType.INTEGER),
-			@Result(column = "suppgroupid", property = "suppgroupid", jdbcType = JdbcType.INTEGER),
-			@Result(column = "specialistid", property = "specialistid", jdbcType = JdbcType.INTEGER),
-			@Result(column = "crid", property = "crid", jdbcType = JdbcType.INTEGER),
-			@Result(column = "clienteid", property = "clienteid", jdbcType = JdbcType.INTEGER),
-			@Result(column = "platformid", property = "platformid", jdbcType = JdbcType.INTEGER),
-			@Result(column = "tipoautid", property = "tipoautid", jdbcType = JdbcType.INTEGER),
-			@Result(column = "functionid", property = "functionid", jdbcType = JdbcType.INTEGER),
-			@Result(column = "tipoexecid", property = "tipoexecid", jdbcType = JdbcType.INTEGER),
-			@Result(column = "tipociid", property = "tipociid", jdbcType = JdbcType.INTEGER),
-			@Result(column = "tecnologiaid", property = "tecnologiaid", jdbcType = JdbcType.INTEGER),
-			@Result(column = "catopid", property = "catopid", jdbcType = JdbcType.INTEGER),
-			@Result(column = "dirid", property = "dirid", jdbcType = JdbcType.INTEGER),
-			@Result(column = "devtypeid", property = "devtypeid", jdbcType = JdbcType.INTEGER),
-			@Result(column = "manexecs", property = "manexecs", jdbcType = JdbcType.REAL),
-			@Result(column = "autoexecs", property = "autoexecs", jdbcType = JdbcType.REAL),
-			@Result(column = "mantime", property = "mantime", jdbcType = JdbcType.REAL),
-			@Result(column = "registered_date", property = "registeredDate", jdbcType = JdbcType.TIMESTAMP),
-			@Result(column = "aut_creator_area", property = "autCreatorArea", jdbcType = JdbcType.VARCHAR),
-			@Result(column = "aut_creator_user", property = "autCreatorUser", jdbcType = JdbcType.VARCHAR),
-			@Result(column = "last_modified", property = "lastModified", jdbcType = JdbcType.TIMESTAMP),
-			@Result(column = "aut_enabled", property = "autEnabled", jdbcType = JdbcType.BIT),
-			@Result(column = "impacted_cis", property = "impactedCis", jdbcType = JdbcType.INTEGER),
-			@Result(column = "total_impacted_cis", property = "totalImpactedCis", jdbcType = JdbcType.INTEGER) })
-	List<Automation> selectMany(SelectStatementProvider selectStatement);
-
-	/**
-	 * Update.
-	 *
-	 * @param updateStatement the update statement
-	 * @return the int
-	 */
-	@UpdateProvider(type = SqlProviderAdapter.class, method = "update")
-	int update(UpdateStatementProvider updateStatement);
-
-	/**
-	 * Count.
-	 *
-	 * @param completer the completer
-	 * @return the long
-	 */
-	default long count(CountDSLCompleter completer) {
-		return MyBatis3Utils.countFrom(this::count, automation, completer);
-	}
-
-	/**
-	 * Delete.
-	 *
-	 * @param completer the completer
-	 * @return the int
-	 */
-	default int delete(DeleteDSLCompleter completer) {
-		return MyBatis3Utils.deleteFrom(this::delete, automation, completer);
-	}
-
-	/**
-	 * Delete by primary key.
-	 *
-	 * @param id_ the id
-	 * @return the int
-	 */
-	default int deleteByPrimaryKey(Long id_) {
-		return delete(c -> c.where(id, isEqualTo(id_)));
-	}
-
-	/**
-	 * Insert.
-	 *
-	 * @param record the record
-	 * @return the int
-	 */
-	default int insert(Automation record) {
-		return MyBatis3Utils.insert(this::insert, record, automation,
-				c -> c.map(botname).toProperty("botname").map(botDescr).toProperty("botDescr").map(areaid)
-						.toProperty("areaid").map(suppgroupid).toProperty("suppgroupid").map(specialistid)
-						.toProperty("specialistid").map(crid).toProperty("crid").map(clienteid).toProperty("clienteid")
-						.map(platformid).toProperty("platformid").map(tipoautid).toProperty("tipoautid").map(functionid)
-						.toProperty("functionid").map(tipoexecid).toProperty("tipoexecid").map(tipociid)
-						.toProperty("tipociid").map(tecnologiaid).toProperty("tecnologiaid").map(catopid)
-						.toProperty("catopid").map(dirid).toProperty("dirid").map(devtypeid).toProperty("devtypeid")
-						.map(manexecs).toProperty("manexecs").map(autoexecs).toProperty("autoexecs").map(mantime)
-						.toProperty("mantime").map(registeredDate).toProperty("registeredDate").map(autCreatorArea)
-						.toProperty("autCreatorArea").map(autCreatorUser).toProperty("autCreatorUser").map(lastModified)
-						.toProperty("lastModified").map(autEnabled).toProperty("autEnabled").map(impactedCis)
-						.toProperty("impactedCis").map(totalImpactedCis).toProperty("totalImpactedCis"));
-	}
-
-	/**
-	 * Insert multiple.
-	 *
-	 * @param records the records
-	 * @return the int
-	 */
-	default int insertMultiple(Collection<Automation> records) {
-		return MyBatis3Utils.insertMultiple(this::insertMultiple, records, automation,
-				c -> c.map(botname).toProperty("botname").map(botDescr).toProperty("botDescr").map(areaid)
-						.toProperty("areaid").map(suppgroupid).toProperty("suppgroupid").map(specialistid)
-						.toProperty("specialistid").map(crid).toProperty("crid").map(clienteid).toProperty("clienteid")
-						.map(platformid).toProperty("platformid").map(tipoautid).toProperty("tipoautid").map(functionid)
-						.toProperty("functionid").map(tipoexecid).toProperty("tipoexecid").map(tipociid)
-						.toProperty("tipociid").map(tecnologiaid).toProperty("tecnologiaid").map(catopid)
-						.toProperty("catopid").map(dirid).toProperty("dirid").map(devtypeid).toProperty("devtypeid")
-						.map(manexecs).toProperty("manexecs").map(autoexecs).toProperty("autoexecs").map(mantime)
-						.toProperty("mantime").map(registeredDate).toProperty("registeredDate").map(autCreatorArea)
-						.toProperty("autCreatorArea").map(autCreatorUser).toProperty("autCreatorUser").map(lastModified)
-						.toProperty("lastModified").map(autEnabled).toProperty("autEnabled").map(impactedCis)
-						.toProperty("impactedCis").map(totalImpactedCis).toProperty("totalImpactedCis"));
-	}
-
-	/**
-	 * Insert selective.
-	 *
-	 * @param record the record
-	 * @return the int
-	 */
-	default int insertSelective(Automation record) {
-		return MyBatis3Utils.insert(this::insert, record, automation,
-				c -> c.map(botname).toPropertyWhenPresent("botname", record::getBotname).map(botDescr)
-						.toPropertyWhenPresent("botDescr", record::getBotDescr).map(areaid)
-						.toPropertyWhenPresent("areaid", record::getAreaid).map(suppgroupid)
-						.toPropertyWhenPresent("suppgroupid", record::getSuppgroupid).map(specialistid)
-						.toPropertyWhenPresent("specialistid", record::getSpecialistid).map(crid)
-						.toPropertyWhenPresent("crid", record::getCrid).map(clienteid)
-						.toPropertyWhenPresent("clienteid", record::getClienteid).map(platformid)
-						.toPropertyWhenPresent("platformid", record::getPlatformid).map(tipoautid)
-						.toPropertyWhenPresent("tipoautid", record::getTipoautid).map(functionid)
-						.toPropertyWhenPresent("functionid", record::getFunctionid).map(tipoexecid)
-						.toPropertyWhenPresent("tipoexecid", record::getTipoexecid).map(tipociid)
-						.toPropertyWhenPresent("tipociid", record::getTipociid).map(tecnologiaid)
-						.toPropertyWhenPresent("tecnologiaid", record::getTecnologiaid).map(catopid)
-						.toPropertyWhenPresent("catopid", record::getCatopid).map(dirid)
-						.toPropertyWhenPresent("dirid", record::getDirid).map(devtypeid)
-						.toPropertyWhenPresent("devtypeid", record::getDevtypeid).map(manexecs)
-						.toPropertyWhenPresent("manexecs", record::getManexecs).map(autoexecs)
-						.toPropertyWhenPresent("autoexecs", record::getAutoexecs).map(mantime)
-						.toPropertyWhenPresent("mantime", record::getMantime).map(registeredDate)
-						.toPropertyWhenPresent("registeredDate", record::getRegisteredDate).map(autCreatorArea)
-						.toPropertyWhenPresent("autCreatorArea", record::getAutCreatorArea).map(autCreatorUser)
-						.toPropertyWhenPresent("autCreatorUser", record::getAutCreatorUser).map(lastModified)
-						.toPropertyWhenPresent("lastModified", record::getLastModified).map(autEnabled)
-						.toPropertyWhenPresent("autEnabled", record::getAutEnabled).map(impactedCis)
-						.toPropertyWhenPresent("impactedCis", record::getImpactedCis).map(totalImpactedCis)
-						.toPropertyWhenPresent("totalImpactedCis", record::getTotalImpactedCis));
-	}
-
-	/**
-	 * Select one.
-	 *
-	 * @param completer the completer
-	 * @return the optional
-	 */
-	default Optional<Automation> selectOne(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectOne(this::selectOne, selectList, automation, completer);
-	}
-
-	/**
-	 * Select.
-	 *
-	 * @param completer the completer
-	 * @return the list
-	 */
-	default List<Automation> select(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectList(this::selectMany, selectList, automation, completer);
-	}
-
-	/**
-	 * Select distinct.
-	 *
-	 * @param completer the completer
-	 * @return the list
-	 */
-	default List<Automation> selectDistinct(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectDistinct(this::selectMany, selectList, automation, completer);
-	}
-
-	/**
-	 * Select by primary key.
-	 *
-	 * @param id_ the id
-	 * @return the optional
-	 */
-	default Optional<Automation> selectByPrimaryKey(Long id_) {
-		return selectOne(c -> c.where(id, isEqualTo(id_)));
-	}
-
-	/**
-	 * Update.
-	 *
-	 * @param completer the completer
-	 * @return the int
-	 */
-	default int update(UpdateDSLCompleter completer) {
-		return MyBatis3Utils.update(this::update, automation, completer);
-	}
-
-	/**
 	 * Update all columns.
 	 *
 	 * @param record the record
@@ -399,6 +134,275 @@ public interface AutomationMapper {
 				.set(impactedCis).equalToWhenPresent(record::getImpactedCis).set(totalImpactedCis)
 				.equalToWhenPresent(record::getTotalImpactedCis);
 	}
+
+	/**
+	 * Count.
+	 *
+	 * @param completer the completer
+	 * @return the long
+	 */
+	default long count(CountDSLCompleter completer) {
+		return MyBatis3Utils.countFrom(this::count, automation, completer);
+	}
+
+	/**
+	 * Count.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the long
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	long count(SelectStatementProvider selectStatement);
+
+	/**
+	 * Delete.
+	 *
+	 * @param completer the completer
+	 * @return the int
+	 */
+	default int delete(DeleteDSLCompleter completer) {
+		return MyBatis3Utils.deleteFrom(this::delete, automation, completer);
+	}
+
+	/**
+	 * Delete.
+	 *
+	 * @param deleteStatement the delete statement
+	 * @return the int
+	 */
+	@DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
+	int delete(DeleteStatementProvider deleteStatement);
+
+	/**
+	 * Delete by primary key.
+	 *
+	 * @param id_ the id
+	 * @return the int
+	 */
+	default int deleteByPrimaryKey(Long id_) {
+		return delete(c -> c.where(id, isEqualTo(id_)));
+	}
+
+	/**
+	 * Insert.
+	 *
+	 * @param record the record
+	 * @return the int
+	 */
+	default int insert(Automation record) {
+		return MyBatis3Utils.insert(this::insert, record, automation,
+				c -> c.map(botname).toProperty("botname").map(botDescr).toProperty("botDescr").map(areaid)
+						.toProperty("areaid").map(suppgroupid).toProperty("suppgroupid").map(specialistid)
+						.toProperty("specialistid").map(crid).toProperty("crid").map(clienteid).toProperty("clienteid")
+						.map(platformid).toProperty("platformid").map(tipoautid).toProperty("tipoautid").map(functionid)
+						.toProperty("functionid").map(tipoexecid).toProperty("tipoexecid").map(tipociid)
+						.toProperty("tipociid").map(tecnologiaid).toProperty("tecnologiaid").map(catopid)
+						.toProperty("catopid").map(dirid).toProperty("dirid").map(devtypeid).toProperty("devtypeid")
+						.map(manexecs).toProperty("manexecs").map(autoexecs).toProperty("autoexecs").map(mantime)
+						.toProperty("mantime").map(registeredDate).toProperty("registeredDate").map(autCreatorArea)
+						.toProperty("autCreatorArea").map(autCreatorUser).toProperty("autCreatorUser").map(lastModified)
+						.toProperty("lastModified").map(autEnabled).toProperty("autEnabled").map(impactedCis)
+						.toProperty("impactedCis").map(totalImpactedCis).toProperty("totalImpactedCis"));
+	}
+
+	/**
+	 * Insert.
+	 *
+	 * @param insertStatement the insert statement
+	 * @return the int
+	 */
+	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
+	@Options(useGeneratedKeys = true, keyProperty = "record.id")
+	int insert(InsertStatementProvider<Automation> insertStatement);
+
+	/**
+	 * Insert multiple.
+	 *
+	 * @param records the records
+	 * @return the int
+	 */
+	default int insertMultiple(Collection<Automation> records) {
+		return MyBatis3Utils.insertMultiple(this::insertMultiple, records, automation,
+				c -> c.map(botname).toProperty("botname").map(botDescr).toProperty("botDescr").map(areaid)
+						.toProperty("areaid").map(suppgroupid).toProperty("suppgroupid").map(specialistid)
+						.toProperty("specialistid").map(crid).toProperty("crid").map(clienteid).toProperty("clienteid")
+						.map(platformid).toProperty("platformid").map(tipoautid).toProperty("tipoautid").map(functionid)
+						.toProperty("functionid").map(tipoexecid).toProperty("tipoexecid").map(tipociid)
+						.toProperty("tipociid").map(tecnologiaid).toProperty("tecnologiaid").map(catopid)
+						.toProperty("catopid").map(dirid).toProperty("dirid").map(devtypeid).toProperty("devtypeid")
+						.map(manexecs).toProperty("manexecs").map(autoexecs).toProperty("autoexecs").map(mantime)
+						.toProperty("mantime").map(registeredDate).toProperty("registeredDate").map(autCreatorArea)
+						.toProperty("autCreatorArea").map(autCreatorUser).toProperty("autCreatorUser").map(lastModified)
+						.toProperty("lastModified").map(autEnabled).toProperty("autEnabled").map(impactedCis)
+						.toProperty("impactedCis").map(totalImpactedCis).toProperty("totalImpactedCis"));
+	}
+
+	/**
+	 * Insert multiple.
+	 *
+	 * @param multipleInsertStatement the multiple insert statement
+	 * @return the int
+	 */
+	default int insertMultiple(MultiRowInsertStatementProvider<Automation> multipleInsertStatement) {
+		return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
+	}
+
+	/**
+	 * Insert multiple.
+	 *
+	 * @param insertStatement the insert statement
+	 * @param records         the records
+	 * @return the int
+	 */
+	@Insert({ "${insertStatement}" })
+	@Options(useGeneratedKeys = true, keyProperty = "records.id")
+	int insertMultiple(@Param("insertStatement") String insertStatement, @Param("records") List<Automation> records);
+
+	/**
+	 * Insert selective.
+	 *
+	 * @param record the record
+	 * @return the int
+	 */
+	default int insertSelective(Automation record) {
+		return MyBatis3Utils.insert(this::insert, record, automation,
+				c -> c.map(botname).toPropertyWhenPresent("botname", record::getBotname).map(botDescr)
+						.toPropertyWhenPresent("botDescr", record::getBotDescr).map(areaid)
+						.toPropertyWhenPresent("areaid", record::getAreaid).map(suppgroupid)
+						.toPropertyWhenPresent("suppgroupid", record::getSuppgroupid).map(specialistid)
+						.toPropertyWhenPresent("specialistid", record::getSpecialistid).map(crid)
+						.toPropertyWhenPresent("crid", record::getCrid).map(clienteid)
+						.toPropertyWhenPresent("clienteid", record::getClienteid).map(platformid)
+						.toPropertyWhenPresent("platformid", record::getPlatformid).map(tipoautid)
+						.toPropertyWhenPresent("tipoautid", record::getTipoautid).map(functionid)
+						.toPropertyWhenPresent("functionid", record::getFunctionid).map(tipoexecid)
+						.toPropertyWhenPresent("tipoexecid", record::getTipoexecid).map(tipociid)
+						.toPropertyWhenPresent("tipociid", record::getTipociid).map(tecnologiaid)
+						.toPropertyWhenPresent("tecnologiaid", record::getTecnologiaid).map(catopid)
+						.toPropertyWhenPresent("catopid", record::getCatopid).map(dirid)
+						.toPropertyWhenPresent("dirid", record::getDirid).map(devtypeid)
+						.toPropertyWhenPresent("devtypeid", record::getDevtypeid).map(manexecs)
+						.toPropertyWhenPresent("manexecs", record::getManexecs).map(autoexecs)
+						.toPropertyWhenPresent("autoexecs", record::getAutoexecs).map(mantime)
+						.toPropertyWhenPresent("mantime", record::getMantime).map(registeredDate)
+						.toPropertyWhenPresent("registeredDate", record::getRegisteredDate).map(autCreatorArea)
+						.toPropertyWhenPresent("autCreatorArea", record::getAutCreatorArea).map(autCreatorUser)
+						.toPropertyWhenPresent("autCreatorUser", record::getAutCreatorUser).map(lastModified)
+						.toPropertyWhenPresent("lastModified", record::getLastModified).map(autEnabled)
+						.toPropertyWhenPresent("autEnabled", record::getAutEnabled).map(impactedCis)
+						.toPropertyWhenPresent("impactedCis", record::getImpactedCis).map(totalImpactedCis)
+						.toPropertyWhenPresent("totalImpactedCis", record::getTotalImpactedCis));
+	}
+
+	/**
+	 * Select.
+	 *
+	 * @param completer the completer
+	 * @return the list
+	 */
+	default List<Automation> select(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectList(this::selectMany, selectList, automation, completer);
+	}
+
+	/**
+	 * Select by primary key.
+	 *
+	 * @param id_ the id
+	 * @return the optional
+	 */
+	default Optional<Automation> selectByPrimaryKey(Long id_) {
+		return selectOne(c -> c.where(id, isEqualTo(id_)));
+	}
+
+	/**
+	 * Select distinct.
+	 *
+	 * @param completer the completer
+	 * @return the list
+	 */
+	default List<Automation> selectDistinct(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectDistinct(this::selectMany, selectList, automation, completer);
+	}
+
+	/**
+	 * Select many.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the list
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	@Results(
+			id = "AutomationResult",
+			value = { @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
+					@Result(column = "botname", property = "botname", jdbcType = JdbcType.VARCHAR),
+					@Result(column = "bot_descr", property = "botDescr", jdbcType = JdbcType.VARCHAR),
+					@Result(column = "areaid", property = "areaid", jdbcType = JdbcType.INTEGER),
+					@Result(column = "suppgroupid", property = "suppgroupid", jdbcType = JdbcType.INTEGER),
+					@Result(column = "specialistid", property = "specialistid", jdbcType = JdbcType.INTEGER),
+					@Result(column = "crid", property = "crid", jdbcType = JdbcType.INTEGER),
+					@Result(column = "clienteid", property = "clienteid", jdbcType = JdbcType.INTEGER),
+					@Result(column = "platformid", property = "platformid", jdbcType = JdbcType.INTEGER),
+					@Result(column = "tipoautid", property = "tipoautid", jdbcType = JdbcType.INTEGER),
+					@Result(column = "functionid", property = "functionid", jdbcType = JdbcType.INTEGER),
+					@Result(column = "tipoexecid", property = "tipoexecid", jdbcType = JdbcType.INTEGER),
+					@Result(column = "tipociid", property = "tipociid", jdbcType = JdbcType.INTEGER),
+					@Result(column = "tecnologiaid", property = "tecnologiaid", jdbcType = JdbcType.INTEGER),
+					@Result(column = "catopid", property = "catopid", jdbcType = JdbcType.INTEGER),
+					@Result(column = "dirid", property = "dirid", jdbcType = JdbcType.INTEGER),
+					@Result(column = "devtypeid", property = "devtypeid", jdbcType = JdbcType.INTEGER),
+					@Result(column = "manexecs", property = "manexecs", jdbcType = JdbcType.REAL),
+					@Result(column = "autoexecs", property = "autoexecs", jdbcType = JdbcType.REAL),
+					@Result(column = "mantime", property = "mantime", jdbcType = JdbcType.REAL),
+					@Result(column = "registered_date", property = "registeredDate", jdbcType = JdbcType.TIMESTAMP),
+					@Result(column = "aut_creator_area", property = "autCreatorArea", jdbcType = JdbcType.VARCHAR),
+					@Result(column = "aut_creator_user", property = "autCreatorUser", jdbcType = JdbcType.VARCHAR),
+					@Result(column = "last_modified", property = "lastModified", jdbcType = JdbcType.TIMESTAMP),
+					@Result(column = "aut_enabled", property = "autEnabled", jdbcType = JdbcType.BIT),
+					@Result(column = "impacted_cis", property = "impactedCis", jdbcType = JdbcType.INTEGER),
+					@Result(
+							column = "total_impacted_cis",
+							property = "totalImpactedCis",
+							jdbcType = JdbcType.INTEGER) })
+	List<Automation> selectMany(SelectStatementProvider selectStatement);
+
+	/**
+	 * Select one.
+	 *
+	 * @param completer the completer
+	 * @return the optional
+	 */
+	default Optional<Automation> selectOne(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectOne(this::selectOne, selectList, automation, completer);
+	}
+
+	/**
+	 * Select one.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the optional
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	@ResultMap("AutomationResult")
+	Optional<Automation> selectOne(SelectStatementProvider selectStatement);
+
+	/**
+	 * Update.
+	 *
+	 * @param completer the completer
+	 * @return the int
+	 */
+	default int update(UpdateDSLCompleter completer) {
+		return MyBatis3Utils.update(this::update, automation, completer);
+	}
+
+	/**
+	 * Update.
+	 *
+	 * @param updateStatement the update statement
+	 * @return the int
+	 */
+	@UpdateProvider(type = SqlProviderAdapter.class, method = "update")
+	int update(UpdateStatementProvider updateStatement);
 
 	/**
 	 * Update by primary key.

@@ -55,85 +55,26 @@ public interface OrganizationAWXMapper {
 	BasicColumn[] selectList = BasicColumn.columnList(id, name);
 
 	/**
-	 * Count.
+	 * Update all columns.
 	 *
-	 * @param selectStatement the select statement
-	 * @return the long
+	 * @param record the record
+	 * @param dsl    the dsl
+	 * @return the update DSL
 	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	long count(SelectStatementProvider selectStatement);
-
-	/**
-	 * Delete.
-	 *
-	 * @param deleteStatement the delete statement
-	 * @return the int
-	 */
-	@DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
-	int delete(DeleteStatementProvider deleteStatement);
-
-	/**
-	 * Insert.
-	 *
-	 * @param insertStatement the insert statement
-	 * @return the int
-	 */
-	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
-	@Options(useGeneratedKeys = true, keyProperty = "record.id")
-	int insert(InsertStatementProvider<OrganizationAWX> insertStatement);
-
-	/**
-	 * Insert multiple.
-	 *
-	 * @param insertStatement the insert statement
-	 * @param records         the records
-	 * @return the int
-	 */
-	@Insert({ "${insertStatement}" })
-	@Options(useGeneratedKeys = true, keyProperty = "records.id")
-	int insertMultiple(@Param("insertStatement") String insertStatement,
-			@Param("records") List<OrganizationAWX> records);
-
-	/**
-	 * Insert multiple.
-	 *
-	 * @param multipleInsertStatement the multiple insert statement
-	 * @return the int
-	 */
-	default int insertMultiple(MultiRowInsertStatementProvider<OrganizationAWX> multipleInsertStatement) {
-		return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
+	static UpdateDSL<UpdateModel> updateAllColumns(OrganizationAWX record, UpdateDSL<UpdateModel> dsl) {
+		return dsl.set(name).equalTo(record::getName);
 	}
 
 	/**
-	 * Select one.
+	 * Update selective columns.
 	 *
-	 * @param selectStatement the select statement
-	 * @return the optional
+	 * @param record the record
+	 * @param dsl    the dsl
+	 * @return the update DSL
 	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@ResultMap("OrganizationAWXResult")
-	Optional<OrganizationAWX> selectOne(SelectStatementProvider selectStatement);
-
-	/**
-	 * Select many.
-	 *
-	 * @param selectStatement the select statement
-	 * @return the list
-	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@Results(id = "OrganizationAWXResult", value = {
-			@Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
-			@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR) })
-	List<OrganizationAWX> selectMany(SelectStatementProvider selectStatement);
-
-	/**
-	 * Update.
-	 *
-	 * @param updateStatement the update statement
-	 * @return the int
-	 */
-	@UpdateProvider(type = SqlProviderAdapter.class, method = "update")
-	int update(UpdateStatementProvider updateStatement);
+	static UpdateDSL<UpdateModel> updateSelectiveColumns(OrganizationAWX record, UpdateDSL<UpdateModel> dsl) {
+		return dsl.set(name).equalToWhenPresent(record::getName);
+	}
 
 	/**
 	 * Count.
@@ -146,6 +87,15 @@ public interface OrganizationAWXMapper {
 	}
 
 	/**
+	 * Count.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the long
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	long count(SelectStatementProvider selectStatement);
+
+	/**
 	 * Delete.
 	 *
 	 * @param completer the completer
@@ -156,6 +106,15 @@ public interface OrganizationAWXMapper {
 	}
 
 	/**
+	 * Delete.
+	 *
+	 * @param deleteStatement the delete statement
+	 * @return the int
+	 */
+	@DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
+	int delete(DeleteStatementProvider deleteStatement);
+
+	/**
 	 * Delete by primary key.
 	 *
 	 * @param id_ the id
@@ -164,6 +123,16 @@ public interface OrganizationAWXMapper {
 	default int deleteByPrimaryKey(Integer id_) {
 		return delete(c -> c.where(id, isEqualTo(id_)));
 	}
+
+	/**
+	 * Insert.
+	 *
+	 * @param insertStatement the insert statement
+	 * @return the int
+	 */
+	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
+	@Options(useGeneratedKeys = true, keyProperty = "record.id")
+	int insert(InsertStatementProvider<OrganizationAWX> insertStatement);
 
 	/**
 	 * Insert.
@@ -187,6 +156,28 @@ public interface OrganizationAWXMapper {
 	}
 
 	/**
+	 * Insert multiple.
+	 *
+	 * @param multipleInsertStatement the multiple insert statement
+	 * @return the int
+	 */
+	default int insertMultiple(MultiRowInsertStatementProvider<OrganizationAWX> multipleInsertStatement) {
+		return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
+	}
+
+	/**
+	 * Insert multiple.
+	 *
+	 * @param insertStatement the insert statement
+	 * @param records         the records
+	 * @return the int
+	 */
+	@Insert({ "${insertStatement}" })
+	@Options(useGeneratedKeys = true, keyProperty = "records.id")
+	int insertMultiple(@Param("insertStatement") String insertStatement,
+			@Param("records") List<OrganizationAWX> records);
+
+	/**
 	 * Insert selective.
 	 *
 	 * @param record the record
@@ -195,16 +186,6 @@ public interface OrganizationAWXMapper {
 	default int insertSelective(OrganizationAWX record) {
 		return MyBatis3Utils.insert(this::insert, record, organizationAWX,
 				c -> c.map(name).toPropertyWhenPresent("name", record::getName));
-	}
-
-	/**
-	 * Select one.
-	 *
-	 * @param completer the completer
-	 * @return the optional
-	 */
-	default Optional<OrganizationAWX> selectOne(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectOne(this::selectOne, selectList, organizationAWX, completer);
 	}
 
 	/**
@@ -218,6 +199,16 @@ public interface OrganizationAWXMapper {
 	}
 
 	/**
+	 * Select by primary key.
+	 *
+	 * @param id_ the id
+	 * @return the optional
+	 */
+	default Optional<OrganizationAWX> selectByPrimaryKey(Integer id_) {
+		return selectOne(c -> c.where(id, isEqualTo(id_)));
+	}
+
+	/**
 	 * Select distinct.
 	 *
 	 * @param completer the completer
@@ -228,14 +219,37 @@ public interface OrganizationAWXMapper {
 	}
 
 	/**
-	 * Select by primary key.
+	 * Select many.
 	 *
-	 * @param id_ the id
+	 * @param selectStatement the select statement
+	 * @return the list
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	@Results(
+			id = "OrganizationAWXResult",
+			value = { @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
+					@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR) })
+	List<OrganizationAWX> selectMany(SelectStatementProvider selectStatement);
+
+	/**
+	 * Select one.
+	 *
+	 * @param completer the completer
 	 * @return the optional
 	 */
-	default Optional<OrganizationAWX> selectByPrimaryKey(Integer id_) {
-		return selectOne(c -> c.where(id, isEqualTo(id_)));
+	default Optional<OrganizationAWX> selectOne(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectOne(this::selectOne, selectList, organizationAWX, completer);
 	}
+
+	/**
+	 * Select one.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the optional
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	@ResultMap("OrganizationAWXResult")
+	Optional<OrganizationAWX> selectOne(SelectStatementProvider selectStatement);
 
 	/**
 	 * Update.
@@ -248,26 +262,13 @@ public interface OrganizationAWXMapper {
 	}
 
 	/**
-	 * Update all columns.
+	 * Update.
 	 *
-	 * @param record the record
-	 * @param dsl    the dsl
-	 * @return the update DSL
+	 * @param updateStatement the update statement
+	 * @return the int
 	 */
-	static UpdateDSL<UpdateModel> updateAllColumns(OrganizationAWX record, UpdateDSL<UpdateModel> dsl) {
-		return dsl.set(name).equalTo(record::getName);
-	}
-
-	/**
-	 * Update selective columns.
-	 *
-	 * @param record the record
-	 * @param dsl    the dsl
-	 * @return the update DSL
-	 */
-	static UpdateDSL<UpdateModel> updateSelectiveColumns(OrganizationAWX record, UpdateDSL<UpdateModel> dsl) {
-		return dsl.set(name).equalToWhenPresent(record::getName);
-	}
+	@UpdateProvider(type = SqlProviderAdapter.class, method = "update")
+	int update(UpdateStatementProvider updateStatement);
 
 	/**
 	 * Update by primary key.

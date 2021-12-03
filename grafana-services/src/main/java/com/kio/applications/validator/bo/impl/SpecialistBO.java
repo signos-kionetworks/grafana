@@ -1,10 +1,10 @@
 /*
-* ****************************************************
-* * Grafana *
-* * KIO Networks *
-* * @Author Julio Galindo *
-* ****************************************************
-*/
+ * ****************************************************
+ * * Grafana *
+ * * KIO Networks *
+ * * @Author Julio Galindo *
+ * ****************************************************
+ */
 
 package com.kio.applications.validator.bo.impl;
 
@@ -33,6 +33,24 @@ public class SpecialistBO implements IfzSelectBO<Specialist>, Serializable {
 	private SpecialistMapper specialistMapper;
 
 	/**
+	 * Select by id.
+	 *
+	 * @param id the id
+	 * @return the specialist
+	 * @throws GenericException the generic exception
+	 */
+	@Override
+	public Specialist selectById(int id) throws GenericException {
+		final Optional<com.kio.applications.validator.model.Specialist> result = this.specialistMapper.selectOne(c -> c
+				.where(com.kio.applications.validator.dao.SpecialistDynamicSqlSupport.id, SqlBuilder.isEqualTo(id)));
+		if (result.isPresent()) {
+			return result.get();
+		} else {
+			return null;
+		}
+	}
+
+	/**
 	 * Select by name.
 	 *
 	 * @param value the value
@@ -45,25 +63,7 @@ public class SpecialistBO implements IfzSelectBO<Specialist>, Serializable {
 				.where(com.kio.applications.validator.dao.SpecialistDynamicSqlSupport.name,
 						SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase()))
 				.or(com.kio.applications.validator.dao.SpecialistDynamicSqlSupport.descr,
-						SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())));
-		if (result.isPresent()) {
-			return result.get();
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * Select by id.
-	 *
-	 * @param id the id
-	 * @return the specialist
-	 * @throws GenericException the generic exception
-	 */
-	@Override
-	public Specialist selectById(int id) throws GenericException {
-		final Optional<com.kio.applications.validator.model.Specialist> result = this.specialistMapper.selectOne(c -> c
-				.where(com.kio.applications.validator.dao.SpecialistDynamicSqlSupport.id, SqlBuilder.isEqualTo(id)));
+						SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())).limit(1));
 		if (result.isPresent()) {
 			return result.get();
 		} else {

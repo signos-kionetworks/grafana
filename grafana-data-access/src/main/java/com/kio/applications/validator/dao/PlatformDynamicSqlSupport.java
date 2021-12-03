@@ -17,23 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class PlatformDynamicSqlSupport {
 
-	/** The Constant platform. */
-	public static final Platform platform = new Platform();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = platform.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = platform.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = platform.descr;
-
 	/**
 	 * The Class Platform.
 	 */
 	public static final class Platform extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -50,4 +38,16 @@ public final class PlatformDynamicSqlSupport {
 			super("plataforma");
 		}
 	}
+
+	/** The Constant platform. */
+	public static final Platform platform = new Platform();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = platform.id;
+
+	/** The Constant name. */
+	public static final SqlColumn<String> name = platform.name;
+
+	/** The Constant descr. */
+	public static final SqlColumn<String> descr = platform.descr;
 }

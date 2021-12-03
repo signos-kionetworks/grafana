@@ -17,41 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class OperativeCatalogDynamicSqlSupport {
 
-	/** The Constant operativeCatalog. */
-	public static final OperativeCatalog operativeCatalog = new OperativeCatalog();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = operativeCatalog.id;
-
-	/** The Constant catalogo. */
-	public static final SqlColumn<Integer> catalogo = operativeCatalog.catalogo;
-
-	/** The Constant catnivel1. */
-	public static final SqlColumn<Integer> catnivel1 = operativeCatalog.catnivel1;
-
-	/** The Constant catnivel2. */
-	public static final SqlColumn<Integer> catnivel2 = operativeCatalog.catnivel2;
-
-	/** The Constant catnivel3. */
-	public static final SqlColumn<Integer> catnivel3 = operativeCatalog.catnivel3;
-
-	/** The Constant producto. */
-	public static final SqlColumn<Integer> producto = operativeCatalog.producto;
-
-	/** The Constant tipo. */
-	public static final SqlColumn<Integer> tipo = operativeCatalog.tipo;
-
-	/** The Constant automatizable. */
-	public static final SqlColumn<Boolean> automatizable = operativeCatalog.automatizable;
-
-	/** The Constant tiempominutos. */
-	public static final SqlColumn<Float> tiempominutos = operativeCatalog.tiempominutos;
-
 	/**
 	 * The Class OperativeCatalog.
 	 */
 	public static final class OperativeCatalog extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -86,4 +56,34 @@ public final class OperativeCatalogDynamicSqlSupport {
 			super("catalogooperativo");
 		}
 	}
+
+	/** The Constant operativeCatalog. */
+	public static final OperativeCatalog operativeCatalog = new OperativeCatalog();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = operativeCatalog.id;
+
+	/** The Constant catalogo. */
+	public static final SqlColumn<Integer> catalogo = operativeCatalog.catalogo;
+
+	/** The Constant catnivel1. */
+	public static final SqlColumn<Integer> catnivel1 = operativeCatalog.catnivel1;
+
+	/** The Constant catnivel2. */
+	public static final SqlColumn<Integer> catnivel2 = operativeCatalog.catnivel2;
+
+	/** The Constant catnivel3. */
+	public static final SqlColumn<Integer> catnivel3 = operativeCatalog.catnivel3;
+
+	/** The Constant producto. */
+	public static final SqlColumn<Integer> producto = operativeCatalog.producto;
+
+	/** The Constant tipo. */
+	public static final SqlColumn<Integer> tipo = operativeCatalog.tipo;
+
+	/** The Constant automatizable. */
+	public static final SqlColumn<Boolean> automatizable = operativeCatalog.automatizable;
+
+	/** The Constant tiempominutos. */
+	public static final SqlColumn<Float> tiempominutos = operativeCatalog.tiempominutos;
 }

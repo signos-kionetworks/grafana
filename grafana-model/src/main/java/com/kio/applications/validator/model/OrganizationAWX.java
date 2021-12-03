@@ -28,21 +28,21 @@ public class OrganizationAWX {
 	}
 
 	/**
-	 * Sets the id.
-	 *
-	 * @param id the new id
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	/**
 	 * Gets the name.
 	 *
 	 * @return the name
 	 */
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	/**

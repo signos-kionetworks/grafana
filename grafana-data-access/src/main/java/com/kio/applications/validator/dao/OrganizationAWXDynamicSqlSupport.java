@@ -17,20 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class OrganizationAWXDynamicSqlSupport {
 
-	/** The Constant organizationAWX. */
-	public static final OrganizationAWX organizationAWX = new OrganizationAWX();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = organizationAWX.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = organizationAWX.name;
-
 	/**
 	 * The Class OrganizationAWX.
 	 */
 	public static final class OrganizationAWX extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -44,4 +35,13 @@ public final class OrganizationAWXDynamicSqlSupport {
 			super("organizacion_awx");
 		}
 	}
+
+	/** The Constant organizationAWX. */
+	public static final OrganizationAWX organizationAWX = new OrganizationAWX();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = organizationAWX.id;
+
+	/** The Constant name. */
+	public static final SqlColumn<String> name = organizationAWX.name;
 }

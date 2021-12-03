@@ -17,23 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class TypeCIDynamicSqlSupport {
 
-	/** The Constant typeCI. */
-	public static final TypeCI typeCI = new TypeCI();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = typeCI.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = typeCI.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = typeCI.descr;
-
 	/**
 	 * The Class TypeCI.
 	 */
 	public static final class TypeCI extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -50,4 +38,16 @@ public final class TypeCIDynamicSqlSupport {
 			super("tipoci");
 		}
 	}
+
+	/** The Constant typeCI. */
+	public static final TypeCI typeCI = new TypeCI();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = typeCI.id;
+
+	/** The Constant name. */
+	public static final SqlColumn<String> name = typeCI.name;
+
+	/** The Constant descr. */
+	public static final SqlColumn<String> descr = typeCI.descr;
 }

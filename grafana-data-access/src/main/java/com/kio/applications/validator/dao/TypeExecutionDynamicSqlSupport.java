@@ -17,23 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class TypeExecutionDynamicSqlSupport {
 
-	/** The Constant typeExecution. */
-	public static final TypeExecution typeExecution = new TypeExecution();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = typeExecution.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = typeExecution.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = typeExecution.descr;
-
 	/**
 	 * The Class TypeExecution.
 	 */
 	public static final class TypeExecution extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -50,4 +38,16 @@ public final class TypeExecutionDynamicSqlSupport {
 			super("tipoexec");
 		}
 	}
+
+	/** The Constant typeExecution. */
+	public static final TypeExecution typeExecution = new TypeExecution();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = typeExecution.id;
+
+	/** The Constant name. */
+	public static final SqlColumn<String> name = typeExecution.name;
+
+	/** The Constant descr. */
+	public static final SqlColumn<String> descr = typeExecution.descr;
 }

@@ -8,9 +8,9 @@
 package com.kio.applications.validator.model;
 
 /**
- * The Class Function.
+ * The Class TaskType.
  */
-public class Function {
+public class TaskType {
 
 	/** The id. */
 	private Integer id;

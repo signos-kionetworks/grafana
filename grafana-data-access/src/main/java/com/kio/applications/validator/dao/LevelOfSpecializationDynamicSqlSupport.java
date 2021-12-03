@@ -17,23 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class LevelOfSpecializationDynamicSqlSupport {
 
-	/** The Constant levelOfSpecialization. */
-	public static final LevelOfSpecialization levelOfSpecialization = new LevelOfSpecialization();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = levelOfSpecialization.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = levelOfSpecialization.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = levelOfSpecialization.descr;
-
 	/**
 	 * The Class LevelOfSpecialization.
 	 */
 	public static final class LevelOfSpecialization extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -50,4 +38,16 @@ public final class LevelOfSpecializationDynamicSqlSupport {
 			super("cocatnivel2");
 		}
 	}
+
+	/** The Constant levelOfSpecialization. */
+	public static final LevelOfSpecialization levelOfSpecialization = new LevelOfSpecialization();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = levelOfSpecialization.id;
+
+	/** The Constant name. */
+	public static final SqlColumn<String> name = levelOfSpecialization.name;
+
+	/** The Constant descr. */
+	public static final SqlColumn<String> descr = levelOfSpecialization.descr;
 }

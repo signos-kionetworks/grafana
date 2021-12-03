@@ -57,86 +57,28 @@ public interface ManagementMapper {
 	BasicColumn[] selectList = BasicColumn.columnList(id, name, descr, idUnidadNegocio);
 
 	/**
-	 * Count.
+	 * Update all columns.
 	 *
-	 * @param selectStatement the select statement
-	 * @return the long
+	 * @param record the record
+	 * @param dsl    the dsl
+	 * @return the update DSL
 	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	long count(SelectStatementProvider selectStatement);
-
-	/**
-	 * Delete.
-	 *
-	 * @param deleteStatement the delete statement
-	 * @return the int
-	 */
-	@DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
-	int delete(DeleteStatementProvider deleteStatement);
-
-	/**
-	 * Insert.
-	 *
-	 * @param insertStatement the insert statement
-	 * @return the int
-	 */
-	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
-	@Options(useGeneratedKeys = true, keyProperty = "record.id")
-	int insert(InsertStatementProvider<Management> insertStatement);
-
-	/**
-	 * Insert multiple.
-	 *
-	 * @param insertStatement the insert statement
-	 * @param records         the records
-	 * @return the int
-	 */
-	@Insert({ "${insertStatement}" })
-	@Options(useGeneratedKeys = true, keyProperty = "records.id")
-	int insertMultiple(@Param("insertStatement") String insertStatement, @Param("records") List<Management> records);
-
-	/**
-	 * Insert multiple.
-	 *
-	 * @param multipleInsertStatement the multiple insert statement
-	 * @return the int
-	 */
-	default int insertMultiple(MultiRowInsertStatementProvider<Management> multipleInsertStatement) {
-		return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
+	static UpdateDSL<UpdateModel> updateAllColumns(Management record, UpdateDSL<UpdateModel> dsl) {
+		return dsl.set(name).equalTo(record::getName).set(descr).equalTo(record::getDescr).set(idUnidadNegocio)
+				.equalTo(record::getIdUnidadNegocio);
 	}
 
 	/**
-	 * Select one.
+	 * Update selective columns.
 	 *
-	 * @param selectStatement the select statement
-	 * @return the optional
+	 * @param record the record
+	 * @param dsl    the dsl
+	 * @return the update DSL
 	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@ResultMap("ManagementResult")
-	Optional<Management> selectOne(SelectStatementProvider selectStatement);
-
-	/**
-	 * Select many.
-	 *
-	 * @param selectStatement the select statement
-	 * @return the list
-	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@Results(id = "ManagementResult", value = {
-			@Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
-			@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
-			@Result(column = "descr", property = "descr", jdbcType = JdbcType.VARCHAR),
-			@Result(column = "id_unidad_negocio", property = "idUnidadNegocio", jdbcType = JdbcType.INTEGER) })
-	List<Management> selectMany(SelectStatementProvider selectStatement);
-
-	/**
-	 * Update.
-	 *
-	 * @param updateStatement the update statement
-	 * @return the int
-	 */
-	@UpdateProvider(type = SqlProviderAdapter.class, method = "update")
-	int update(UpdateStatementProvider updateStatement);
+	static UpdateDSL<UpdateModel> updateSelectiveColumns(Management record, UpdateDSL<UpdateModel> dsl) {
+		return dsl.set(name).equalToWhenPresent(record::getName).set(descr).equalToWhenPresent(record::getDescr)
+				.set(idUnidadNegocio).equalToWhenPresent(record::getIdUnidadNegocio);
+	}
 
 	/**
 	 * Count.
@@ -149,6 +91,15 @@ public interface ManagementMapper {
 	}
 
 	/**
+	 * Count.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the long
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	long count(SelectStatementProvider selectStatement);
+
+	/**
 	 * Delete.
 	 *
 	 * @param completer the completer
@@ -159,6 +110,15 @@ public interface ManagementMapper {
 	}
 
 	/**
+	 * Delete.
+	 *
+	 * @param deleteStatement the delete statement
+	 * @return the int
+	 */
+	@DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
+	int delete(DeleteStatementProvider deleteStatement);
+
+	/**
 	 * Delete by primary key.
 	 *
 	 * @param id_ the id
@@ -167,6 +127,16 @@ public interface ManagementMapper {
 	default int deleteByPrimaryKey(Integer id_) {
 		return delete(c -> c.where(id, isEqualTo(id_)));
 	}
+
+	/**
+	 * Insert.
+	 *
+	 * @param insertStatement the insert statement
+	 * @return the int
+	 */
+	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
+	@Options(useGeneratedKeys = true, keyProperty = "record.id")
+	int insert(InsertStatementProvider<Management> insertStatement);
 
 	/**
 	 * Insert.
@@ -191,6 +161,27 @@ public interface ManagementMapper {
 	}
 
 	/**
+	 * Insert multiple.
+	 *
+	 * @param multipleInsertStatement the multiple insert statement
+	 * @return the int
+	 */
+	default int insertMultiple(MultiRowInsertStatementProvider<Management> multipleInsertStatement) {
+		return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
+	}
+
+	/**
+	 * Insert multiple.
+	 *
+	 * @param insertStatement the insert statement
+	 * @param records         the records
+	 * @return the int
+	 */
+	@Insert({ "${insertStatement}" })
+	@Options(useGeneratedKeys = true, keyProperty = "records.id")
+	int insertMultiple(@Param("insertStatement") String insertStatement, @Param("records") List<Management> records);
+
+	/**
 	 * Insert selective.
 	 *
 	 * @param record the record
@@ -204,16 +195,6 @@ public interface ManagementMapper {
 	}
 
 	/**
-	 * Select one.
-	 *
-	 * @param completer the completer
-	 * @return the optional
-	 */
-	default Optional<Management> selectOne(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectOne(this::selectOne, selectList, management, completer);
-	}
-
-	/**
 	 * Select.
 	 *
 	 * @param completer the completer
@@ -221,16 +202,6 @@ public interface ManagementMapper {
 	 */
 	default List<Management> select(SelectDSLCompleter completer) {
 		return MyBatis3Utils.selectList(this::selectMany, selectList, management, completer);
-	}
-
-	/**
-	 * Select distinct.
-	 *
-	 * @param completer the completer
-	 * @return the list
-	 */
-	default List<Management> selectDistinct(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectDistinct(this::selectMany, selectList, management, completer);
 	}
 
 	/**
@@ -244,6 +215,51 @@ public interface ManagementMapper {
 	}
 
 	/**
+	 * Select distinct.
+	 *
+	 * @param completer the completer
+	 * @return the list
+	 */
+	default List<Management> selectDistinct(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectDistinct(this::selectMany, selectList, management, completer);
+	}
+
+	/**
+	 * Select many.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the list
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	@Results(
+			id = "ManagementResult",
+			value = { @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
+					@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
+					@Result(column = "descr", property = "descr", jdbcType = JdbcType.VARCHAR),
+					@Result(column = "id_unidad_negocio", property = "idUnidadNegocio", jdbcType = JdbcType.INTEGER) })
+	List<Management> selectMany(SelectStatementProvider selectStatement);
+
+	/**
+	 * Select one.
+	 *
+	 * @param completer the completer
+	 * @return the optional
+	 */
+	default Optional<Management> selectOne(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectOne(this::selectOne, selectList, management, completer);
+	}
+
+	/**
+	 * Select one.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the optional
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	@ResultMap("ManagementResult")
+	Optional<Management> selectOne(SelectStatementProvider selectStatement);
+
+	/**
 	 * Update.
 	 *
 	 * @param completer the completer
@@ -254,28 +270,13 @@ public interface ManagementMapper {
 	}
 
 	/**
-	 * Update all columns.
+	 * Update.
 	 *
-	 * @param record the record
-	 * @param dsl    the dsl
-	 * @return the update DSL
+	 * @param updateStatement the update statement
+	 * @return the int
 	 */
-	static UpdateDSL<UpdateModel> updateAllColumns(Management record, UpdateDSL<UpdateModel> dsl) {
-		return dsl.set(name).equalTo(record::getName).set(descr).equalTo(record::getDescr).set(idUnidadNegocio)
-				.equalTo(record::getIdUnidadNegocio);
-	}
-
-	/**
-	 * Update selective columns.
-	 *
-	 * @param record the record
-	 * @param dsl    the dsl
-	 * @return the update DSL
-	 */
-	static UpdateDSL<UpdateModel> updateSelectiveColumns(Management record, UpdateDSL<UpdateModel> dsl) {
-		return dsl.set(name).equalToWhenPresent(record::getName).set(descr).equalToWhenPresent(record::getDescr)
-				.set(idUnidadNegocio).equalToWhenPresent(record::getIdUnidadNegocio);
-	}
+	@UpdateProvider(type = SqlProviderAdapter.class, method = "update")
+	int update(UpdateStatementProvider updateStatement);
 
 	/**
 	 * Update by primary key.

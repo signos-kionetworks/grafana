@@ -25,42 +25,6 @@ public class Area {
 	private Integer idDireccion;
 
 	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 */
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	 * Sets the id.
-	 *
-	 * @param id the new id
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	/**
-	 * Gets the name.
-	 *
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Sets the name.
-	 *
-	 * @param name the new name
-	 */
-	public void setName(String name) {
-		this.name = name == null ? null : name.trim();
-	}
-
-	/**
 	 * Gets the descr.
 	 *
 	 * @return the descr
@@ -70,12 +34,12 @@ public class Area {
 	}
 
 	/**
-	 * Sets the descr.
+	 * Gets the id.
 	 *
-	 * @param descr the new descr
+	 * @return the id
 	 */
-	public void setDescr(String descr) {
-		this.descr = descr == null ? null : descr.trim();
+	public Integer getId() {
+		return id;
 	}
 
 	/**
@@ -88,11 +52,47 @@ public class Area {
 	}
 
 	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Sets the descr.
+	 *
+	 * @param descr the new descr
+	 */
+	public void setDescr(String descr) {
+		this.descr = descr == null ? null : descr.trim();
+	}
+
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	/**
 	 * Sets the id direccion.
 	 *
 	 * @param idDireccion the new id direccion
 	 */
 	public void setIdDireccion(Integer idDireccion) {
 		this.idDireccion = idDireccion;
+	}
+
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
 	}
 }

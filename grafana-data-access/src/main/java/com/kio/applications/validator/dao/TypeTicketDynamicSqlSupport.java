@@ -17,23 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class TypeTicketDynamicSqlSupport {
 
-	/** The Constant typeTicket. */
-	public static final TypeTicket typeTicket = new TypeTicket();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = typeTicket.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = typeTicket.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = typeTicket.descr;
-
 	/**
 	 * The Class TypeTicket.
 	 */
 	public static final class TypeTicket extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -50,4 +38,16 @@ public final class TypeTicketDynamicSqlSupport {
 			super("cotipoticket");
 		}
 	}
+
+	/** The Constant typeTicket. */
+	public static final TypeTicket typeTicket = new TypeTicket();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = typeTicket.id;
+
+	/** The Constant name. */
+	public static final SqlColumn<String> name = typeTicket.name;
+
+	/** The Constant descr. */
+	public static final SqlColumn<String> descr = typeTicket.descr;
 }

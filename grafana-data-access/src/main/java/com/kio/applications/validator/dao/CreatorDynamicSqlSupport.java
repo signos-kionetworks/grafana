@@ -17,23 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class CreatorDynamicSqlSupport {
 
-	/** The Constant creator. */
-	public static final Creator creator = new Creator();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = creator.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = creator.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = creator.descr;
-
 	/**
 	 * The Class Creator.
 	 */
 	public static final class Creator extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -50,4 +38,16 @@ public final class CreatorDynamicSqlSupport {
 			super("creador");
 		}
 	}
+
+	/** The Constant creator. */
+	public static final Creator creator = new Creator();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = creator.id;
+
+	/** The Constant name. */
+	public static final SqlColumn<String> name = creator.name;
+
+	/** The Constant descr. */
+	public static final SqlColumn<String> descr = creator.descr;
 }

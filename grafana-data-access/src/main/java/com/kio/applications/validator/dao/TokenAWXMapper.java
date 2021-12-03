@@ -7,10 +7,10 @@
 */
 package com.kio.applications.validator.dao;
 
-import static com.kio.applications.validator.dao.TypeTicketDynamicSqlSupport.descr;
-import static com.kio.applications.validator.dao.TypeTicketDynamicSqlSupport.id;
-import static com.kio.applications.validator.dao.TypeTicketDynamicSqlSupport.name;
-import static com.kio.applications.validator.dao.TypeTicketDynamicSqlSupport.typeTicket;
+import static com.kio.applications.validator.dao.TokenAWXDynamicSqlSupport.id;
+import static com.kio.applications.validator.dao.TokenAWXDynamicSqlSupport.idArea;
+import static com.kio.applications.validator.dao.TokenAWXDynamicSqlSupport.token;
+import static com.kio.applications.validator.dao.TokenAWXDynamicSqlSupport.tokenAWX;
 import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
 
 import java.util.Collection;
@@ -18,8 +18,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.ibatis.annotations.DeleteProvider;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
@@ -41,16 +44,16 @@ import org.mybatis.dynamic.sql.update.render.UpdateStatementProvider;
 import org.mybatis.dynamic.sql.util.SqlProviderAdapter;
 import org.mybatis.dynamic.sql.util.mybatis3.MyBatis3Utils;
 
-import com.kio.applications.validator.model.TypeTicket;
+import com.kio.applications.validator.model.TokenAWX;
 
 /**
- * The Interface TypeTicketMapper.
+ * The Interface TokenAWXMapper.
  */
 @Mapper
-public interface TypeTicketMapper {
+public interface TokenAWXMapper {
 
 	/** The select list. */
-	BasicColumn[] selectList = BasicColumn.columnList(id, name, descr);
+	BasicColumn[] selectList = BasicColumn.columnList(id, token, idArea);
 
 	/**
 	 * Update all columns.
@@ -59,9 +62,8 @@ public interface TypeTicketMapper {
 	 * @param dsl    the dsl
 	 * @return the update DSL
 	 */
-	static UpdateDSL<UpdateModel> updateAllColumns(TypeTicket record, UpdateDSL<UpdateModel> dsl) {
-		return dsl.set(id).equalTo(record::getId).set(name).equalTo(record::getName).set(descr)
-				.equalTo(record::getDescr);
+	static UpdateDSL<UpdateModel> updateAllColumns(TokenAWX record, UpdateDSL<UpdateModel> dsl) {
+		return dsl.set(token).equalTo(record::getToken).set(idArea).equalTo(record::getIdArea);
 	}
 
 	/**
@@ -71,9 +73,8 @@ public interface TypeTicketMapper {
 	 * @param dsl    the dsl
 	 * @return the update DSL
 	 */
-	static UpdateDSL<UpdateModel> updateSelectiveColumns(TypeTicket record, UpdateDSL<UpdateModel> dsl) {
-		return dsl.set(id).equalToWhenPresent(record::getId).set(name).equalToWhenPresent(record::getName).set(descr)
-				.equalToWhenPresent(record::getDescr);
+	static UpdateDSL<UpdateModel> updateSelectiveColumns(TokenAWX record, UpdateDSL<UpdateModel> dsl) {
+		return dsl.set(token).equalToWhenPresent(record::getToken).set(idArea).equalToWhenPresent(record::getIdArea);
 	}
 
 	/**
@@ -83,7 +84,7 @@ public interface TypeTicketMapper {
 	 * @return the long
 	 */
 	default long count(CountDSLCompleter completer) {
-		return MyBatis3Utils.countFrom(this::count, typeTicket, completer);
+		return MyBatis3Utils.countFrom(this::count, tokenAWX, completer);
 	}
 
 	/**
@@ -102,7 +103,7 @@ public interface TypeTicketMapper {
 	 * @return the int
 	 */
 	default int delete(DeleteDSLCompleter completer) {
-		return MyBatis3Utils.deleteFrom(this::delete, typeTicket, completer);
+		return MyBatis3Utils.deleteFrom(this::delete, tokenAWX, completer);
 	}
 
 	/**
@@ -131,7 +132,8 @@ public interface TypeTicketMapper {
 	 * @return the int
 	 */
 	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
-	int insert(InsertStatementProvider<TypeTicket> insertStatement);
+	@Options(useGeneratedKeys = true, keyProperty = "record.id")
+	int insert(InsertStatementProvider<TokenAWX> insertStatement);
 
 	/**
 	 * Insert.
@@ -139,9 +141,9 @@ public interface TypeTicketMapper {
 	 * @param record the record
 	 * @return the int
 	 */
-	default int insert(TypeTicket record) {
-		return MyBatis3Utils.insert(this::insert, record, typeTicket,
-				c -> c.map(id).toProperty("id").map(name).toProperty("name").map(descr).toProperty("descr"));
+	default int insert(TokenAWX record) {
+		return MyBatis3Utils.insert(this::insert, record, tokenAWX,
+				c -> c.map(token).toProperty("token").map(idArea).toProperty("idArea"));
 	}
 
 	/**
@@ -150,9 +152,9 @@ public interface TypeTicketMapper {
 	 * @param records the records
 	 * @return the int
 	 */
-	default int insertMultiple(Collection<TypeTicket> records) {
-		return MyBatis3Utils.insertMultiple(this::insertMultiple, records, typeTicket,
-				c -> c.map(id).toProperty("id").map(name).toProperty("name").map(descr).toProperty("descr"));
+	default int insertMultiple(Collection<TokenAWX> records) {
+		return MyBatis3Utils.insertMultiple(this::insertMultiple, records, tokenAWX,
+				c -> c.map(token).toProperty("token").map(idArea).toProperty("idArea"));
 	}
 
 	/**
@@ -161,8 +163,20 @@ public interface TypeTicketMapper {
 	 * @param multipleInsertStatement the multiple insert statement
 	 * @return the int
 	 */
-	@InsertProvider(type = SqlProviderAdapter.class, method = "insertMultiple")
-	int insertMultiple(MultiRowInsertStatementProvider<TypeTicket> multipleInsertStatement);
+	default int insertMultiple(MultiRowInsertStatementProvider<TokenAWX> multipleInsertStatement) {
+		return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
+	}
+
+	/**
+	 * Insert multiple.
+	 *
+	 * @param insertStatement the insert statement
+	 * @param records         the records
+	 * @return the int
+	 */
+	@Insert({ "${insertStatement}" })
+	@Options(useGeneratedKeys = true, keyProperty = "records.id")
+	int insertMultiple(@Param("insertStatement") String insertStatement, @Param("records") List<TokenAWX> records);
 
 	/**
 	 * Insert selective.
@@ -170,11 +184,10 @@ public interface TypeTicketMapper {
 	 * @param record the record
 	 * @return the int
 	 */
-	default int insertSelective(TypeTicket record) {
-		return MyBatis3Utils.insert(this::insert, record, typeTicket,
-				c -> c.map(id).toPropertyWhenPresent("id", record::getId).map(name)
-						.toPropertyWhenPresent("name", record::getName).map(descr)
-						.toPropertyWhenPresent("descr", record::getDescr));
+	default int insertSelective(TokenAWX record) {
+		return MyBatis3Utils.insert(this::insert, record, tokenAWX,
+				c -> c.map(token).toPropertyWhenPresent("token", record::getToken).map(idArea)
+						.toPropertyWhenPresent("idArea", record::getIdArea));
 	}
 
 	/**
@@ -183,8 +196,8 @@ public interface TypeTicketMapper {
 	 * @param completer the completer
 	 * @return the list
 	 */
-	default List<TypeTicket> select(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectList(this::selectMany, selectList, typeTicket, completer);
+	default List<TokenAWX> select(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectList(this::selectMany, selectList, tokenAWX, completer);
 	}
 
 	/**
@@ -193,7 +206,7 @@ public interface TypeTicketMapper {
 	 * @param id_ the id
 	 * @return the optional
 	 */
-	default Optional<TypeTicket> selectByPrimaryKey(Integer id_) {
+	default Optional<TokenAWX> selectByPrimaryKey(Integer id_) {
 		return selectOne(c -> c.where(id, isEqualTo(id_)));
 	}
 
@@ -203,8 +216,8 @@ public interface TypeTicketMapper {
 	 * @param completer the completer
 	 * @return the list
 	 */
-	default List<TypeTicket> selectDistinct(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectDistinct(this::selectMany, selectList, typeTicket, completer);
+	default List<TokenAWX> selectDistinct(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectDistinct(this::selectMany, selectList, tokenAWX, completer);
 	}
 
 	/**
@@ -215,11 +228,11 @@ public interface TypeTicketMapper {
 	 */
 	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
 	@Results(
-			id = "TypeTicketResult",
+			id = "TokenAWXResult",
 			value = { @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
-					@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
-					@Result(column = "descr", property = "descr", jdbcType = JdbcType.VARCHAR) })
-	List<TypeTicket> selectMany(SelectStatementProvider selectStatement);
+					@Result(column = "token", property = "token", jdbcType = JdbcType.VARCHAR),
+					@Result(column = "id_area", property = "idArea", jdbcType = JdbcType.INTEGER) })
+	List<TokenAWX> selectMany(SelectStatementProvider selectStatement);
 
 	/**
 	 * Select one.
@@ -227,8 +240,8 @@ public interface TypeTicketMapper {
 	 * @param completer the completer
 	 * @return the optional
 	 */
-	default Optional<TypeTicket> selectOne(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectOne(this::selectOne, selectList, typeTicket, completer);
+	default Optional<TokenAWX> selectOne(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectOne(this::selectOne, selectList, tokenAWX, completer);
 	}
 
 	/**
@@ -238,8 +251,8 @@ public interface TypeTicketMapper {
 	 * @return the optional
 	 */
 	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@ResultMap("TypeTicketResult")
-	Optional<TypeTicket> selectOne(SelectStatementProvider selectStatement);
+	@ResultMap("TokenAWXResult")
+	Optional<TokenAWX> selectOne(SelectStatementProvider selectStatement);
 
 	/**
 	 * Update.
@@ -248,7 +261,7 @@ public interface TypeTicketMapper {
 	 * @return the int
 	 */
 	default int update(UpdateDSLCompleter completer) {
-		return MyBatis3Utils.update(this::update, typeTicket, completer);
+		return MyBatis3Utils.update(this::update, tokenAWX, completer);
 	}
 
 	/**
@@ -266,8 +279,8 @@ public interface TypeTicketMapper {
 	 * @param record the record
 	 * @return the int
 	 */
-	default int updateByPrimaryKey(TypeTicket record) {
-		return update(c -> c.set(name).equalTo(record::getName).set(descr).equalTo(record::getDescr).where(id,
+	default int updateByPrimaryKey(TokenAWX record) {
+		return update(c -> c.set(token).equalTo(record::getToken).set(idArea).equalTo(record::getIdArea).where(id,
 				isEqualTo(record::getId)));
 	}
 
@@ -277,8 +290,8 @@ public interface TypeTicketMapper {
 	 * @param record the record
 	 * @return the int
 	 */
-	default int updateByPrimaryKeySelective(TypeTicket record) {
-		return update(c -> c.set(name).equalToWhenPresent(record::getName).set(descr)
-				.equalToWhenPresent(record::getDescr).where(id, isEqualTo(record::getId)));
+	default int updateByPrimaryKeySelective(TokenAWX record) {
+		return update(c -> c.set(token).equalToWhenPresent(record::getToken).set(idArea)
+				.equalToWhenPresent(record::getIdArea).where(id, isEqualTo(record::getId)));
 	}
 }

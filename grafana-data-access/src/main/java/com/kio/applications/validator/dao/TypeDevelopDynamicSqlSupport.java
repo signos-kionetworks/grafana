@@ -17,23 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class TypeDevelopDynamicSqlSupport {
 
-	/** The Constant typeDevelop. */
-	public static final TypeDevelop typeDevelop = new TypeDevelop();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = typeDevelop.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = typeDevelop.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = typeDevelop.descr;
-
 	/**
 	 * The Class TypeDevelop.
 	 */
 	public static final class TypeDevelop extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -50,4 +38,16 @@ public final class TypeDevelopDynamicSqlSupport {
 			super("develtype");
 		}
 	}
+
+	/** The Constant typeDevelop. */
+	public static final TypeDevelop typeDevelop = new TypeDevelop();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = typeDevelop.id;
+
+	/** The Constant name. */
+	public static final SqlColumn<String> name = typeDevelop.name;
+
+	/** The Constant descr. */
+	public static final SqlColumn<String> descr = typeDevelop.descr;
 }

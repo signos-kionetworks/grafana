@@ -52,71 +52,29 @@ public interface EquivalenceClientOrganizationMapper {
 	BasicColumn[] selectList = BasicColumn.columnList(idCliente, idOrganizacionAwx);
 
 	/**
-	 * Count.
+	 * Update all columns.
 	 *
-	 * @param selectStatement the select statement
-	 * @return the long
+	 * @param record the record
+	 * @param dsl    the dsl
+	 * @return the update DSL
 	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	long count(SelectStatementProvider selectStatement);
+	static UpdateDSL<UpdateModel> updateAllColumns(EquivalenceClientOrganization record, UpdateDSL<UpdateModel> dsl) {
+		return dsl.set(idCliente).equalTo(record::getIdCliente).set(idOrganizacionAwx)
+				.equalTo(record::getIdOrganizacionAwx);
+	}
 
 	/**
-	 * Delete.
+	 * Update selective columns.
 	 *
-	 * @param deleteStatement the delete statement
-	 * @return the int
+	 * @param record the record
+	 * @param dsl    the dsl
+	 * @return the update DSL
 	 */
-	@DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
-	int delete(DeleteStatementProvider deleteStatement);
-
-	/**
-	 * Insert.
-	 *
-	 * @param insertStatement the insert statement
-	 * @return the int
-	 */
-	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
-	int insert(InsertStatementProvider<EquivalenceClientOrganization> insertStatement);
-
-	/**
-	 * Insert multiple.
-	 *
-	 * @param multipleInsertStatement the multiple insert statement
-	 * @return the int
-	 */
-	@InsertProvider(type = SqlProviderAdapter.class, method = "insertMultiple")
-	int insertMultiple(MultiRowInsertStatementProvider<EquivalenceClientOrganization> multipleInsertStatement);
-
-	/**
-	 * Select one.
-	 *
-	 * @param selectStatement the select statement
-	 * @return the optional
-	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@ResultMap("EquivalenceClientOrganizationResult")
-	Optional<EquivalenceClientOrganization> selectOne(SelectStatementProvider selectStatement);
-
-	/**
-	 * Select many.
-	 *
-	 * @param selectStatement the select statement
-	 * @return the list
-	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@Results(id = "EquivalenceClientOrganizationResult", value = {
-			@Result(column = "id_cliente", property = "idCliente", jdbcType = JdbcType.INTEGER, id = true),
-			@Result(column = "id_organizacion_awx", property = "idOrganizacionAwx", jdbcType = JdbcType.INTEGER, id = true) })
-	List<EquivalenceClientOrganization> selectMany(SelectStatementProvider selectStatement);
-
-	/**
-	 * Update.
-	 *
-	 * @param updateStatement the update statement
-	 * @return the int
-	 */
-	@UpdateProvider(type = SqlProviderAdapter.class, method = "update")
-	int update(UpdateStatementProvider updateStatement);
+	static UpdateDSL<UpdateModel> updateSelectiveColumns(EquivalenceClientOrganization record,
+			UpdateDSL<UpdateModel> dsl) {
+		return dsl.set(idCliente).equalToWhenPresent(record::getIdCliente).set(idOrganizacionAwx)
+				.equalToWhenPresent(record::getIdOrganizacionAwx);
+	}
 
 	/**
 	 * Count.
@@ -129,6 +87,15 @@ public interface EquivalenceClientOrganizationMapper {
 	}
 
 	/**
+	 * Count.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the long
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	long count(SelectStatementProvider selectStatement);
+
+	/**
 	 * Delete.
 	 *
 	 * @param completer the completer
@@ -137,6 +104,15 @@ public interface EquivalenceClientOrganizationMapper {
 	default int delete(DeleteDSLCompleter completer) {
 		return MyBatis3Utils.deleteFrom(this::delete, equivalenceClientOrganization, completer);
 	}
+
+	/**
+	 * Delete.
+	 *
+	 * @param deleteStatement the delete statement
+	 * @return the int
+	 */
+	@DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
+	int delete(DeleteStatementProvider deleteStatement);
 
 	/**
 	 * Delete by primary key.
@@ -162,6 +138,15 @@ public interface EquivalenceClientOrganizationMapper {
 	}
 
 	/**
+	 * Insert.
+	 *
+	 * @param insertStatement the insert statement
+	 * @return the int
+	 */
+	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
+	int insert(InsertStatementProvider<EquivalenceClientOrganization> insertStatement);
+
+	/**
 	 * Insert multiple.
 	 *
 	 * @param records the records
@@ -173,6 +158,15 @@ public interface EquivalenceClientOrganizationMapper {
 	}
 
 	/**
+	 * Insert multiple.
+	 *
+	 * @param multipleInsertStatement the multiple insert statement
+	 * @return the int
+	 */
+	@InsertProvider(type = SqlProviderAdapter.class, method = "insertMultiple")
+	int insertMultiple(MultiRowInsertStatementProvider<EquivalenceClientOrganization> multipleInsertStatement);
+
+	/**
 	 * Insert selective.
 	 *
 	 * @param record the record
@@ -182,16 +176,6 @@ public interface EquivalenceClientOrganizationMapper {
 		return MyBatis3Utils.insert(this::insert, record, equivalenceClientOrganization,
 				c -> c.map(idCliente).toPropertyWhenPresent("idCliente", record::getIdCliente).map(idOrganizacionAwx)
 						.toPropertyWhenPresent("idOrganizacionAwx", record::getIdOrganizacionAwx));
-	}
-
-	/**
-	 * Select one.
-	 *
-	 * @param completer the completer
-	 * @return the optional
-	 */
-	default Optional<EquivalenceClientOrganization> selectOne(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectOne(this::selectOne, selectList, equivalenceClientOrganization, completer);
 	}
 
 	/**
@@ -215,6 +199,43 @@ public interface EquivalenceClientOrganizationMapper {
 	}
 
 	/**
+	 * Select many.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the list
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	@Results(
+			id = "EquivalenceClientOrganizationResult",
+			value = { @Result(column = "id_cliente", property = "idCliente", jdbcType = JdbcType.INTEGER, id = true),
+					@Result(
+							column = "id_organizacion_awx",
+							property = "idOrganizacionAwx",
+							jdbcType = JdbcType.INTEGER,
+							id = true) })
+	List<EquivalenceClientOrganization> selectMany(SelectStatementProvider selectStatement);
+
+	/**
+	 * Select one.
+	 *
+	 * @param completer the completer
+	 * @return the optional
+	 */
+	default Optional<EquivalenceClientOrganization> selectOne(SelectDSLCompleter completer) {
+		return MyBatis3Utils.selectOne(this::selectOne, selectList, equivalenceClientOrganization, completer);
+	}
+
+	/**
+	 * Select one.
+	 *
+	 * @param selectStatement the select statement
+	 * @return the optional
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	@ResultMap("EquivalenceClientOrganizationResult")
+	Optional<EquivalenceClientOrganization> selectOne(SelectStatementProvider selectStatement);
+
+	/**
 	 * Update.
 	 *
 	 * @param completer the completer
@@ -225,27 +246,11 @@ public interface EquivalenceClientOrganizationMapper {
 	}
 
 	/**
-	 * Update all columns.
+	 * Update.
 	 *
-	 * @param record the record
-	 * @param dsl    the dsl
-	 * @return the update DSL
+	 * @param updateStatement the update statement
+	 * @return the int
 	 */
-	static UpdateDSL<UpdateModel> updateAllColumns(EquivalenceClientOrganization record, UpdateDSL<UpdateModel> dsl) {
-		return dsl.set(idCliente).equalTo(record::getIdCliente).set(idOrganizacionAwx)
-				.equalTo(record::getIdOrganizacionAwx);
-	}
-
-	/**
-	 * Update selective columns.
-	 *
-	 * @param record the record
-	 * @param dsl    the dsl
-	 * @return the update DSL
-	 */
-	static UpdateDSL<UpdateModel> updateSelectiveColumns(EquivalenceClientOrganization record,
-			UpdateDSL<UpdateModel> dsl) {
-		return dsl.set(idCliente).equalToWhenPresent(record::getIdCliente).set(idOrganizacionAwx)
-				.equalToWhenPresent(record::getIdOrganizacionAwx);
-	}
+	@UpdateProvider(type = SqlProviderAdapter.class, method = "update")
+	int update(UpdateStatementProvider updateStatement);
 }

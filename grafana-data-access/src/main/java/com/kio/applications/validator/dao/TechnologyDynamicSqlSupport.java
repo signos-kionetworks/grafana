@@ -17,23 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class TechnologyDynamicSqlSupport {
 
-	/** The Constant technology. */
-	public static final Technology technology = new Technology();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = technology.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = technology.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = technology.descr;
-
 	/**
 	 * The Class Technology.
 	 */
 	public static final class Technology extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -50,4 +38,16 @@ public final class TechnologyDynamicSqlSupport {
 			super("coproducto");
 		}
 	}
+
+	/** The Constant technology. */
+	public static final Technology technology = new Technology();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = technology.id;
+
+	/** The Constant name. */
+	public static final SqlColumn<String> name = technology.name;
+
+	/** The Constant descr. */
+	public static final SqlColumn<String> descr = technology.descr;
 }

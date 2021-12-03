@@ -1,10 +1,10 @@
 /*
-* ****************************************************
-* * Grafana *
-* * KIO Networks *
-* * @Author Julio Galindo *
-* ****************************************************
-*/
+ * ****************************************************
+ * * Grafana *
+ * * KIO Networks *
+ * * @Author Julio Galindo *
+ * ****************************************************
+ */
 
 package com.kio.applications.validator.bo.impl;
 
@@ -33,27 +33,6 @@ public class TechnologyBO implements IfzSelectBO<Technology>, Serializable {
 	private TechnologyMapper technologyMapper;
 
 	/**
-	 * Select by name.
-	 *
-	 * @param value the value
-	 * @return the technology
-	 * @throws GenericException the generic exception
-	 */
-	@Override
-	public Technology selectByName(String value) throws GenericException {
-		final Optional<com.kio.applications.validator.model.Technology> result = this.technologyMapper.selectOne(c -> c
-				.where(com.kio.applications.validator.dao.TechnologyDynamicSqlSupport.name,
-						SqlBuilder.isEqualTo(value.trim().toUpperCase()))
-				.or(com.kio.applications.validator.dao.TechnologyDynamicSqlSupport.descr,
-						SqlBuilder.isEqualTo(value.trim().toUpperCase())));
-		if (result.isPresent()) {
-			return result.get();
-		} else {
-			return null;
-		}
-	}
-
-	/**
 	 * Select by id.
 	 *
 	 * @param id the id
@@ -64,6 +43,27 @@ public class TechnologyBO implements IfzSelectBO<Technology>, Serializable {
 	public Technology selectById(int id) throws GenericException {
 		final Optional<com.kio.applications.validator.model.Technology> result = this.technologyMapper.selectOne(c -> c
 				.where(com.kio.applications.validator.dao.TechnologyDynamicSqlSupport.id, SqlBuilder.isEqualTo(id)));
+		if (result.isPresent()) {
+			return result.get();
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * Select by name.
+	 *
+	 * @param value the value
+	 * @return the technology
+	 * @throws GenericException the generic exception
+	 */
+	@Override
+	public Technology selectByName(String value) throws GenericException {
+		final Optional<com.kio.applications.validator.model.Technology> result = this.technologyMapper.selectOne(c -> c
+				.where(com.kio.applications.validator.dao.TechnologyDynamicSqlSupport.name,
+						SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase()))
+				.or(com.kio.applications.validator.dao.TechnologyDynamicSqlSupport.descr,
+						SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())).limit(1));
 		if (result.isPresent()) {
 			return result.get();
 		} else {

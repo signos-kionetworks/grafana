@@ -17,23 +17,11 @@ import org.mybatis.dynamic.sql.SqlTable;
  */
 public final class SpecialistDynamicSqlSupport {
 
-	/** The Constant specialist. */
-	public static final Specialist specialist = new Specialist();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = specialist.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = specialist.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = specialist.descr;
-
 	/**
 	 * The Class Specialist.
 	 */
 	public static final class Specialist extends SqlTable {
-
+		
 		/** The id. */
 		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -50,4 +38,16 @@ public final class SpecialistDynamicSqlSupport {
 			super("specialist");
 		}
 	}
+
+	/** The Constant specialist. */
+	public static final Specialist specialist = new Specialist();
+
+	/** The Constant id. */
+	public static final SqlColumn<Integer> id = specialist.id;
+
+	/** The Constant name. */
+	public static final SqlColumn<String> name = specialist.name;
+
+	/** The Constant descr. */
+	public static final SqlColumn<String> descr = specialist.descr;
 }

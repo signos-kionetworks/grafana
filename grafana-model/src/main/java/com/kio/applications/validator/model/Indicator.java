@@ -33,7 +33,7 @@ public class Indicator {
 	private String transactionid;
 
 	/** The ticketid. */
-	private String ticketid;
+	private String ticketid = "0";
 
 	/** The svfte. */
 	private Float svfte;
@@ -44,8 +44,7 @@ public class Indicator {
 	/** The total impacted cis. */
 	private Integer totalImpactedCis;
 
-	/** The total execution time. */
-	private Integer totalExecutionTime;
+	private float mantime;
 
 	/**
 	 * Gets the id.
@@ -227,21 +226,11 @@ public class Indicator {
 		this.totalImpactedCis = totalImpactedCis;
 	}
 
-	/**
-	 * Gets the total execution time.
-	 *
-	 * @return the total execution time
-	 */
-	public Integer getTotalExecutionTime() {
-		return totalExecutionTime;
+	public float getMantime() {
+		return mantime;
 	}
 
-	/**
-	 * Sets the total execution time.
-	 *
-	 * @param totalExecutionTime the new total execution time
-	 */
-	public void setTotalExecutionTime(Integer totalExecutionTime) {
-		this.totalExecutionTime = totalExecutionTime;
+	public void setMantime(float mantime) {
+		this.mantime = mantime;
 	}
 }
