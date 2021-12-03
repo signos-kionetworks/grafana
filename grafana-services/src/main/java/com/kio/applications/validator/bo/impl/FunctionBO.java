@@ -35,14 +35,18 @@ public class FunctionBO implements IfzSelectBO<Function>, Serializable {
 	/**
 	 * Select by id.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the function
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
 	public Function selectById(int id) throws GenericException {
-		final Optional<com.kio.applications.validator.model.Function> result = this.functionMapper.selectOne(c -> c
-				.where(com.kio.applications.validator.dao.FunctionDynamicSqlSupport.id, SqlBuilder.isEqualTo(id)));
+		final Optional<com.kio.applications.validator.model.Function> result = this.functionMapper
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.FunctionDynamicSqlSupport.id,
+						SqlBuilder.isEqualTo(id)));
 		if (result.isPresent()) {
 			return result.get();
 		} else {
@@ -53,17 +57,23 @@ public class FunctionBO implements IfzSelectBO<Function>, Serializable {
 	/**
 	 * Select by name.
 	 *
-	 * @param value the value
+	 * @param value
+	 *            the value
 	 * @return the function
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
 	public Function selectByName(String value) throws GenericException {
-		final Optional<com.kio.applications.validator.model.Function> result = this.functionMapper.selectOne(c -> c
-				.where(com.kio.applications.validator.dao.FunctionDynamicSqlSupport.name,
-						SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase()))
-				.or(com.kio.applications.validator.dao.FunctionDynamicSqlSupport.descr,
-						SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())).limit(1));
+		final Optional<com.kio.applications.validator.model.Function> result = this.functionMapper
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.FunctionDynamicSqlSupport.name,
+						SqlBuilder.isInCaseInsensitive(
+								value.trim().toUpperCase()))
+						.or(com.kio.applications.validator.dao.FunctionDynamicSqlSupport.descr,
+								SqlBuilder.isInCaseInsensitive(
+										value.trim().toUpperCase()))
+						.limit(1));
 		if (result.isPresent()) {
 			return result.get();
 		} else {

@@ -24,7 +24,10 @@ import com.kio.applications.validator.model.TechnologicalDomain;
  * The Class TechnologicalDomainBO.
  */
 @Service
-public class TechnologicalDomainBO implements IfzSelectBO<TechnologicalDomain>, Serializable {
+public class TechnologicalDomainBO
+		implements
+			IfzSelectBO<TechnologicalDomain>,
+			Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2597060429064236879L;
@@ -35,14 +38,17 @@ public class TechnologicalDomainBO implements IfzSelectBO<TechnologicalDomain>, 
 	/**
 	 * Select by id.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the technological domain
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
 	public TechnologicalDomain selectById(int id) throws GenericException {
 		final Optional<com.kio.applications.validator.model.TechnologicalDomain> result = this.technologicalDomainMapper
-				.selectOne(c -> c.where(com.kio.applications.validator.dao.TechnologicalDomainDynamicSqlSupport.id,
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.TechnologicalDomainDynamicSqlSupport.id,
 						SqlBuilder.isEqualTo(id)));
 		if (result.isPresent()) {
 			return result.get();
@@ -54,18 +60,24 @@ public class TechnologicalDomainBO implements IfzSelectBO<TechnologicalDomain>, 
 	/**
 	 * Select by name.
 	 *
-	 * @param value the value
+	 * @param value
+	 *            the value
 	 * @return the technological domain
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
-	public TechnologicalDomain selectByName(String value) throws GenericException {
+	public TechnologicalDomain selectByName(String value)
+			throws GenericException {
 		final Optional<com.kio.applications.validator.model.TechnologicalDomain> result = this.technologicalDomainMapper
-				.selectOne(c -> c
-						.where(com.kio.applications.validator.dao.TechnologicalDomainDynamicSqlSupport.name,
-								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase()))
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.TechnologicalDomainDynamicSqlSupport.name,
+						SqlBuilder.isInCaseInsensitive(
+								value.trim().toUpperCase()))
 						.or(com.kio.applications.validator.dao.TechnologicalDomainDynamicSqlSupport.descr,
-								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())).limit(1));
+								SqlBuilder.isInCaseInsensitive(
+										value.trim().toUpperCase()))
+						.limit(1));
 		if (result.isPresent()) {
 			return result.get();
 		} else {

@@ -2,9 +2,7 @@ package com.kio.applications.validator.security;
 
 import java.io.Serializable;
 
-import org.apache.log4j.Logger;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
@@ -15,11 +13,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider, Serializable {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-
-	/** The Constant logger. */
-	private static final Logger logger = Logger.getLogger(CustomAuthenticationProvider.class);
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9172159813867557655L;
 
 	/**
 	 * Instantiates a new custom authentication provider.
@@ -37,8 +34,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Ser
 	 */
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		//TODO: buscar token en servicio de AWX 
-		return new UsernamePasswordAuthenticationToken("test", "test");
+		return null;
 	}
 
 	/**
@@ -49,7 +45,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider, Ser
 	 */
 	@Override
 	public boolean supports(Class<?> authentication) {
-		return UsernamePasswordAuthenticationToken.class.equals(authentication);
+		return true;
 	}
 
 }

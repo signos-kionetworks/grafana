@@ -27,9 +27,19 @@ public class IndicatorBO implements IfzSaveBO<Indicator>, Serializable {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8879124423137177210L;
 
+	/** The indicator mapper. */
 	@Autowired
 	private IndicatorMapper indicatorMapper;
 
+	/**
+	 * Save.
+	 *
+	 * @param object
+	 *            the object
+	 * @return the indicator
+	 * @throws GenericException
+	 *             the generic exception
+	 */
 	@Override
 	public Indicator save(Indicator object) throws GenericException {
 		if (null != object.getId()) {

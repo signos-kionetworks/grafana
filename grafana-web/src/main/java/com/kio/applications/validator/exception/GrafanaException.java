@@ -24,7 +24,7 @@ public class GrafanaException {
 	private String errorMessage;
 
 	/**
-	 * Instantiates a new lector exception.
+	 * Instantiates a new grafana exception.
 	 *
 	 * @param errorCode    the error code
 	 * @param errorMessage the error message

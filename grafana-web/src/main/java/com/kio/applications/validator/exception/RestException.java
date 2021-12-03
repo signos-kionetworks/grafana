@@ -23,6 +23,10 @@ public class RestException {
 	/** The error message. */
 	private String errorMessage;
 
+	public RestException() {
+		System.out.println("");
+	}
+
 	/**
 	 * Instantiates a new rest exception.
 	 *

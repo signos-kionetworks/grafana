@@ -24,7 +24,10 @@ import com.kio.applications.validator.model.LevelOfSpecialization;
  * The Class LevelOfSpecializationBO.
  */
 @Service
-public class LevelOfSpecializationBO implements IfzSelectBO<LevelOfSpecialization>, Serializable {
+public class LevelOfSpecializationBO
+		implements
+			IfzSelectBO<LevelOfSpecialization>,
+			Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1277606981685964646L;
@@ -35,14 +38,17 @@ public class LevelOfSpecializationBO implements IfzSelectBO<LevelOfSpecializatio
 	/**
 	 * Select by id.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the level of specialization
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
 	public LevelOfSpecialization selectById(int id) throws GenericException {
 		final Optional<com.kio.applications.validator.model.LevelOfSpecialization> result = this.levelOfSpecializationMapper
-				.selectOne(c -> c.where(com.kio.applications.validator.dao.LevelOfSpecializationDynamicSqlSupport.id,
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.LevelOfSpecializationDynamicSqlSupport.id,
 						SqlBuilder.isEqualTo(id)));
 		if (result.isPresent()) {
 			return result.get();
@@ -54,18 +60,24 @@ public class LevelOfSpecializationBO implements IfzSelectBO<LevelOfSpecializatio
 	/**
 	 * Select by name.
 	 *
-	 * @param value the value
+	 * @param value
+	 *            the value
 	 * @return the level of specialization
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
-	public LevelOfSpecialization selectByName(String value) throws GenericException {
+	public LevelOfSpecialization selectByName(String value)
+			throws GenericException {
 		final Optional<com.kio.applications.validator.model.LevelOfSpecialization> result = this.levelOfSpecializationMapper
-				.selectOne(c -> c
-						.where(com.kio.applications.validator.dao.LevelOfSpecializationDynamicSqlSupport.name,
-								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase()))
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.LevelOfSpecializationDynamicSqlSupport.name,
+						SqlBuilder.isInCaseInsensitive(
+								value.trim().toUpperCase()))
 						.or(com.kio.applications.validator.dao.LevelOfSpecializationDynamicSqlSupport.descr,
-								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())).limit(1));
+								SqlBuilder.isInCaseInsensitive(
+										value.trim().toUpperCase()))
+						.limit(1));
 		if (result.isPresent()) {
 			return result.get();
 		} else {

@@ -35,14 +35,18 @@ public class PlatformBO implements IfzSelectBO<Platform>, Serializable {
 	/**
 	 * Select by id.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the platform
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
 	public Platform selectById(int id) throws GenericException {
-		final Optional<com.kio.applications.validator.model.Platform> result = this.platformMapper.selectOne(c -> c
-				.where(com.kio.applications.validator.dao.PlatformDynamicSqlSupport.id, SqlBuilder.isEqualTo(id)));
+		final Optional<com.kio.applications.validator.model.Platform> result = this.platformMapper
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.PlatformDynamicSqlSupport.id,
+						SqlBuilder.isEqualTo(id)));
 		if (result.isPresent()) {
 			return result.get();
 		} else {
@@ -53,16 +57,23 @@ public class PlatformBO implements IfzSelectBO<Platform>, Serializable {
 	/**
 	 * Select by name.
 	 *
-	 * @param value the value
+	 * @param value
+	 *            the value
 	 * @return the platform
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
 	public Platform selectByName(String value) throws GenericException {
 		final Optional<com.kio.applications.validator.model.Platform> result = this.platformMapper
-				.selectOne(c -> c.where(com.kio.applications.validator.dao.PlatformDynamicSqlSupport.name,
-						SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())).or(com.kio.applications.validator.dao.ClientDynamicSqlSupport.descr,
-								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())).limit(1));
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.PlatformDynamicSqlSupport.name,
+						SqlBuilder.isInCaseInsensitive(
+								value.trim().toUpperCase()))
+						.or(com.kio.applications.validator.dao.ClientDynamicSqlSupport.descr,
+								SqlBuilder.isInCaseInsensitive(
+										value.trim().toUpperCase()))
+						.limit(1));
 		if (result.isPresent()) {
 			return result.get();
 		} else {

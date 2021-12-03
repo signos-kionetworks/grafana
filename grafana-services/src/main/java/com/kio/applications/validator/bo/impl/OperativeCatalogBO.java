@@ -24,7 +24,10 @@ import com.kio.applications.validator.model.OperativeCatalog;
  * The Class OperativeCatalogBO.
  */
 @Service
-public class OperativeCatalogBO implements IfzSearchByKeyBO<OperativeCatalog>, Serializable {
+public class OperativeCatalogBO
+		implements
+			IfzSearchByKeyBO<OperativeCatalog>,
+			Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2583084583910196478L;
@@ -36,23 +39,28 @@ public class OperativeCatalogBO implements IfzSearchByKeyBO<OperativeCatalog>, S
 	/**
 	 * Search by key values.
 	 *
-	 * @param value the value
+	 * @param value
+	 *            the value
 	 * @return the operative catalog
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
-	public OperativeCatalog searchByKeyValues(OperativeCatalog value) throws GenericException {
+	public OperativeCatalog searchByKeyValues(OperativeCatalog value)
+			throws GenericException {
 		final Optional<com.kio.applications.validator.model.OperativeCatalog> result = this.operativeCatalogMapper
-				.selectOne(c -> c
-						.where(com.kio.applications.validator.dao.OperativeCatalogDynamicSqlSupport.producto,
-								SqlBuilder.isEqualTo(value.getProducto()))
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.OperativeCatalogDynamicSqlSupport.producto,
+						SqlBuilder.isEqualTo(value.getProducto()))
 						.and(com.kio.applications.validator.dao.OperativeCatalogDynamicSqlSupport.catnivel1,
 								SqlBuilder.isEqualTo(value.getCatnivel1()))
 						.and(com.kio.applications.validator.dao.OperativeCatalogDynamicSqlSupport.catnivel2,
 								SqlBuilder.isEqualTo(value.getCatnivel2()))
 						.and(com.kio.applications.validator.dao.OperativeCatalogDynamicSqlSupport.catnivel3,
 								SqlBuilder.isEqualTo(value.getCatnivel3()))
-						.orderBy(com.kio.applications.validator.dao.OperativeCatalogDynamicSqlSupport.id).limit(1));
+						.orderBy(
+								com.kio.applications.validator.dao.OperativeCatalogDynamicSqlSupport.id)
+						.limit(1));
 		if (result.isPresent()) {
 			return result.get();
 		} else {

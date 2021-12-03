@@ -35,14 +35,17 @@ public class TypeDevelopBO implements IfzSelectBO<TypeDevelop>, Serializable {
 	/**
 	 * Select by id.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the type develop
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
 	public TypeDevelop selectById(int id) throws GenericException {
 		final Optional<com.kio.applications.validator.model.TypeDevelop> result = this.typeDevelopMapper
-				.selectOne(c -> c.where(com.kio.applications.validator.dao.TypeDevelopDynamicSqlSupport.id,
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.TypeDevelopDynamicSqlSupport.id,
 						SqlBuilder.isEqualTo(id)));
 		if (result.isPresent()) {
 			return result.get();
@@ -54,18 +57,23 @@ public class TypeDevelopBO implements IfzSelectBO<TypeDevelop>, Serializable {
 	/**
 	 * Select by name.
 	 *
-	 * @param value the value
+	 * @param value
+	 *            the value
 	 * @return the type develop
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
 	public TypeDevelop selectByName(String value) throws GenericException {
 		final Optional<com.kio.applications.validator.model.TypeDevelop> result = this.typeDevelopMapper
-				.selectOne(c -> c
-						.where(com.kio.applications.validator.dao.TypeDevelopDynamicSqlSupport.name,
-								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase()))
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.TypeDevelopDynamicSqlSupport.name,
+						SqlBuilder.isInCaseInsensitive(
+								value.trim().toUpperCase()))
 						.or(com.kio.applications.validator.dao.TypeDevelopDynamicSqlSupport.descr,
-								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())).limit(1));
+								SqlBuilder.isInCaseInsensitive(
+										value.trim().toUpperCase()))
+						.limit(1));
 		if (result.isPresent()) {
 			return result.get();
 		} else {

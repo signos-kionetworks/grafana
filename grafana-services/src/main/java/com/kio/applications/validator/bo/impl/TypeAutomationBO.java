@@ -24,7 +24,10 @@ import com.kio.applications.validator.model.TypeAutomation;
  * The Class TypeAutomationBO.
  */
 @Service
-public class TypeAutomationBO implements IfzSelectBO<TypeAutomation>, Serializable {
+public class TypeAutomationBO
+		implements
+			IfzSelectBO<TypeAutomation>,
+			Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 4572342625977699608L;
@@ -35,14 +38,17 @@ public class TypeAutomationBO implements IfzSelectBO<TypeAutomation>, Serializab
 	/**
 	 * Select by id.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the type automation
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
 	public TypeAutomation selectById(int id) throws GenericException {
 		final Optional<com.kio.applications.validator.model.TypeAutomation> result = this.typeAutomationMapper
-				.selectOne(c -> c.where(com.kio.applications.validator.dao.TypeAutomationDynamicSqlSupport.id,
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.TypeAutomationDynamicSqlSupport.id,
 						SqlBuilder.isEqualTo(id)));
 		if (result.isPresent()) {
 			return result.get();
@@ -54,18 +60,23 @@ public class TypeAutomationBO implements IfzSelectBO<TypeAutomation>, Serializab
 	/**
 	 * Select by name.
 	 *
-	 * @param value the value
+	 * @param value
+	 *            the value
 	 * @return the type automation
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
 	public TypeAutomation selectByName(String value) throws GenericException {
 		final Optional<com.kio.applications.validator.model.TypeAutomation> result = this.typeAutomationMapper
-				.selectOne(c -> c
-						.where(com.kio.applications.validator.dao.TypeAutomationDynamicSqlSupport.name,
-								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase()))
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.TypeAutomationDynamicSqlSupport.name,
+						SqlBuilder.isInCaseInsensitive(
+								value.trim().toUpperCase()))
 						.or(com.kio.applications.validator.dao.TypeAutomationDynamicSqlSupport.descr,
-								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())).limit(1));
+								SqlBuilder.isInCaseInsensitive(
+										value.trim().toUpperCase()))
+						.limit(1));
 		if (result.isPresent()) {
 			return result.get();
 		} else {

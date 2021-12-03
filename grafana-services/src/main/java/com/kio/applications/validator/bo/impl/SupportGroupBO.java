@@ -35,14 +35,17 @@ public class SupportGroupBO implements IfzSelectBO<SupportGroup>, Serializable {
 	/**
 	 * Select by id.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the support group
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
 	public SupportGroup selectById(int id) throws GenericException {
 		final Optional<com.kio.applications.validator.model.SupportGroup> result = this.supportGroupMapper
-				.selectOne(c -> c.where(com.kio.applications.validator.dao.SupportGroupDynamicSqlSupport.id,
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.SupportGroupDynamicSqlSupport.id,
 						SqlBuilder.isEqualTo(id)));
 		if (result.isPresent()) {
 			return result.get();
@@ -54,18 +57,23 @@ public class SupportGroupBO implements IfzSelectBO<SupportGroup>, Serializable {
 	/**
 	 * Select by name.
 	 *
-	 * @param value the value
+	 * @param value
+	 *            the value
 	 * @return the support group
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
 	public SupportGroup selectByName(String value) throws GenericException {
 		final Optional<com.kio.applications.validator.model.SupportGroup> result = this.supportGroupMapper
-				.selectOne(c -> c
-						.where(com.kio.applications.validator.dao.SupportGroupDynamicSqlSupport.name,
-								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase()))
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.SupportGroupDynamicSqlSupport.name,
+						SqlBuilder.isInCaseInsensitive(
+								value.trim().toUpperCase()))
 						.or(com.kio.applications.validator.dao.SupportGroupDynamicSqlSupport.descr,
-								SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())).limit(1));
+								SqlBuilder.isInCaseInsensitive(
+										value.trim().toUpperCase()))
+						.limit(1));
 		if (result.isPresent()) {
 			return result.get();
 		} else {

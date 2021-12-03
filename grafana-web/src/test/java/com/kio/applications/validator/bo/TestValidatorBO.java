@@ -9,6 +9,8 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kio.applications.validator.bo.impl.ValidatorBO;
 import com.kio.applications.validator.exception.GenericException;
 import com.kio.applications.validator.model.web.ExtraVars;
@@ -44,6 +46,13 @@ public class TestValidatorBO extends AbstractTransactionalJUnit4SpringContextTes
 			vars.setPlaybookStartTimestamp(1638490849);
 
 			validatorRequest.setExtraVars(vars);
+			
+			try {
+				System.out.println(new ObjectMapper().writeValueAsString(validatorRequest));
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			validatorBO.processRequest(validatorRequest);
 

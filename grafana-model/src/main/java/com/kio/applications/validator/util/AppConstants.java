@@ -17,4 +17,8 @@ public class AppConstants {
 	 */
 	public AppConstants() {
 	}
+
+	public static final String P_TOKEN = "TOKEN";
+
+	public static final String INTERNAL_ERROR = "Ha ocurrido un error en la aplicación, por favor contacte al administrador para solucionar el problema";
 }

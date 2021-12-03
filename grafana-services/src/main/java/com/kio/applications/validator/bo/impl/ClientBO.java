@@ -36,14 +36,18 @@ public class ClientBO implements IfzSelectBO<Client>, Serializable {
 	/**
 	 * Select by id.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the client
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
 	public Client selectById(int id) throws GenericException {
-		final Optional<com.kio.applications.validator.model.Client> client = this.clientMapper.selectOne(
-				c -> c.where(com.kio.applications.validator.dao.ClientDynamicSqlSupport.id, SqlBuilder.isEqualTo(id)));
+		final Optional<com.kio.applications.validator.model.Client> client = this.clientMapper
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.ClientDynamicSqlSupport.id,
+						SqlBuilder.isEqualTo(id)));
 		if (client.isPresent()) {
 			return client.get();
 		} else {
@@ -54,17 +58,23 @@ public class ClientBO implements IfzSelectBO<Client>, Serializable {
 	/**
 	 * Select by name.
 	 *
-	 * @param value the value
+	 * @param value
+	 *            the value
 	 * @return the client
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
 	public Client selectByName(String value) throws GenericException {
-		final Optional<com.kio.applications.validator.model.Client> client = this.clientMapper.selectOne(c -> c
-				.where(com.kio.applications.validator.dao.ClientDynamicSqlSupport.name,
-						SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase()))
-				.or(com.kio.applications.validator.dao.ClientDynamicSqlSupport.descr,
-						SqlBuilder.isInCaseInsensitive(value.trim().toUpperCase())).limit(1));
+		final Optional<com.kio.applications.validator.model.Client> client = this.clientMapper
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.ClientDynamicSqlSupport.name,
+						SqlBuilder.isInCaseInsensitive(
+								value.trim().toUpperCase()))
+						.or(com.kio.applications.validator.dao.ClientDynamicSqlSupport.descr,
+								SqlBuilder.isInCaseInsensitive(
+										value.trim().toUpperCase()))
+						.limit(1));
 		if (client.isPresent()) {
 			return client.get();
 		} else {

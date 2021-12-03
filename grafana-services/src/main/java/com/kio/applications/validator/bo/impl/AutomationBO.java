@@ -25,7 +25,11 @@ import com.kio.applications.validator.model.Automation;
  * The Class AutomationBO.
  */
 @Service
-public class AutomationBO implements IfzSaveBO<Automation>, IfzSearchByKeyBO<Automation>, Serializable {
+public class AutomationBO
+		implements
+			IfzSaveBO<Automation>,
+			IfzSearchByKeyBO<Automation>,
+			Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8798643153312463893L;
@@ -37,9 +41,11 @@ public class AutomationBO implements IfzSaveBO<Automation>, IfzSearchByKeyBO<Aut
 	/**
 	 * Save.
 	 *
-	 * @param object the object
+	 * @param object
+	 *            the object
 	 * @return the automation
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
 	public Automation save(Automation object) throws GenericException {
@@ -55,34 +61,39 @@ public class AutomationBO implements IfzSaveBO<Automation>, IfzSearchByKeyBO<Aut
 	/**
 	 * Search by key values.
 	 *
-	 * @param value the value
+	 * @param value
+	 *            the value
 	 * @return the automation
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
-	public Automation searchByKeyValues(Automation value) throws GenericException {
-		final Optional<Automation> automation = this.automationMapper.selectOne(c -> c
-				.where(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.areaid,
+	public Automation searchByKeyValues(Automation value)
+			throws GenericException {
+		final Optional<Automation> automation = this.automationMapper
+				.selectOne(c -> c.where(
+						com.kio.applications.validator.dao.AutomationDynamicSqlSupport.areaid,
 						SqlBuilder.isEqualTo(value.getAreaid()))
-				.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.dirid,
-						SqlBuilder.isEqualTo(value.getDirid()))
-				.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.platformid,
-						SqlBuilder.isEqualTo(value.getPlatformid()))
-				.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.tipoautid,
-						SqlBuilder.isEqualTo(value.getTipoautid()))
-				.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.tipoexecid,
-						SqlBuilder.isEqualTo(value.getTipoexecid()))
-				.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.devtypeid,
-						SqlBuilder.isEqualTo(value.getDevtypeid()))
-				.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.catopid,
-						SqlBuilder.isEqualTo(value.getCatopid()))
-				.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.clienteid,
-						SqlBuilder.isEqualTo(value.getClienteid()))
-				.orderBy(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.id).limit(1)
-				);
+						.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.dirid,
+								SqlBuilder.isEqualTo(value.getDirid()))
+						.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.platformid,
+								SqlBuilder.isEqualTo(value.getPlatformid()))
+						.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.tipoautid,
+								SqlBuilder.isEqualTo(value.getTipoautid()))
+						.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.tipoexecid,
+								SqlBuilder.isEqualTo(value.getTipoexecid()))
+						.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.devtypeid,
+								SqlBuilder.isEqualTo(value.getDevtypeid()))
+						.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.catopid,
+								SqlBuilder.isEqualTo(value.getCatopid()))
+						.and(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.clienteid,
+								SqlBuilder.isEqualTo(value.getClienteid()))
+						.orderBy(
+								com.kio.applications.validator.dao.AutomationDynamicSqlSupport.id)
+						.limit(1));
 
 		if (automation.isPresent()) {
-			return  automation.get();
+			return automation.get();
 		} else {
 			return value;
 		}

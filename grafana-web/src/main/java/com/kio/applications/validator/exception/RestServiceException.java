@@ -30,7 +30,7 @@ public class RestServiceException extends WebApplicationException {
 	 * Instantiates a new rest service exception.
 	 */
 	public RestServiceException() {
-
+		super();
 	}
 
 	/**

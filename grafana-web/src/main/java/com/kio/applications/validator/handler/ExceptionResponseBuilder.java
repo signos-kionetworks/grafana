@@ -22,19 +22,21 @@ public class ExceptionResponseBuilder extends WebApplicationExceptionMapper {
 	/**
 	 * To response.
 	 *
-	 * @param ex the ex
+	 * @param ex
+	 *            the ex
 	 * @return the response
 	 */
 	@Override
 	public Response toResponse(WebApplicationException ex) {
-		if (ex.getCause() != null) {
-			return Response.status(Response.Status.BAD_REQUEST)
-					.entity(new RestException(Response.Status.BAD_REQUEST.getStatusCode(), ex.getCause().getMessage()))
-					.build();
-		} else {
-			return Response.status(Response.Status.FORBIDDEN)
-					.entity(new RestException(Response.Status.FORBIDDEN.getStatusCode(), ex.getMessage())).build();
-		}
+
+		return Response.status(Response.Status.BAD_REQUEST)
+				.entity(new RestException(
+						Response.Status.BAD_REQUEST.getStatusCode(),
+						ex.getCause() != null
+								? ex.getCause().getMessage()
+								: ex.getMessage()))
+				.build();
+
 	}
 
 }

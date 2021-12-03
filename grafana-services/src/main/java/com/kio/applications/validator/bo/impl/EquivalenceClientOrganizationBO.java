@@ -24,7 +24,10 @@ import com.kio.applications.validator.model.EquivalenceClientOrganization;
  * The Class EquivalenceClientOrganizationBO.
  */
 @Service
-public class EquivalenceClientOrganizationBO implements IfzEquivalenciaClientOrganizationBO, Serializable {
+public class EquivalenceClientOrganizationBO
+		implements
+			IfzEquivalenciaClientOrganizationBO,
+			Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2799435436939204953L;
@@ -36,12 +39,15 @@ public class EquivalenceClientOrganizationBO implements IfzEquivalenciaClientOrg
 	/**
 	 * Search client by id organization.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the equivalence client organization
-	 * @throws GenericException the generic exception
+	 * @throws GenericException
+	 *             the generic exception
 	 */
 	@Override
-	public EquivalenceClientOrganization searchClientByIdOrganization(Integer id) throws GenericException {
+	public EquivalenceClientOrganization searchClientByIdOrganization(
+			Integer id) throws GenericException {
 		final Optional<com.kio.applications.validator.model.EquivalenceClientOrganization> result = this.equivalenceClientOrganizationMapper
 				.selectOne(c -> c.where(
 						com.kio.applications.validator.dao.EquivalenceClientOrganizationDynamicSqlSupport.idOrganizacionAwx,

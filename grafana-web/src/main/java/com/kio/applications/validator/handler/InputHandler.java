@@ -8,6 +8,11 @@
 
 package com.kio.applications.validator.handler;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -15,14 +20,27 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.kio.applications.validator.bo.impl.TokenAWXBO;
+import com.kio.applications.validator.exception.GenericException;
 import com.kio.applications.validator.exception.GrafanaException;
+import com.kio.applications.validator.model.TokenAWX;
+import com.kio.applications.validator.noctopus.api.APINoctopus;
+import com.kio.applications.validator.util.AppConstants;
 
 /**
  * The Class InputHandler.
  */
 public class InputHandler extends AbstractPhaseInterceptor<Message> {
 
+	@Autowired
+	private APINoctopus apiNoctopus;
+
+	@Autowired
+	TokenAWXBO tokenAWXBO;
+	
+	private static String BEARER = "Bearer ";
 	/**
 	 * Instantiates a new input handler.
 	 */
@@ -33,27 +51,66 @@ public class InputHandler extends AbstractPhaseInterceptor<Message> {
 	/**
 	 * Builds the response.
 	 *
-	 * @param status  the status
-	 * @param mensaje the mensaje
+	 * @param status
+	 *            the status
+	 * @param mensaje
+	 *            the mensaje
 	 * @return the response
 	 */
 	private Response buildResponse(Status status, String mensaje) {
 		return Response.status(status).type(MediaType.APPLICATION_JSON)
-				.entity(new GrafanaException(status.getStatusCode(), mensaje)).build();
+				.entity(new GrafanaException(status.getStatusCode(), mensaje))
+				.build();
 	}
 
 	/**
 	 * Handle message.
 	 *
-	 * @param message the message
+	 * @param message
+	 *            the message
 	 */
 	@Override
 	public void handleMessage(final Message message) {
-		/*
-		 * try { } catch (final GenericException e) {
-		 * message.getExchange().put(Response.class,
-		 * this.buildResponse(Response.Status.BAD_REQUEST, e.getMessage())); }
-		 */
+		
+		Map<?, ?> protocolHeaders = (TreeMap<?, ?>) message
+				.get(Message.PROTOCOL_HEADERS);
+		List<?> authzHeaders = (ArrayList<?>) protocolHeaders
+				.get("Authorization");
+		if (null != authzHeaders && authzHeaders.size() > 0) {
+			String authorization = (String) authzHeaders.get(0);
+			if (authorization.startsWith(BEARER)) {
+				try {
+					String bearerToken = authorization.replace(BEARER, "");
+					apiNoctopus.validateTokenAnsible(bearerToken);
+					TokenAWX token = tokenAWXBO.searchToken(bearerToken);
+					if (null == token) {
+						message.getExchange().put(Response.class,
+								this.buildResponse(Response.Status.UNAUTHORIZED,
+										"Token no registrado en grafana."));
+					} else {
+						message.put(AppConstants.P_TOKEN, token);
+					}
+
+				} catch (GenericException e) {
+					message.getExchange().put(Response.class,
+							this.buildResponse(Response.Status.UNAUTHORIZED,
+									e.getMessage()));
+				} catch (Exception e) {
+					message.getExchange().put(Response.class,
+							this.buildResponse(Response.Status.BAD_REQUEST,
+									"No se pudo atender la solicitud."));
+				}
+
+			} else {
+				message.getExchange().put(Response.class,
+						this.buildResponse(Response.Status.UNAUTHORIZED,
+								"Authentication method not allowed."));
+			}
+		} else {
+			message.getExchange().put(Response.class,
+					this.buildResponse(Response.Status.UNAUTHORIZED,
+							"Authentication is required."));
+		}
 
 	}
 

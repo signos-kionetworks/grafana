@@ -27,8 +27,8 @@
 		class="org.apache.cxf.transport.common.gzip.GZIPOutInterceptor" />
 	<!-- REST SERVERS -->
 
-	<!-- <jaxrs:server id="rcValidator"
-		address="/servicio/rest/validator">
+	<jaxrs:server id="rcValidator"
+		address="/service/rest/validator">
 		<jaxrs:providers>
 			<ref bean="jsonProvider" />
 			<ref bean="wadlProvider" />
@@ -45,7 +45,7 @@
 			<ref bean="gZipInterceptor" />
 		</jaxrs:outInterceptors>
 	</jaxrs:server>
-	 -->
+
 
 	<bean id="cxfOutputHandler"
 		class="com.kio.applications.validator.handler.OutputHandler">
@@ -65,10 +65,6 @@
 		</cxf:inInterceptors>
 	</cxf:bus>
 
-
-	<!-- Spring Validation -->
-	<!-- <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" 
-		/> -->
 	<bean id="exceptionResponseBuilder"
 		class="com.kio.applications.validator.handler.ExceptionResponseBuilder">
 	</bean>
