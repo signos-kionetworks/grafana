@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.log4j.Logger;
 import org.apache.logging.log4j.core.net.Protocol;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -36,9 +37,10 @@ public class APINoctopus implements Serializable {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -6641166885167286110L;
 	/** The Constant logger. */
-	private static final Logger logger = Logger.getLogger(APINoctopus.class);
-
-	private static final String urlToken = "https://ansible.kionetworks.com/api/v2/tokens";
+	private static final Logger logger = Logger.getLogger(APINoctopus.class);	
+	
+	@Value("${ansible.url.token}")
+	private String urlToken;
 
 	/**
 	 * Instantiates a new API remedy.
