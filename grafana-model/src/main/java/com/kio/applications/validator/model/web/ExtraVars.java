@@ -24,6 +24,9 @@ public class ExtraVars implements Serializable {
 	/** The playbook start timestamp. */
 	private Integer playbookStartTimestamp;
 
+	/** The playbook end timestamp. */
+	private Integer playbookEndTimestamp;
+
 	/** The woid. */
 	private String woid;
 
@@ -109,6 +112,15 @@ public class ExtraVars implements Serializable {
 	 */
 	public String getPlatform() {
 		return platform;
+	}
+
+	/**
+	 * Gets the playbook end timestamp.
+	 *
+	 * @return the playbook end timestamp
+	 */
+	public Integer getPlaybookEndTimestamp() {
+		return playbookEndTimestamp;
 	}
 
 	/**
@@ -254,6 +266,11 @@ public class ExtraVars implements Serializable {
 	@XmlElement(name = "platform")
 	public void setPlatform(String platform) {
 		this.platform = platform;
+	}
+
+	@XmlElement(name = "playbook_end_timestamp")
+	public void setPlaybookEndTimestamp(Integer playbookEndTimestamp) {
+		this.playbookEndTimestamp = playbookEndTimestamp;
 	}
 
 	/**

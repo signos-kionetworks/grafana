@@ -22,6 +22,7 @@ import com.kio.applications.validator.exception.GenericException;
 import com.kio.applications.validator.model.Area;
 import com.kio.applications.validator.model.Automation;
 import com.kio.applications.validator.model.Client;
+import com.kio.applications.validator.model.EquivalenceClient;
 import com.kio.applications.validator.model.EquivalenceClientOrganization;
 import com.kio.applications.validator.model.Indicator;
 import com.kio.applications.validator.model.LevelOfSpecialization;
@@ -51,6 +52,9 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/** The client BO. */
 	@Autowired
 	ClientBO clientBO;
+
+	@Autowired
+	EquivalenceClientBO equivalenceClientBO;
 
 	/** The indicator BO. */
 	@Autowired
@@ -166,15 +170,15 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 		automation.setDevtypeid(this.validateTypeDevelop(value));
 		automation.setCatopid(this.validateOperativeCatalog(value));
 
-		String nameUnique = String.format(
+		String uniqueName = String.format(
 				"dirid:%s-areaid:%s-clienteid:%s-plataformaid:%s-tipoautid:%s-tipoexecid:%s-devtypeid:%s-catopid:%s",
 				automation.getDirid(), automation.getAreaid(),
 				automation.getClienteid(), automation.getPlatformid(),
 				automation.getTipoautid(), automation.getTipoexecid(),
 				automation.getDevtypeid(), automation.getCatopid());
 
-		automation.setBotDescr(nameUnique);
-		automation.setBotname(nameUnique);
+		automation.setBotDescr(uniqueName);
+		automation.setBotname(uniqueName);
 
 		Automation automationBD = automationBO.searchByKeyValues(automation);
 		if (null != automationBD) {
@@ -256,9 +260,23 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 
 		if (null != value.getExtraVars().getPlaybookStartTimestamp()
 				&& value.getExtraVars().getPlaybookStartTimestamp() > 0) {
-			float autotime = (float) ((Instant.now().getEpochSecond()
-					- value.getExtraVars().getPlaybookStartTimestamp())
-					/ 3600.0);
+			float autotime = 0;
+			if (null != value.getExtraVars().getPlaybookEndTimestamp()
+					&& value.getExtraVars().getPlaybookEndTimestamp() > 0) {
+				if (value.getExtraVars().getPlaybookEndTimestamp() < value
+						.getExtraVars().getPlaybookEndTimestamp()) {
+					throw new GenericException(
+							"El campo playbook_end_timestamp no puede ser menor que el campo playbook_start_timestamp.");
+				}
+				autotime = (float) ((value.getExtraVars()
+						.getPlaybookEndTimestamp()
+						- value.getExtraVars().getPlaybookStartTimestamp())
+						/ 3600.0);
+			} else {
+				autotime = (float) ((Instant.now().getEpochSecond()
+						- value.getExtraVars().getPlaybookStartTimestamp())
+						/ 3600.0);
+			}
 			float svtime = (value.getExtraVars().getManualTime() - autotime);
 			float svfte = svtime / 150;
 			/*
@@ -280,7 +298,7 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 
 		response.setRecordId(indicator.getId().intValue());
 		response.setAutId(automation.getId().intValue());
-		response.setMessage("Registro existoso");
+		response.setMessage("Registro exitoso");
 
 		return response;
 	}
@@ -302,9 +320,18 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 				&& !value.getExtraVars().getClient().isEmpty()) {
 			client = clientBO.selectByName(value.getExtraVars().getClient());
 			if (null == client) {
-				throw new GenericException(String.format(
-						"El valor [%s] del campo client no existe.",
-						value.getExtraVars().getClient()));
+
+				EquivalenceClient equivalenceClient = equivalenceClientBO
+						.selectByName(value.getExtraVars().getClient());
+
+				if (null != equivalenceClient) {
+					client = clientBO
+							.selectById(equivalenceClient.getIdCliente());
+				} else {
+					throw new GenericException(String.format(
+							"El valor [%s] del campo client no existe.",
+							value.getExtraVars().getClient()));
+				}
 			}
 		} else {
 			throw new GenericException("El campo client es obligatorio.");
