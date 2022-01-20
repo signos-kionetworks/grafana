@@ -264,9 +264,9 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 			if (null != value.getExtraVars().getPlaybookEndTimestamp()
 					&& value.getExtraVars().getPlaybookEndTimestamp() > 0) {
 				if (value.getExtraVars().getPlaybookEndTimestamp() < value
-						.getExtraVars().getPlaybookEndTimestamp()) {
+						.getExtraVars().getPlaybookStartTimestamp()) {
 					throw new GenericException(
-							"El campo playbook_end_timestamp no puede ser menor que el campo playbook_start_timestamp.");
+							"El valor del campo playbook_end_timestamp no puede ser menor que el valor del campo playbook_start_timestamp.");
 				}
 				autotime = (float) ((value.getExtraVars()
 						.getPlaybookEndTimestamp()

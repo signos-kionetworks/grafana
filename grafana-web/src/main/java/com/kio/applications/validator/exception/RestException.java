@@ -43,7 +43,7 @@ public class RestException {
 	 *
 	 * @return the error code
 	 */
-	@XmlElement(name = "errorCode")
+	@XmlElement(name = "error_code")
 	public int getErrorCode() {
 		return this.errorCode;
 	}
@@ -53,7 +53,7 @@ public class RestException {
 	 *
 	 * @return the error message
 	 */
-	@XmlElement(name = "errorMessage")
+	@XmlElement(name = "error_message")
 	public String getErrorMessage() {
 		return this.errorMessage;
 	}

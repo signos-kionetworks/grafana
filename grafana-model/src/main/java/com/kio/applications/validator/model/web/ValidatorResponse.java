@@ -63,7 +63,7 @@ public class ValidatorResponse implements Serializable {
 	 * @param autId
 	 *            the new aut id
 	 */
-	@XmlElement(name = "aut_id")
+	@XmlElement(name = "automation_id")
 	public void setAutId(Integer autId) {
 		this.autId = autId;
 	}

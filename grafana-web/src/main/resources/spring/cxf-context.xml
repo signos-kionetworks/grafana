@@ -41,9 +41,9 @@
 			<entry key="xml" value="application/xml" />
 			<entry key="json" value="application/json" />
 		</jaxrs:extensionMappings>
-		<jaxrs:outInterceptors>
+		<!-- jaxrs:outInterceptors>
 			<ref bean="gZipInterceptor" />
-		</jaxrs:outInterceptors>
+		</jaxrs:outInterceptors-->
 	</jaxrs:server>
 
 

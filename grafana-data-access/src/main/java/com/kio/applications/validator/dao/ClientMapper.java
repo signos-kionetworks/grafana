@@ -196,6 +196,7 @@ public interface ClientMapper {
 	 * @param completer the completer
 	 * @return the list
 	 */
+	@Options(useCache=true)
 	default List<Client> select(SelectDSLCompleter completer) {
 		return MyBatis3Utils.selectList(this::selectMany, selectList, client, completer);
 	}
