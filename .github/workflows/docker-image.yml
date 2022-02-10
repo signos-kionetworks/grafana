@@ -27,7 +27,7 @@ jobs:
           name: grafana.war        
           path: grafana-web/target/grafana.war
   publish:
-
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
