@@ -55,4 +55,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: grafana/grafana:v${{github.run_number}}
+        tags: jgalindol/grafana:v${{github.run_number}}
