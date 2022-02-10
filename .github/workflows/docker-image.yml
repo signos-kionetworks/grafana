@@ -3,9 +3,11 @@ name: Docker Image CI
   push:
     branches:
       - main
+      - desarrollo
   pull_request:
     branches:
       - main
+      - desarrollo
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -60,7 +62,7 @@ jobs:
       - name: Obteniendo ambiente a deployar
         run: >
           echo "SSH_TARGET=/data/vol/containers/grafana/prod/" >> $GITHUB_ENV
-        if: '${{ github.ref == ''refs/heads/master'' }}'
+        if: '${{ github.ref == ''refs/heads/main'' }}'
       - name: Obteniendo ambiente a deployar
         run: >
           echo "SSH_TARGET=/data/vol/containers/grafana/dev/" >> $GITHUB_ENV
