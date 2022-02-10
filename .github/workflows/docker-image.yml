@@ -3,7 +3,7 @@ name: Docker Image CI
   push:
     branches:
       #- main
-      - desarrollo
+      #- desarrollo
   pull_request:
     branches:
       - main
