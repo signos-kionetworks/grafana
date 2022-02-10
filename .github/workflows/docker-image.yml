@@ -42,8 +42,8 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: jgalindol
-          password: 404d4225-9768-4e7f-bc2d-a2dd3f7e4336
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_PASSWD }}
       - name: Download artifact
         uses: actions/download-artifact@v2
       - name: Build and push
@@ -74,16 +74,6 @@ jobs:
       - name: Mostrando contenido del proyecto
         run: |
           ls ${{ github.workspace }}
-      - name: Deployando archivos en servidor remoto
-        uses: appleboy/scp-action@master
-        with:
-          host: '${{ secrets.SSH_HOST }}'
-          username: '${{ secrets.SSH_USER }}'
-          password: '${{ secrets.SSH_PASSWD }}'
-          port: '${{ secrets.SSH_PORT }}'
-          source: '*.*'
-          target: '${{ env.SSH_TARGET }}'
-          rm: true
       - name: Reiniciar docker-compose en servidor remoto
         uses: fifsky/ssh-action@master
         env:
