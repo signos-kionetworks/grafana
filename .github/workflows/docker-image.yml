@@ -59,12 +59,12 @@ jobs:
     steps:
       - name: Obteniendo ambiente a deployar
         run: >
-          echo "SSH_TARGET=/data/vol/containers/grafana/prod/encrypt-message/"
+          echo "SSH_TARGET=/data/vol/containers/grafana/prod/"
           >> $GITHUB_ENV
         if: '${{ github.ref == ''refs/heads/master'' }}'
       - name: Obteniendo ambiente a deployar
         run: >
-          echo "SSH_TARGET=/data/vol/containers/grafana/dev/encrypt-message/" >>
+          echo "SSH_TARGET=/data/vol/containers/grafana/dev/" >>
           $GITHUB_ENV
         if: '${{ github.ref == ''refs/heads/desarrollo'' }}'
       - name: Ambiente a deployar
