@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE glassfish-web-app PUBLIC "-//GlassFish.org//DTD GlassFish 
+Application Server 3.1 Servlet 3.0//EN" 
+"http://java.sun.com/xml/ns/javaee;http://java.sun.com/xml/ns/javaee/web-app.xsd">
+<glassfish-web-app>
+	<context-root>/grafana</context-root>
+</glassfish-web-app>
