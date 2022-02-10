@@ -2,12 +2,11 @@ name: Docker Image CI
 'on':
   push:
     branches:
-      - main
-      #- desarrollo
+      - desarrollo
   pull_request:
     branches:
       - main
-      #- desarrollo
+    types: [closed]
 jobs:
   build:
     runs-on: ubuntu-latest
