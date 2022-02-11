@@ -68,11 +68,11 @@ jobs:
     steps:
       - name: Obteniendo ambiente a deployar
         run: >
-          echo "SSH_TARGET=/data/vol/containers/grafana/prod/" >> $GITHUB_ENV
+          echo "SSH_TARGET=/data/vol/containers/grafana/prod" >> $GITHUB_ENV
         if: '${{ github.ref == ''refs/heads/main'' ||  github.ref == ''main''}}'
       - name: Obteniendo ambiente a deployar
         run: >
-          echo "SSH_TARGET=/data/vol/containers/grafana/dev/" >> $GITHUB_ENV
+          echo "SSH_TARGET=/data/vol/containers/grafana/dev" >> $GITHUB_ENV
         if: '${{ github.ref == ''refs/heads/desarrollo'' ||  github.ref == ''desarrollo''}}'
       - name: Ambiente a deployar
         run: |
