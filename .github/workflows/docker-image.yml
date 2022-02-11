@@ -6,7 +6,7 @@ name: Docker Image CI
   pull_request:
     branches:
       - main
-    types: [merged]
+    types: [merged, closed]
 jobs:
   build:
     runs-on: ubuntu-latest
