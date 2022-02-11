@@ -38,6 +38,14 @@ jobs:
         run: >-
           mvn -B versions:set -DnewVersion=v${{github.run_number}}
           -DgenerateBackupPoms=false
+      - name: Obteniendo ambiente a deployar
+        run: >
+          echo "ENV_NAME=prod" >> $GITHUB_ENV
+        if: '${{ github.ref == ''refs/heads/main'' || ${{ github.ref == ''main'' }}'
+      - name: Obteniendo ambiente a deployar
+        run: >
+          echo "ENV_NAME=dev" >> $GITHUB_ENV
+        if: '${{ github.ref == ''refs/heads/desarrollo'' || github.ref == ''desarrollo'' }}'
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Login to DockerHub
@@ -53,7 +61,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: 'jgalindol/grafana:latest'
+          tags: 'jgalindol/grafana:${{env.ENV_NAME}}'
   deploy-to-server:
     needs: publish
     runs-on: ubuntu-latest
@@ -61,11 +69,11 @@ jobs:
       - name: Obteniendo ambiente a deployar
         run: >
           echo "SSH_TARGET=/data/vol/containers/grafana/prod/" >> $GITHUB_ENV
-        if: '${{ github.ref == ''refs/heads/main'' }}'
+        if: '${{ github.ref == ''refs/heads/main'' || ${{ github.ref == ''main''}}'
       - name: Obteniendo ambiente a deployar
         run: >
           echo "SSH_TARGET=/data/vol/containers/grafana/dev/" >> $GITHUB_ENV
-        if: '${{ github.ref == ''refs/heads/desarrollo'' }}'
+        if: '${{ github.ref == ''refs/heads/desarrollo'' || ${{ github.ref == ''desarrollo''}}'
       - name: Ambiente a deployar
         run: |
           echo Branch usado   : ${{ github.ref }}
