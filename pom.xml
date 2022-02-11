@@ -447,7 +447,7 @@
 		<aspectj.version>1.8.9</aspectj.version>
 		<javax-servlet.version>3.1.0</javax-servlet.version>
 		<jstl.version>1.2</jstl.version>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<cxf.version>3.1.16</cxf.version>
 		<mybatis.version>3.5.6</mybatis.version>
 		<mybatis-spring.version>2.0.6</mybatis-spring.version>
