@@ -51,8 +51,8 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKERHUB_USER }}
-          password: ${{ secrets.DOCKERHUB_PASSWD }}
+          username: 'signos@kionetworks.com'
+          password: '#Portal123'
       - name: Download artifact
         uses: actions/download-artifact@v2
       - name: Build and push
