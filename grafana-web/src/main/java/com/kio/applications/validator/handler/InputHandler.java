@@ -20,6 +20,7 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.kio.applications.validator.bo.impl.TokenAWXBO;
@@ -34,13 +35,16 @@ import com.kio.applications.validator.util.AppConstants;
  */
 public class InputHandler extends AbstractPhaseInterceptor<Message> {
 
+	private static final Logger logger = Logger.getLogger(InputHandler.class);
+
 	@Autowired
 	private APINoctopus apiNoctopus;
 
 	@Autowired
 	TokenAWXBO tokenAWXBO;
-	
+
 	private static String BEARER = "Bearer ";
+
 	/**
 	 * Instantiates a new input handler.
 	 */
@@ -51,31 +55,25 @@ public class InputHandler extends AbstractPhaseInterceptor<Message> {
 	/**
 	 * Builds the response.
 	 *
-	 * @param status
-	 *            the status
-	 * @param mensaje
-	 *            the mensaje
+	 * @param status  the status
+	 * @param mensaje the mensaje
 	 * @return the response
 	 */
 	private Response buildResponse(Status status, String mensaje) {
 		return Response.status(status).type(MediaType.APPLICATION_JSON)
-				.entity(new GrafanaException(status.getStatusCode(), mensaje))
-				.build();
+				.entity(new GrafanaException(status.getStatusCode(), mensaje)).build();
 	}
 
 	/**
 	 * Handle message.
 	 *
-	 * @param message
-	 *            the message
+	 * @param message the message
 	 */
 	@Override
 	public void handleMessage(final Message message) {
-		
-		Map<?, ?> protocolHeaders = (TreeMap<?, ?>) message
-				.get(Message.PROTOCOL_HEADERS);
-		List<?> authzHeaders = (ArrayList<?>) protocolHeaders
-				.get("Authorization");
+
+		Map<?, ?> protocolHeaders = (TreeMap<?, ?>) message.get(Message.PROTOCOL_HEADERS);
+		List<?> authzHeaders = (ArrayList<?>) protocolHeaders.get("Authorization");
 		if (null != authzHeaders && authzHeaders.size() > 0) {
 			String authorization = (String) authzHeaders.get(0);
 			if (authorization.startsWith(BEARER)) {
@@ -85,31 +83,28 @@ public class InputHandler extends AbstractPhaseInterceptor<Message> {
 					TokenAWX token = tokenAWXBO.searchToken(bearerToken);
 					if (null == token) {
 						message.getExchange().put(Response.class,
-								this.buildResponse(Response.Status.UNAUTHORIZED,
-										"Token no registrado en grafana."));
+								this.buildResponse(Response.Status.UNAUTHORIZED, "Token no registrado en grafana."));
 					} else {
 						message.put(AppConstants.P_TOKEN, token);
 					}
 
 				} catch (GenericException e) {
+					logger.error(e.getMessage());
 					message.getExchange().put(Response.class,
-							this.buildResponse(Response.Status.UNAUTHORIZED,
-									e.getMessage()));
+							this.buildResponse(Response.Status.UNAUTHORIZED, e.getMessage()));
 				} catch (Exception e) {
+					logger.error(e.getMessage());
 					message.getExchange().put(Response.class,
-							this.buildResponse(Response.Status.BAD_REQUEST,
-									"No se pudo atender la solicitud."));
+							this.buildResponse(Response.Status.BAD_REQUEST, "No se pudo atender la solicitud."));
 				}
 
 			} else {
 				message.getExchange().put(Response.class,
-						this.buildResponse(Response.Status.UNAUTHORIZED,
-								"Authentication method not allowed."));
+						this.buildResponse(Response.Status.UNAUTHORIZED, "Authentication method not allowed."));
 			}
 		} else {
 			message.getExchange().put(Response.class,
-					this.buildResponse(Response.Status.UNAUTHORIZED,
-							"Authentication is required."));
+					this.buildResponse(Response.Status.UNAUTHORIZED, "Authentication is required."));
 		}
 
 	}
