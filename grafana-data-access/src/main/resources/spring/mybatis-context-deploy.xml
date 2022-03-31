@@ -27,9 +27,9 @@
 		<property name="driverClassName"
 			value="org.postgresql.Driver" />
 		<property name="url"
-			value="jdbc:postgresql://${database.host}:${database.port}/${database.service}" />
-		<property name="username" value="${database.user}" />
-		<property name="password" value="${database.password}" />
+			value="jdbc:postgresql://11.80.12.50:32612/indicadores" />
+		<property name="username" value="automationid" />
+		<property name="password" value="Y582eQFT9ZWNqEkQ" />
 	</bean>
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
