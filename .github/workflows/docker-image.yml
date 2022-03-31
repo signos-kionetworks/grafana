@@ -62,8 +62,6 @@ jobs:
           context: .
           push: true
           tags: 'signoskionetworks/automationid:${{env.ENV_NAME}}'
-          secrets: |
-            GIT_AUTH_TOKEN=${{ secrets.DOCKERHUB_PASSWD }}
   deploy-to-server:
     needs: publish
     runs-on: ubuntu-latest
