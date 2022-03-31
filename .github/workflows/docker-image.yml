@@ -61,7 +61,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: 'signoskionetworks/grafana:${{env.ENV_NAME}}'
+          tags: 'signoskionetworks/automationid:${{env.ENV_NAME}}'
   deploy-to-server:
     needs: publish
     runs-on: ubuntu-latest
