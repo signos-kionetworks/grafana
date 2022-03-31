@@ -11,6 +11,7 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	<util:properties id="mybatisPropertyConfigurer"
 		location="classpath:properties/database.properties" />
+		
 
 	<tx:annotation-driven />
 	<!-- Enable @Autowired -->
