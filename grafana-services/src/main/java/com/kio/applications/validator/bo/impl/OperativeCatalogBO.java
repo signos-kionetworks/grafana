@@ -46,7 +46,7 @@ public class OperativeCatalogBO
 	 *             the generic exception
 	 */
 	@Override
-	public OperativeCatalog searchByKey(OperativeCatalog value)
+	public OperativeCatalog searchByKeyValues(OperativeCatalog value)
 			throws GenericException {
 		final Optional<com.kio.applications.validator.model.OperativeCatalog> result = this.operativeCatalogMapper
 				.selectOne(c -> c.where(

@@ -12,7 +12,6 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ExtraVars.
  */
@@ -33,9 +32,6 @@ public class ExtraVars implements Serializable {
 
 	/** The platform. */
 	private String platform;
-
-	/** The bot name. */
-	private String botName;
 
 	/** The type of automation. */
 	private String typeOfAutomation;
@@ -218,18 +214,10 @@ public class ExtraVars implements Serializable {
 	}
 
 	/**
-	 * Gets the bot name.
-	 *
-	 * @return the bot name
-	 */
-	public String getBotName() {
-		return botName;
-	}
-
-	/**
 	 * Sets the client.
 	 *
-	 * @param client the new client
+	 * @param client
+	 *            the new client
 	 */
 	@XmlElement(name = "client")
 	public void setClient(String client) {
@@ -239,7 +227,8 @@ public class ExtraVars implements Serializable {
 	/**
 	 * Sets the level of specialization.
 	 *
-	 * @param levelOfSpecialization the new level of specialization
+	 * @param levelOfSpecialization
+	 *            the new level of specialization
 	 */
 	@XmlElement(name = "level_of_specialization")
 	public void setLevelOfSpecialization(String levelOfSpecialization) {
@@ -249,7 +238,8 @@ public class ExtraVars implements Serializable {
 	/**
 	 * Sets the manual time.
 	 *
-	 * @param manualTime the new manual time
+	 * @param manualTime
+	 *            the new manual time
 	 */
 	@XmlElement(name = "manual_time")
 	public void setManualTime(Float manualTime) {
@@ -259,7 +249,8 @@ public class ExtraVars implements Serializable {
 	/**
 	 * Sets the organization.
 	 *
-	 * @param organization the new organization
+	 * @param organization
+	 *            the new organization
 	 */
 	@XmlElement(name = "organization")
 	public void setOrganization(String organization) {
@@ -269,18 +260,14 @@ public class ExtraVars implements Serializable {
 	/**
 	 * Sets the platform.
 	 *
-	 * @param platform the new platform
+	 * @param platform
+	 *            the new platform
 	 */
 	@XmlElement(name = "platform")
 	public void setPlatform(String platform) {
 		this.platform = platform;
 	}
 
-	/**
-	 * Sets the playbook end timestamp.
-	 *
-	 * @param playbookEndTimestamp the new playbook end timestamp
-	 */
 	@XmlElement(name = "playbook_end_timestamp")
 	public void setPlaybookEndTimestamp(Integer playbookEndTimestamp) {
 		this.playbookEndTimestamp = playbookEndTimestamp;
@@ -289,7 +276,8 @@ public class ExtraVars implements Serializable {
 	/**
 	 * Sets the playbook start timestamp.
 	 *
-	 * @param playbookStartTimestamp the new playbook start timestamp
+	 * @param playbookStartTimestamp
+	 *            the new playbook start timestamp
 	 */
 	@XmlElement(name = "playbook_start_timestamp")
 	public void setPlaybookStartTimestamp(Integer playbookStartTimestamp) {
@@ -299,7 +287,8 @@ public class ExtraVars implements Serializable {
 	/**
 	 * Sets the technological domain.
 	 *
-	 * @param technologicalDomain the new technological domain
+	 * @param technologicalDomain
+	 *            the new technological domain
 	 */
 	@XmlElement(name = "technological_domain")
 	public void setTechnologicalDomain(String technologicalDomain) {
@@ -309,7 +298,8 @@ public class ExtraVars implements Serializable {
 	/**
 	 * Sets the technology.
 	 *
-	 * @param technology the new technology
+	 * @param technology
+	 *            the new technology
 	 */
 	@XmlElement(name = "technology")
 	public void setTechnology(String technology) {
@@ -319,7 +309,8 @@ public class ExtraVars implements Serializable {
 	/**
 	 * Sets the total cis.
 	 *
-	 * @param totalCis the new total cis
+	 * @param totalCis
+	 *            the new total cis
 	 */
 	@XmlElement(name = "total_cis")
 	public void setTotalCis(Integer totalCis) {
@@ -329,7 +320,8 @@ public class ExtraVars implements Serializable {
 	/**
 	 * Sets the total impacted cis.
 	 *
-	 * @param totalImpactedCis the new total impacted cis
+	 * @param totalImpactedCis
+	 *            the new total impacted cis
 	 */
 	@XmlElement(name = "total_impacted_cis")
 	public void setTotalImpactedCis(Integer totalImpactedCis) {
@@ -339,7 +331,8 @@ public class ExtraVars implements Serializable {
 	/**
 	 * Sets the type of automation.
 	 *
-	 * @param typeOfAutomation the new type of automation
+	 * @param typeOfAutomation
+	 *            the new type of automation
 	 */
 	@XmlElement(name = "type_of_automation")
 	public void setTypeOfAutomation(String typeOfAutomation) {
@@ -349,7 +342,8 @@ public class ExtraVars implements Serializable {
 	/**
 	 * Sets the type of develop.
 	 *
-	 * @param typeOfDevelop the new type of develop
+	 * @param typeOfDevelop
+	 *            the new type of develop
 	 */
 	@XmlElement(name = "type_of_develop")
 	public void setTypeOfDevelop(String typeOfDevelop) {
@@ -359,7 +353,8 @@ public class ExtraVars implements Serializable {
 	/**
 	 * Sets the type of execution.
 	 *
-	 * @param typeOfExecution the new type of execution
+	 * @param typeOfExecution
+	 *            the new type of execution
 	 */
 	@XmlElement(name = "type_of_execution")
 	public void setTypeOfExecution(String typeOfExecution) {
@@ -369,7 +364,8 @@ public class ExtraVars implements Serializable {
 	/**
 	 * Sets the type of task.
 	 *
-	 * @param typeOfTask the new type of task
+	 * @param typeOfTask
+	 *            the new type of task
 	 */
 	@XmlElement(name = "type_of_task")
 	public void setTypeOfTask(String typeOfTask) {
@@ -379,21 +375,12 @@ public class ExtraVars implements Serializable {
 	/**
 	 * Sets the woid.
 	 *
-	 * @param woid the new woid
+	 * @param woid
+	 *            the new woid
 	 */
 	@XmlElement(name = "woid")
 	public void setWoid(String woid) {
 		this.woid = woid;
-	}
-
-	/**
-	 * Sets the bot name.
-	 *
-	 * @param botName the new bot name
-	 */
-	@XmlElement(name = "botName")
-	public void setBotName(String botName) {
-		this.botName = botName;
 	}
 
 }

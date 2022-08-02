@@ -6,6 +6,6 @@ import com.kio.applications.validator.exception.GenericException;
 
 public interface IfzSearchByKeyBO<T> extends Serializable {
 
-	T searchByKey(T value) throws GenericException;
+	T searchByKeyValues(T value) throws GenericException;
 
 }
