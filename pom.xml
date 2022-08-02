@@ -443,7 +443,7 @@
 	<properties>
 		<jdk.version>1.8</jdk.version>
 		<spring.version>5.3.18</spring.version>
-		<spring-security.version>4.2.19.RELEASE</spring-security.version>
+		<spring-security.version>5.2.10.RELEASE</spring-security.version>
 		<aspectj.version>1.8.9</aspectj.version>
 		<javax-servlet.version>3.1.0</javax-servlet.version>
 		<jstl.version>1.2</jstl.version>
