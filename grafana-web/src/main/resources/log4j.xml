@@ -15,7 +15,7 @@
 		<param name="append" value="true" />
 		<param name="maxFileSize" value="10MB" />
 		<param name="maxBackupIndex" value="10" />
-		<param name="file" value="/home/grafana/logs/validator.log" />
+		<param name="file" value="/home/grafana/logs/automationid.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern"
 				value="%d[%-5p](%t)(%c{1}:%L):%m%n" />
@@ -32,7 +32,7 @@
 		<param name="maxFileSize" value="10MB" />
 		<param name="maxBackupIndex" value="10" />
 		<param name="file"
-			value="/home/grafana/logs/validator-error.log" />
+			value="/home/grafana/logs/automationid-error.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern"
 				value="%d[%-5p](%t)(%c{1}:%L):%m%n" />
@@ -44,7 +44,10 @@
 		<filter class="org.apache.log4j.varia.DenyAllFilter" />
 	</appender>
 	<!-- <category name="org.apache.cxf.interceptor">
-		<priority value="INFO" />
+		<priority value="DEBUG" />
+	</category>
+	<category name="com.kio.applications.validator.dao">
+		<priority value="TRACE" />
 	</category> -->
 	<root>
 		<level value="INFO" />

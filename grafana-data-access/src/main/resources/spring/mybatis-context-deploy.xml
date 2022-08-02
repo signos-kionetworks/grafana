@@ -5,7 +5,7 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
-	http://www.springframework.org/schema/tx	http://www.springframework.org/schema/tx/spring-tx-4.2.xsd 
+	   http://www.springframework.org/schema/tx	http://www.springframework.org/schema/tx/spring-tx-4.2.xsd 
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
        http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
@@ -23,13 +23,13 @@
 		ignore-unresolvable="true" />
 	<!-- Begin MyBatis -->
 	<bean id="dataSource"
-		class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="resourceRef">
-			<value>false</value>
-		</property>
-		<property name="jndiName">
-			<value>${database.jndi}</value>
-		</property>
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="org.postgresql.Driver" />
+		<property name="url"
+			value="jdbc:postgresql://${database.host}:${database.port}/${database.service}" />
+		<property name="username" value="${database.user}" />
+		<property name="password" value="${database.password}" />
 	</bean>
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
