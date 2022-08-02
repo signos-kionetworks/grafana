@@ -115,30 +115,24 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/**
 	 * Generate automation.
 	 *
-	 * @param value
-	 *            the value
+	 * @param value the value
 	 * @return the automation
-	 * @throws GenericException
-	 *             the generic exception
+	 * @throws GenericException the generic exception
 	 */
-	private Automation generateAutomation(ValidatorRequest value)
-			throws GenericException {
+	private Automation generateAutomation(ValidatorRequest value) throws GenericException {
 		Automation automation = new Automation();
 
-		Area area = areaBO.selectById(((TokenAWX) PhaseInterceptorChain
-				.getCurrentMessage().get(AppConstants.P_TOKEN)).getIdArea());
+		Area area = areaBO.selectById(
+				((TokenAWX) PhaseInterceptorChain.getCurrentMessage().get(AppConstants.P_TOKEN)).getIdArea());
 
 		this.validateRequest(value);
 
-		if (null != value.getExtraVars().getOrganization()
-				&& !value.getExtraVars().getOrganization().isEmpty()) {
+		if (null != value.getExtraVars().getOrganization() && !value.getExtraVars().getOrganization().isEmpty()) {
 			automation.setClienteid(this.getClientByOrganization(value));
-		} else if (null != value.getExtraVars().getClient()
-				&& !value.getExtraVars().getClient().isEmpty()) {
+		} else if (null != value.getExtraVars().getClient() && !value.getExtraVars().getClient().isEmpty()) {
 			automation.setClienteid(this.validateClient(value));
 		} else {
-			throw new GenericException(
-					"El campo client u organization son obligatorios.");
+			throw new GenericException("El campo client u organization son obligatorios.");
 		}
 
 		if (null != value.getExtraVars().getManualTime()) {
@@ -154,11 +148,9 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 		}
 
 		if (null != value.getExtraVars().getTotalCis()) {
-			automation.setTotalImpactedCis(
-					value.getExtraVars().getTotalImpactedCis());
+			automation.setTotalImpactedCis(value.getExtraVars().getTotalImpactedCis());
 		} else {
-			throw new GenericException(
-					"El campo total_impacted_cis es obligatorio.");
+			throw new GenericException("El campo total_impacted_cis es obligatorio.");
 		}
 
 		automation.setAreaid(area.getId());
@@ -170,19 +162,28 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 		automation.setDevtypeid(this.validateTypeDevelop(value));
 		automation.setCatopid(this.validateOperativeCatalog(value));
 
-		String uniqueName = String.format(
-				"dirid:%s-areaid:%s-clienteid:%s-plataformaid:%s-tipoautid:%s-tipoexecid:%s-devtypeid:%s-catopid:%s",
-				automation.getDirid(), automation.getAreaid(),
-				automation.getClienteid(), automation.getPlatformid(),
-				automation.getTipoautid(), automation.getTipoexecid(),
-				automation.getDevtypeid(), automation.getCatopid());
+		if (null != value.getExtraVars().getBotName() && !value.getExtraVars().getBotName().isEmpty()) {
+			Automation autBotName = automationBO.searchByText(value.getExtraVars().getBotName());
+			automation.setBotDescr(value.getExtraVars().getBotName());
+			automation.setBotname(value.getExtraVars().getBotName());
+			if (null != autBotName) {
+				automation.setId(autBotName.getId());
+			}
+		} else {
 
-		automation.setBotDescr(uniqueName);
-		automation.setBotname(uniqueName);
+			String uniqueName = String.format(
+					"dirid:%s-areaid:%s-clienteid:%s-plataformaid:%s-tipoautid:%s-tipoexecid:%s-devtypeid:%s-catopid:%s",
+					automation.getDirid(), automation.getAreaid(), automation.getClienteid(),
+					automation.getPlatformid(), automation.getTipoautid(), automation.getTipoexecid(),
+					automation.getDevtypeid(), automation.getCatopid());
 
-		Automation automationBD = automationBO.searchByKeyValues(automation);
-		if (null != automationBD) {
-			automation.setId(automationBD.getId());
+			automation.setBotDescr(uniqueName);
+			automation.setBotname(uniqueName);
+
+			Automation automationBD = automationBO.searchByKey(automation);
+			if (null != automationBD) {
+				automation.setId(automationBD.getId());
+			}
 		}
 
 		automationBO.save(automation);
@@ -194,27 +195,21 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/**
 	 * Gets the client by organization.
 	 *
-	 * @param value
-	 *            the value
+	 * @param value the value
 	 * @return the client by organization
-	 * @throws GenericException
-	 *             the generic exception
+	 * @throws GenericException the generic exception
 	 */
-	private Integer getClientByOrganization(ValidatorRequest value)
-			throws GenericException {
-		OrganizationAWX organizationAWX = organizationAWXBO
-				.selectByName(value.getExtraVars().getOrganization());
+	private Integer getClientByOrganization(ValidatorRequest value) throws GenericException {
+		OrganizationAWX organizationAWX = organizationAWXBO.selectByName(value.getExtraVars().getOrganization());
 
 		if (null == organizationAWX) {
-			throw new GenericException(String.format(
-					"El valor [%s] del campo organization no existe.",
+			throw new GenericException(String.format("El valor [%s] del campo organization no existe.",
 					value.getExtraVars().getOrganization()));
 		} else {
 			EquivalenceClientOrganization equivalenceClientOrganization = equivalenceClientOrganizationBO
 					.searchClientByIdOrganization(organizationAWX.getId());
 			if (null == equivalenceClientOrganization) {
-				throw new GenericException(String.format(
-						"No hay cliente asociado a la organización %s.",
+				throw new GenericException(String.format("No hay cliente asociado a la organización %s.",
 						value.getExtraVars().getOrganization()));
 			} else {
 				return equivalenceClientOrganization.getIdCliente();
@@ -226,15 +221,12 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/**
 	 * Process request.
 	 *
-	 * @param value
-	 *            the value
+	 * @param value the value
 	 * @return the validator response
-	 * @throws GenericException
-	 *             the generic exception
+	 * @throws GenericException the generic exception
 	 */
 	@Override
-	public ValidatorResponse processRequest(ValidatorRequest value)
-			throws GenericException {
+	public ValidatorResponse processRequest(ValidatorRequest value) throws GenericException {
 		ValidatorResponse response = new ValidatorResponse();
 		Automation automation = generateAutomation(value);
 
@@ -247,14 +239,12 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 
 		indicator.setAutid(automation.getId());
 		indicator.setImpactedCis(value.getExtraVars().getTotalCis());
-		indicator.setTotalImpactedCis(
-				value.getExtraVars().getTotalImpactedCis());
+		indicator.setTotalImpactedCis(value.getExtraVars().getTotalImpactedCis());
 		indicator.setMantime(value.getExtraVars().getManualTime());
 		indicator.setTime(currentDate);
 		indicator.setTransactionid(simpleDateFormat.format(currentDate));
 
-		if (null != value.getExtraVars().getWoid()
-				&& !value.getExtraVars().getWoid().isEmpty()) {
+		if (null != value.getExtraVars().getWoid() && !value.getExtraVars().getWoid().isEmpty()) {
 			indicator.setTicketid(value.getExtraVars().getWoid());
 		}
 
@@ -263,26 +253,21 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 			float autotime = 0;
 			if (null != value.getExtraVars().getPlaybookEndTimestamp()
 					&& value.getExtraVars().getPlaybookEndTimestamp() > 0) {
-				if (value.getExtraVars().getPlaybookEndTimestamp() < value
-						.getExtraVars().getPlaybookStartTimestamp()) {
+				if (value.getExtraVars().getPlaybookEndTimestamp() < value.getExtraVars().getPlaybookStartTimestamp()) {
 					throw new GenericException(
 							"El valor del campo playbook_end_timestamp no puede ser menor que el valor del campo playbook_start_timestamp.");
 				}
-				autotime = (float) ((value.getExtraVars()
-						.getPlaybookEndTimestamp()
-						- value.getExtraVars().getPlaybookStartTimestamp())
-						/ 3600.0);
+				autotime = (float) ((value.getExtraVars().getPlaybookEndTimestamp()
+						- value.getExtraVars().getPlaybookStartTimestamp()) / 3600.0);
 			} else {
-				autotime = (float) ((Instant.now().getEpochSecond()
-						- value.getExtraVars().getPlaybookStartTimestamp())
+				autotime = (float) ((Instant.now().getEpochSecond() - value.getExtraVars().getPlaybookStartTimestamp())
 						/ 3600.0);
 			}
 			float svtime = (value.getExtraVars().getManualTime() - autotime);
 			float svfte = svtime / 150;
 			/*
 			 * if (autotime < 0 || svtime < 0) { throw new
-			 * GenericException("El campo autotime o svtime son numeos negativos."
-			 * ); }
+			 * GenericException("El campo autotime o svtime son numeos negativos." ); }
 			 */
 
 			indicator.setSvtime(svtime);
@@ -290,8 +275,7 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 			indicator.setSvfte(svfte);
 
 		} else {
-			throw new GenericException(
-					"El campo playbook_start_timestamp es obligatorio.");
+			throw new GenericException("El campo playbook_start_timestamp es obligatorio.");
 		}
 
 		indicatorBO.save(indicator);
@@ -306,18 +290,14 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/**
 	 * Validate client.
 	 *
-	 * @param value
-	 *            the value
+	 * @param value the value
 	 * @return the integer
-	 * @throws GenericException
-	 *             the generic exception
+	 * @throws GenericException the generic exception
 	 */
-	private Integer validateClient(ValidatorRequest value)
-			throws GenericException {
+	private Integer validateClient(ValidatorRequest value) throws GenericException {
 		Client client = null;
 
-		if (null != value.getExtraVars().getClient()
-				&& !value.getExtraVars().getClient().isEmpty()) {
+		if (null != value.getExtraVars().getClient() && !value.getExtraVars().getClient().isEmpty()) {
 			client = clientBO.selectByName(value.getExtraVars().getClient());
 			if (null == client) {
 
@@ -325,11 +305,9 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 						.selectByName(value.getExtraVars().getClient());
 
 				if (null != equivalenceClient) {
-					client = clientBO
-							.selectById(equivalenceClient.getIdCliente());
+					client = clientBO.selectById(equivalenceClient.getIdCliente());
 				} else {
-					throw new GenericException(String.format(
-							"El valor [%s] del campo client no existe.",
+					throw new GenericException(String.format("El valor [%s] del campo client no existe.",
 							value.getExtraVars().getClient()));
 				}
 			}
@@ -342,28 +320,23 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/**
 	 * Validate level of specialization.
 	 *
-	 * @param value
-	 *            the value
+	 * @param value the value
 	 * @return the integer
-	 * @throws GenericException
-	 *             the generic exception
+	 * @throws GenericException the generic exception
 	 */
-	private Integer validateLevelOfSpecialization(ValidatorRequest value)
-			throws GenericException {
+	private Integer validateLevelOfSpecialization(ValidatorRequest value) throws GenericException {
 		LevelOfSpecialization levelOfSpecialization = null;
 
 		if (null != value.getExtraVars().getLevelOfSpecialization()
 				&& !value.getExtraVars().getLevelOfSpecialization().isEmpty()) {
-			levelOfSpecialization = levelOfSpecializationBO.selectByName(
-					value.getExtraVars().getLevelOfSpecialization());
+			levelOfSpecialization = levelOfSpecializationBO
+					.selectByName(value.getExtraVars().getLevelOfSpecialization());
 			if (null == levelOfSpecialization) {
-				throw new GenericException(String.format(
-						"El valor [%s] del campo level_of_specialization no existe.",
+				throw new GenericException(String.format("El valor [%s] del campo level_of_specialization no existe.",
 						value.getExtraVars().getLevelOfSpecialization()));
 			}
 		} else {
-			throw new GenericException(
-					"El campo level_of_specialization es obligatorio.");
+			throw new GenericException("El campo level_of_specialization es obligatorio.");
 		}
 		return levelOfSpecialization.getId();
 	}
@@ -371,14 +344,11 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/**
 	 * Validate operative catalog.
 	 *
-	 * @param value
-	 *            the value
+	 * @param value the value
 	 * @return the integer
-	 * @throws GenericException
-	 *             the generic exception
+	 * @throws GenericException the generic exception
 	 */
-	private Integer validateOperativeCatalog(ValidatorRequest value)
-			throws GenericException {
+	private Integer validateOperativeCatalog(ValidatorRequest value) throws GenericException {
 		OperativeCatalog operativeCatalog = new OperativeCatalog();
 
 		operativeCatalog.setCatnivel1(validateTechnologicalDomain(value));
@@ -386,18 +356,15 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 		operativeCatalog.setCatnivel3(validateTypeTask(value));
 		operativeCatalog.setProducto(validateTechnology(value));
 
-		operativeCatalog = this.operativeCatalogBO
-				.searchByKeyValues(operativeCatalog);
+		operativeCatalog = this.operativeCatalogBO.searchByKey(operativeCatalog);
 
 		if (null != operativeCatalog) {
 			return operativeCatalog.getId();
 		} else {
 			throw new GenericException(String.format(
 					"No se encontró registro del catálogo operativo con los datos technological_domain = [%s], level_of_specialization = [%s], type_of_task = [%s] y technology = [%s].",
-					value.getExtraVars().getTechnologicalDomain(),
-					value.getExtraVars().getLevelOfSpecialization(),
-					value.getExtraVars().getTypeOfTask(),
-					value.getExtraVars().getTechnology()));
+					value.getExtraVars().getTechnologicalDomain(), value.getExtraVars().getLevelOfSpecialization(),
+					value.getExtraVars().getTypeOfTask(), value.getExtraVars().getTechnology()));
 		}
 
 	}
@@ -405,23 +372,17 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/**
 	 * Validate platform.
 	 *
-	 * @param value
-	 *            the value
+	 * @param value the value
 	 * @return the integer
-	 * @throws GenericException
-	 *             the generic exception
+	 * @throws GenericException the generic exception
 	 */
-	private Integer validatePlatform(ValidatorRequest value)
-			throws GenericException {
+	private Integer validatePlatform(ValidatorRequest value) throws GenericException {
 		Platform platform = null;
 
-		if (null != value.getExtraVars().getPlatform()
-				&& !value.getExtraVars().getPlatform().isEmpty()) {
-			platform = platformBO
-					.selectByName(value.getExtraVars().getPlatform());
+		if (null != value.getExtraVars().getPlatform() && !value.getExtraVars().getPlatform().isEmpty()) {
+			platform = platformBO.selectByName(value.getExtraVars().getPlatform());
 			if (null == platform) {
-				throw new GenericException(String.format(
-						"El valor [%s] del campo platform no existe.",
+				throw new GenericException(String.format("El valor [%s] del campo platform no existe.",
 						value.getExtraVars().getPlatform()));
 			}
 		} else {
@@ -433,14 +394,11 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/**
 	 * Validate request.
 	 *
-	 * @param value
-	 *            the value
+	 * @param value the value
 	 * @return true, if successful
-	 * @throws GenericException
-	 *             the generic exception
+	 * @throws GenericException the generic exception
 	 */
-	private boolean validateRequest(ValidatorRequest value)
-			throws GenericException {
+	private boolean validateRequest(ValidatorRequest value) throws GenericException {
 		if (null == value) {
 			throw new GenericException("El request es nulo.");
 		}
@@ -455,28 +413,22 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/**
 	 * Validate technological domain.
 	 *
-	 * @param value
-	 *            the value
+	 * @param value the value
 	 * @return the integer
-	 * @throws GenericException
-	 *             the generic exception
+	 * @throws GenericException the generic exception
 	 */
-	private Integer validateTechnologicalDomain(ValidatorRequest value)
-			throws GenericException {
+	private Integer validateTechnologicalDomain(ValidatorRequest value) throws GenericException {
 		TechnologicalDomain technologicalDomain = null;
 
 		if (null != value.getExtraVars().getTechnologicalDomain()
 				&& !value.getExtraVars().getTechnologicalDomain().isEmpty()) {
-			technologicalDomain = technologicalDomainBO.selectByName(
-					value.getExtraVars().getTechnologicalDomain());
+			technologicalDomain = technologicalDomainBO.selectByName(value.getExtraVars().getTechnologicalDomain());
 			if (null == technologicalDomain) {
-				throw new GenericException(String.format(
-						"El valor [%s] del campo technological_domain no existe.",
+				throw new GenericException(String.format("El valor [%s] del campo technological_domain no existe.",
 						value.getExtraVars().getTechnologicalDomain()));
 			}
 		} else {
-			throw new GenericException(
-					"El campo technological_domain es obligatorio.");
+			throw new GenericException("El campo technological_domain es obligatorio.");
 		}
 		return technologicalDomain.getId();
 	}
@@ -484,23 +436,17 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/**
 	 * Validate technology.
 	 *
-	 * @param value
-	 *            the value
+	 * @param value the value
 	 * @return the integer
-	 * @throws GenericException
-	 *             the generic exception
+	 * @throws GenericException the generic exception
 	 */
-	private Integer validateTechnology(ValidatorRequest value)
-			throws GenericException {
+	private Integer validateTechnology(ValidatorRequest value) throws GenericException {
 		Technology technology = null;
 
-		if (null != value.getExtraVars().getTechnology()
-				&& !value.getExtraVars().getTechnology().isEmpty()) {
-			technology = technologyBO
-					.selectByName(value.getExtraVars().getTechnology());
+		if (null != value.getExtraVars().getTechnology() && !value.getExtraVars().getTechnology().isEmpty()) {
+			technology = technologyBO.selectByName(value.getExtraVars().getTechnology());
 			if (null == technology) {
-				throw new GenericException(String.format(
-						"El valor [%s] del campo technology no existe.",
+				throw new GenericException(String.format("El valor [%s] del campo technology no existe.",
 						value.getExtraVars().getTechnology()));
 			}
 		} else {
@@ -512,23 +458,18 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/**
 	 * Validate type automation.
 	 *
-	 * @param value
-	 *            the value
+	 * @param value the value
 	 * @return the integer
-	 * @throws GenericException
-	 *             the generic exception
+	 * @throws GenericException the generic exception
 	 */
-	private Integer validateTypeAutomation(ValidatorRequest value)
-			throws GenericException {
+	private Integer validateTypeAutomation(ValidatorRequest value) throws GenericException {
 		TypeAutomation typeAutomation = null;
 
 		if (null != value.getExtraVars().getTypeOfAutomation()
 				&& !value.getExtraVars().getTypeOfAutomation().isEmpty()) {
-			typeAutomation = typeAutomationBO
-					.selectByName(value.getExtraVars().getTypeOfAutomation());
+			typeAutomation = typeAutomationBO.selectByName(value.getExtraVars().getTypeOfAutomation());
 			if (null == typeAutomation) {
-				throw new GenericException(String.format(
-						"El valor [%s] del campo type_develop no existe.",
+				throw new GenericException(String.format("El valor [%s] del campo type_develop no existe.",
 						value.getExtraVars().getTypeOfAutomation()));
 			}
 		} else {
@@ -540,23 +481,17 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/**
 	 * Validate type develop.
 	 *
-	 * @param value
-	 *            the value
+	 * @param value the value
 	 * @return the integer
-	 * @throws GenericException
-	 *             the generic exception
+	 * @throws GenericException the generic exception
 	 */
-	private Integer validateTypeDevelop(ValidatorRequest value)
-			throws GenericException {
+	private Integer validateTypeDevelop(ValidatorRequest value) throws GenericException {
 		TypeDevelop typeDevelop = null;
 
-		if (null != value.getExtraVars().getTypeOfDevelop()
-				&& !value.getExtraVars().getTypeOfDevelop().isEmpty()) {
-			typeDevelop = typeDevelopBO
-					.selectByName(value.getExtraVars().getTypeOfDevelop());
+		if (null != value.getExtraVars().getTypeOfDevelop() && !value.getExtraVars().getTypeOfDevelop().isEmpty()) {
+			typeDevelop = typeDevelopBO.selectByName(value.getExtraVars().getTypeOfDevelop());
 			if (null == typeDevelop) {
-				throw new GenericException(String.format(
-						"El valor [%s] del campo type_develop no existe.",
+				throw new GenericException(String.format("El valor [%s] del campo type_develop no existe.",
 						value.getExtraVars().getTypeOfDevelop()));
 			}
 		} else {
@@ -568,28 +503,21 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/**
 	 * Validate type execution.
 	 *
-	 * @param value
-	 *            the value
+	 * @param value the value
 	 * @return the integer
-	 * @throws GenericException
-	 *             the generic exception
+	 * @throws GenericException the generic exception
 	 */
-	private Integer validateTypeExecution(ValidatorRequest value)
-			throws GenericException {
+	private Integer validateTypeExecution(ValidatorRequest value) throws GenericException {
 		TypeExecution typeExecution = null;
 
-		if (null != value.getExtraVars().getTypeOfExecution()
-				&& !value.getExtraVars().getTypeOfExecution().isEmpty()) {
-			typeExecution = typeExecutionBO
-					.selectByName(value.getExtraVars().getTypeOfExecution());
+		if (null != value.getExtraVars().getTypeOfExecution() && !value.getExtraVars().getTypeOfExecution().isEmpty()) {
+			typeExecution = typeExecutionBO.selectByName(value.getExtraVars().getTypeOfExecution());
 			if (null == typeExecution) {
-				throw new GenericException(String.format(
-						"El valor [%s] del campo type_execution no existe.",
+				throw new GenericException(String.format("El valor [%s] del campo type_execution no existe.",
 						value.getExtraVars().getTypeOfExecution()));
 			}
 		} else {
-			throw new GenericException(
-					"El campo typeExecution es obligatorio.");
+			throw new GenericException("El campo typeExecution es obligatorio.");
 		}
 		return typeExecution.getId();
 	}
@@ -597,23 +525,17 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/**
 	 * Validate type task.
 	 *
-	 * @param value
-	 *            the value
+	 * @param value the value
 	 * @return the integer
-	 * @throws GenericException
-	 *             the generic exception
+	 * @throws GenericException the generic exception
 	 */
-	private Integer validateTypeTask(ValidatorRequest value)
-			throws GenericException {
+	private Integer validateTypeTask(ValidatorRequest value) throws GenericException {
 		TypeTask typeTask = null;
 
-		if (null != value.getExtraVars().getTypeOfTask()
-				&& !value.getExtraVars().getTypeOfTask().isEmpty()) {
-			typeTask = typeTaskBO
-					.selectByName(value.getExtraVars().getTypeOfTask());
+		if (null != value.getExtraVars().getTypeOfTask() && !value.getExtraVars().getTypeOfTask().isEmpty()) {
+			typeTask = typeTaskBO.selectByName(value.getExtraVars().getTypeOfTask());
 			if (null == typeTask) {
-				throw new GenericException(String.format(
-						"El valor [%s] del campo type_of_task no existe.",
+				throw new GenericException(String.format("El valor [%s] del campo type_of_task no existe.",
 						value.getExtraVars().getTypeOfTask()));
 			}
 		} else {

@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import com.kio.applications.validator.exception.GenericException;
 
-public interface IfzSearchByKeyBO<T> extends Serializable {
+public interface IfzSearchByTextBO<T> extends Serializable {
 
-	T searchByKey(T value) throws GenericException;
+	T searchByText(String value) throws GenericException;
 
 }

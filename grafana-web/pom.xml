@@ -223,7 +223,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>produccion</id>
+			<id>deploy</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
@@ -242,10 +242,10 @@
 										<delete
 											file="${project.build.outputDirectory}/properties/application.properties" />
 										<copy
-											file="${project.build.outputDirectory}/properties/application.produccion.properties"
+											file="${project.build.outputDirectory}/properties/application.deploy.properties"
 											tofile="${project.build.outputDirectory}/properties/application.properties" />
 										<delete
-											file="${project.build.outputDirectory}/properties/application.produccion.properties" />
+											file="${project.build.outputDirectory}/properties/application.deploypom.xml.properties" />
 									</tasks>
 								</configuration>
 							</execution>
