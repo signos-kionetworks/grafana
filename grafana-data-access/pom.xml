@@ -106,7 +106,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>produccion</id>
+			<id>deploy</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
