@@ -73,6 +73,21 @@ public class ExtraVars implements Serializable {
 	/** The organization. */
 	private String organization;
 
+	/** The creator. */
+	private String creator;
+
+	/** The specialist. */
+	private String specialist;
+
+	/**
+	 * Gets the bot name.
+	 *
+	 * @return the bot name
+	 */
+	public String getBotName() {
+		return botName;
+	}
+
 	/**
 	 * Gets the client.
 	 *
@@ -80,6 +95,15 @@ public class ExtraVars implements Serializable {
 	 */
 	public String getClient() {
 		return client;
+	}
+
+	/**
+	 * Gets the creator.
+	 *
+	 * @return the creator
+	 */
+	public String getCreator() {
+		return creator;
 	}
 
 	/**
@@ -134,6 +158,15 @@ public class ExtraVars implements Serializable {
 	 */
 	public Integer getPlaybookStartTimestamp() {
 		return playbookStartTimestamp;
+	}
+
+	/**
+	 * Gets the specialist.
+	 *
+	 * @return the specialist
+	 */
+	public String getSpecialist() {
+		return specialist;
 	}
 
 	/**
@@ -218,12 +251,13 @@ public class ExtraVars implements Serializable {
 	}
 
 	/**
-	 * Gets the bot name.
+	 * Sets the bot name.
 	 *
-	 * @return the bot name
+	 * @param botName the new bot name
 	 */
-	public String getBotName() {
-		return botName;
+	@XmlElement(name = "botName")
+	public void setBotName(String botName) {
+		this.botName = botName;
 	}
 
 	/**
@@ -234,6 +268,16 @@ public class ExtraVars implements Serializable {
 	@XmlElement(name = "client")
 	public void setClient(String client) {
 		this.client = client;
+	}
+
+	/**
+	 * Sets the creator.
+	 *
+	 * @param creator the new creator
+	 */
+	@XmlElement(name = "creator")
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 
 	/**
@@ -294,6 +338,16 @@ public class ExtraVars implements Serializable {
 	@XmlElement(name = "playbook_start_timestamp")
 	public void setPlaybookStartTimestamp(Integer playbookStartTimestamp) {
 		this.playbookStartTimestamp = playbookStartTimestamp;
+	}
+
+	/**
+	 * Sets the specialist.
+	 *
+	 * @param specialist the new specialist
+	 */
+	@XmlElement(name = "specialist")
+	public void setSpecialist(String specialist) {
+		this.specialist = specialist;
 	}
 
 	/**
@@ -384,16 +438,6 @@ public class ExtraVars implements Serializable {
 	@XmlElement(name = "woid")
 	public void setWoid(String woid) {
 		this.woid = woid;
-	}
-
-	/**
-	 * Sets the bot name.
-	 *
-	 * @param botName the new bot name
-	 */
-	@XmlElement(name = "botName")
-	public void setBotName(String botName) {
-		this.botName = botName;
 	}
 
 }
