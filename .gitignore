@@ -5,6 +5,7 @@
 *.classpath
 *.metadata
 *.gitignore
+*.idea
 
 # Log file
 *.log
