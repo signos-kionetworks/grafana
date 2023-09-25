@@ -442,7 +442,7 @@
 	</build>
 	<properties>
 		<jdk.version>1.8</jdk.version>
-		<spring.version>6.0.0</spring.version>
+		<spring.version>6.0.8</spring.version>
 		<spring-security.version>5.5.7</spring-security.version>
 		<aspectj.version>1.8.9</aspectj.version>
 		<javax-servlet.version>3.1.0</javax-servlet.version>
