@@ -22,6 +22,7 @@ import com.kio.applications.validator.exception.GenericException;
 import com.kio.applications.validator.model.Area;
 import com.kio.applications.validator.model.Automation;
 import com.kio.applications.validator.model.Client;
+import com.kio.applications.validator.model.Creator;
 import com.kio.applications.validator.model.EquivalenceClient;
 import com.kio.applications.validator.model.EquivalenceClientOrganization;
 import com.kio.applications.validator.model.Indicator;
@@ -29,6 +30,7 @@ import com.kio.applications.validator.model.LevelOfSpecialization;
 import com.kio.applications.validator.model.OperativeCatalog;
 import com.kio.applications.validator.model.OrganizationAWX;
 import com.kio.applications.validator.model.Platform;
+import com.kio.applications.validator.model.Specialist;
 import com.kio.applications.validator.model.TechnologicalDomain;
 import com.kio.applications.validator.model.Technology;
 import com.kio.applications.validator.model.TokenAWX;
@@ -40,6 +42,7 @@ import com.kio.applications.validator.model.web.ValidatorRequest;
 import com.kio.applications.validator.model.web.ValidatorResponse;
 import com.kio.applications.validator.util.AppConstants;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ValidatorBO.
  */
@@ -53,6 +56,7 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	@Autowired
 	ClientBO clientBO;
 
+	/** The equivalence client BO. */
 	@Autowired
 	EquivalenceClientBO equivalenceClientBO;
 
@@ -103,6 +107,14 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/** The type task BO. */
 	@Autowired
 	TypeTaskBO typeTaskBO;
+
+	/** The creator BO. */
+	@Autowired
+	CreatorBO creatorBO;
+
+	/** The specialist BO. */
+	@Autowired
+	SpecialistBO specialistBO;
 
 	/** The operative catalog BO. */
 	@Autowired
@@ -156,34 +168,32 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 		automation.setAreaid(area.getId());
 		automation.setDirid(area.getIdDireccion());
 
+		automation.setCrid(this.validateCreator(value));
+		automation.setSpecialistid(this.validateSpecialist(value));
 		automation.setPlatformid(this.validatePlatform(value));
 		automation.setTipoautid(this.validateTypeAutomation(value));
 		automation.setTipoexecid(this.validateTypeExecution(value));
 		automation.setDevtypeid(this.validateTypeDevelop(value));
 		automation.setCatopid(this.validateOperativeCatalog(value));
 
+		String uniqueName = String.format(
+				"dirid:%s-areaid:%s-clienteid:%s-plataformaid:%s-tipoautid:%s-tipoexecid:%s-devtypeid:%s-catopid:%s",
+				automation.getDirid(), automation.getAreaid(), automation.getClienteid(), automation.getPlatformid(),
+				automation.getTipoautid(), automation.getTipoexecid(), automation.getDevtypeid(),
+				automation.getCatopid());
+
+		automation.setBotDescr(uniqueName);
+
 		if (null != value.getExtraVars().getBotName() && !value.getExtraVars().getBotName().isEmpty()) {
-			Automation autBotName = automationBO.searchByText(value.getExtraVars().getBotName());
-			automation.setBotDescr(value.getExtraVars().getBotName());
 			automation.setBotname(value.getExtraVars().getBotName());
-			if (null != autBotName) {
-				automation.setId(autBotName.getId());
-			}
 		} else {
 
-			String uniqueName = String.format(
-					"dirid:%s-areaid:%s-clienteid:%s-plataformaid:%s-tipoautid:%s-tipoexecid:%s-devtypeid:%s-catopid:%s",
-					automation.getDirid(), automation.getAreaid(), automation.getClienteid(),
-					automation.getPlatformid(), automation.getTipoautid(), automation.getTipoexecid(),
-					automation.getDevtypeid(), automation.getCatopid());
-
-			automation.setBotDescr(uniqueName);
 			automation.setBotname(uniqueName);
+		}
 
-			Automation automationBD = automationBO.searchByKey(automation);
-			if (null != automationBD) {
-				automation.setId(automationBD.getId());
-			}
+		Automation automationBD = automationBO.searchByKey(automation);
+		if (null != automationBD) {
+			automation.setId(automationBD.getId());
 		}
 
 		automationBO.save(automation);
@@ -542,6 +552,40 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 			throw new GenericException("El campo type_of_task es obligatorio.");
 		}
 		return typeTask.getId();
+	}
+
+	/**
+	 * Validate creator.
+	 *
+	 * @param value the value
+	 * @return the integer
+	 * @throws GenericException the generic exception
+	 */
+	private Integer validateCreator(ValidatorRequest value) throws GenericException {
+		Creator creator = null;
+
+		if (null != value.getExtraVars().getCreator() && !value.getExtraVars().getCreator().isEmpty()) {
+			creator = creatorBO.selectByName(value.getExtraVars().getCreator());
+
+		}
+		return creator != null ? creator.getId() : 1;
+	}
+
+	/**
+	 * Validate specialist.
+	 *
+	 * @param value the value
+	 * @return the integer
+	 * @throws GenericException the generic exception
+	 */
+	private Integer validateSpecialist(ValidatorRequest value) throws GenericException {
+		Specialist specialist = null;
+
+		if (null != value.getExtraVars().getSpecialist() && !value.getExtraVars().getSpecialist().isEmpty()) {
+			specialist = specialistBO.selectByName(value.getExtraVars().getSpecialist());
+
+		}
+		return specialist != null ? specialist.getId() : 0;
 	}
 
 }
