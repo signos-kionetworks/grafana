@@ -65,7 +65,8 @@ public interface IndicatorMapper {
 				.equalTo(record::getAutotime).set(svtime).equalTo(record::getSvtime).set(transactionid)
 				.equalTo(record::getTransactionid).set(ticketid).equalTo(record::getTicketid).set(svfte)
 				.equalTo(record::getSvfte).set(impactedCis).equalTo(record::getImpactedCis).set(totalImpactedCis)
-				.equalTo(record::getTotalImpactedCis).set(mantime).equalTo(record::getMantime).set(source).equalTo(record::getSource);
+				.equalTo(record::getTotalImpactedCis).set(mantime).equalTo(record::getMantime).set(source).equalTo(record::getSource)
+				.set(userAgent).equalTo(record::getUserAgent);
 	}
 
 	/**
@@ -81,7 +82,8 @@ public interface IndicatorMapper {
 				.set(transactionid).equalToWhenPresent(record::getTransactionid).set(ticketid)
 				.equalToWhenPresent(record::getTicketid).set(svfte).equalToWhenPresent(record::getSvfte)
 				.set(impactedCis).equalToWhenPresent(record::getImpactedCis).set(totalImpactedCis)
-				.equalToWhenPresent(record::getTotalImpactedCis).set(mantime).equalToWhenPresent(record::getMantime).set(source).equalToWhenPresent(record::getSource).set(userAgent).equalToWhenPresent(record::getUserAgent);
+				.equalToWhenPresent(record::getTotalImpactedCis).set(mantime).equalToWhenPresent(record::getMantime).set(source)
+				.equalToWhenPresent(record::getSource).set(userAgent).equalToWhenPresent(record::getUserAgent);
 	}
 
 	/**
