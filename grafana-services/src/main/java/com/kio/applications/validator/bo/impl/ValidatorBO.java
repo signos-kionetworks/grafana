@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
+import com.kio.applications.validator.model.*;
 import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,25 +21,6 @@ import org.springframework.stereotype.Service;
 
 import com.kio.applications.validator.bo.IfzValidatorBO;
 import com.kio.applications.validator.exception.GenericException;
-import com.kio.applications.validator.model.Area;
-import com.kio.applications.validator.model.Automation;
-import com.kio.applications.validator.model.Client;
-import com.kio.applications.validator.model.Creator;
-import com.kio.applications.validator.model.EquivalenceClient;
-import com.kio.applications.validator.model.EquivalenceClientOrganization;
-import com.kio.applications.validator.model.Indicator;
-import com.kio.applications.validator.model.LevelOfSpecialization;
-import com.kio.applications.validator.model.OperativeCatalog;
-import com.kio.applications.validator.model.OrganizationAWX;
-import com.kio.applications.validator.model.Platform;
-import com.kio.applications.validator.model.Specialist;
-import com.kio.applications.validator.model.TechnologicalDomain;
-import com.kio.applications.validator.model.Technology;
-import com.kio.applications.validator.model.TokenAWX;
-import com.kio.applications.validator.model.TypeAutomation;
-import com.kio.applications.validator.model.TypeDevelop;
-import com.kio.applications.validator.model.TypeExecution;
-import com.kio.applications.validator.model.TypeTask;
 import com.kio.applications.validator.model.web.ValidatorRequest;
 import com.kio.applications.validator.model.web.ValidatorResponse;
 import com.kio.applications.validator.util.AppConstants;
@@ -64,6 +46,9 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/** The indicator BO. */
 	@Autowired
 	IndicatorBO indicatorBO;
+
+	@Autowired
+	IndicatorInfoBO indicatorInfoBO;
 
 	/** The organization AWXBO. */
 	@Autowired
@@ -257,15 +242,13 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 		indicator.setMantime(value.getExtraVars().getManualTime());
 		indicator.setTime(currentDate);
 		indicator.setTransactionid(simpleDateFormat.format(currentDate));
-		indicator.setUserAgent(value.getExtraVars().getUserAgent());
+
 
 		if (null != value.getExtraVars().getWoid() && !value.getExtraVars().getWoid().isEmpty()) {
 			indicator.setTicketid(value.getExtraVars().getWoid());
 		}
 
-		if (null != value.getExtraVars().getSource() && !value.getExtraVars().getSource().isEmpty()) {
-			indicator.setSource(value.getExtraVars().getSource());
-		}
+
 
 		int valueCalculate= 3600 ;
 		if(calculateIn.equalsIgnoreCase("minutes")){
@@ -303,6 +286,18 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 		}
 
 		indicatorBO.save(indicator);
+
+		IndicatorInfo indicatorInfo = new IndicatorInfo();
+
+		if (null != value.getExtraVars().getSource() && !value.getExtraVars().getSource().isEmpty()) {
+			indicatorInfo.setSource(value.getExtraVars().getSource());
+		}
+
+		indicatorInfo.setUserAgent(value.getExtraVars().getUserAgent());
+		indicatorInfo.setRemoteHost(value.getExtraVars().getRemoteHost());
+		indicatorInfo.setIdIndicador(indicator.getId().intValue());
+
+		indicatorInfoBO.save(indicatorInfo);
 
 		response.setRecordId(indicator.getId().intValue());
 		response.setAutId(automation.getId().intValue());

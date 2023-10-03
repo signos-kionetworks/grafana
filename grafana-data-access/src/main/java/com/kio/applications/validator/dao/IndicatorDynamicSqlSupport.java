@@ -1,110 +1,74 @@
-/*
-* ****************************************************
-* * Grafana *
-* * KIO Networks *
-* * @Author Julio Galindo *
-* ****************************************************
-*/
 package com.kio.applications.validator.dao;
 
 import java.sql.JDBCType;
 import java.util.Date;
-
+import javax.annotation.Generated;
 import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
 
-/**
- * The Class IndicatorDynamicSqlSupport.
- */
 public final class IndicatorDynamicSqlSupport {
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public static final Indicator indicator = new Indicator();
 
-	/**
-	 * The Class Indicator.
-	 */
-	public static final class Indicator extends SqlTable {
-		
-		/** The id. */
-		public final SqlColumn<Long> id = column("id", JDBCType.BIGINT);
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public static final SqlColumn<Long> id = indicator.id;
 
-		/** The time. */
-		public final SqlColumn<Date> time = column("time", JDBCType.TIMESTAMP);
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public static final SqlColumn<Date> time = indicator.time;
 
-		/** The autid. */
-		public final SqlColumn<Long> autid = column("autid", JDBCType.BIGINT);
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public static final SqlColumn<Long> autid = indicator.autid;
 
-		/** The autotime. */
-		public final SqlColumn<Float> autotime = column("autotime", JDBCType.REAL);
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public static final SqlColumn<Float> autotime = indicator.autotime;
 
-		/** The svtime. */
-		public final SqlColumn<Float> svtime = column("svtime", JDBCType.REAL);
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public static final SqlColumn<Float> svtime = indicator.svtime;
 
-		/** The transactionid. */
-		public final SqlColumn<String> transactionid = column("transactionid", JDBCType.VARCHAR);
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public static final SqlColumn<String> transactionid = indicator.transactionid;
 
-		/** The ticketid. */
-		public final SqlColumn<String> ticketid = column("ticketid", JDBCType.VARCHAR);
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public static final SqlColumn<String> ticketid = indicator.ticketid;
 
-		/** The svfte. */
-		public final SqlColumn<Float> svfte = column("svfte", JDBCType.REAL);
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public static final SqlColumn<Float> svfte = indicator.svfte;
 
-		/** The impacted cis. */
-		public final SqlColumn<Integer> impactedCis = column("impacted_cis", JDBCType.INTEGER);
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public static final SqlColumn<Integer> impactedCis = indicator.impactedCis;
 
-		/** The total impacted cis. */
-		public final SqlColumn<Integer> totalImpactedCis = column("total_impacted_cis", JDBCType.INTEGER);
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public static final SqlColumn<Integer> totalImpactedCis = indicator.totalImpactedCis;
 
-		/** The mantime. */
-		public final SqlColumn<Float> mantime = column("mantime", JDBCType.REAL);
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public static final SqlColumn<Float> mantime = indicator.mantime;
 
-		public final SqlColumn<String> source = column("source", JDBCType.VARCHAR);
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public static final class Indicator extends SqlTable {
+        public final SqlColumn<Long> id = column("id", JDBCType.BIGINT);
 
-		public final SqlColumn<String> userAgent = column("user_agent", JDBCType.VARCHAR);
+        public final SqlColumn<Date> time = column("time", JDBCType.TIMESTAMP);
 
-		/**
-		 * Instantiates a new indicator.
-		 */
-		public Indicator() {
-			super("indicadores");
-		}
-	}
+        public final SqlColumn<Long> autid = column("autid", JDBCType.BIGINT);
 
-	/** The Constant indicator. */
-	public static final Indicator indicator = new Indicator();
+        public final SqlColumn<Float> autotime = column("autotime", JDBCType.REAL);
 
-	/** The Constant id. */
-	public static final SqlColumn<Long> id = indicator.id;
+        public final SqlColumn<Float> svtime = column("svtime", JDBCType.REAL);
 
-	/** The Constant time. */
-	public static final SqlColumn<Date> time = indicator.time;
+        public final SqlColumn<String> transactionid = column("transactionid", JDBCType.VARCHAR);
 
-	/** The Constant autid. */
-	public static final SqlColumn<Long> autid = indicator.autid;
+        public final SqlColumn<String> ticketid = column("ticketid", JDBCType.VARCHAR);
 
-	/** The Constant autotime. */
-	public static final SqlColumn<Float> autotime = indicator.autotime;
+        public final SqlColumn<Float> svfte = column("svfte", JDBCType.REAL);
 
-	/** The Constant svtime. */
-	public static final SqlColumn<Float> svtime = indicator.svtime;
+        public final SqlColumn<Integer> impactedCis = column("impacted_cis", JDBCType.INTEGER);
 
-	/** The Constant transactionid. */
-	public static final SqlColumn<String> transactionid = indicator.transactionid;
+        public final SqlColumn<Integer> totalImpactedCis = column("total_impacted_cis", JDBCType.INTEGER);
 
-	/** The Constant ticketid. */
-	public static final SqlColumn<String> ticketid = indicator.ticketid;
+        public final SqlColumn<Float> mantime = column("mantime", JDBCType.REAL);
 
-	/** The Constant svfte. */
-	public static final SqlColumn<Float> svfte = indicator.svfte;
-
-	/** The Constant impactedCis. */
-	public static final SqlColumn<Integer> impactedCis = indicator.impactedCis;
-
-	/** The Constant totalImpactedCis. */
-	public static final SqlColumn<Integer> totalImpactedCis = indicator.totalImpactedCis;
-
-	/** The Constant mantime. */
-	public static final SqlColumn<Float> mantime = indicator.mantime;
-
-	public static final SqlColumn<String> source = indicator.source;
-
-	public static final SqlColumn<String> userAgent = indicator.userAgent;
+        public Indicator() {
+            super("indicadores");
+        }
+    }
 }

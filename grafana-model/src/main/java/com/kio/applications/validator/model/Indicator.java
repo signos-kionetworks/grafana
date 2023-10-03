@@ -1,258 +1,149 @@
-/*
-* ****************************************************
-* * Grafana *
-* * KIO Networks *
-* * @Author Julio Galindo *
-* ****************************************************
-*/
 package com.kio.applications.validator.model;
 
 import java.util.Date;
+import javax.annotation.Generated;
 
-/**
- * The Class Indicator.
- */
 public class Indicator {
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    private Long id;
 
-	/** The id. */
-	private Long id;
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    private Date time;
 
-	/** The time. */
-	private Date time;
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    private Long autid;
 
-	/** The autid. */
-	private Long autid;
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    private Float autotime;
 
-	/** The autotime. */
-	private Float autotime;
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    private Float svtime;
 
-	/** The svtime. */
-	private Float svtime;
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    private String transactionid;
 
-	/** The transactionid. */
-	private String transactionid;
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    private String ticketid;
 
-	/** The ticketid. */
-	private String ticketid = "0";
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    private Float svfte;
 
-	/** The svfte. */
-	private Float svfte;
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    private Integer impactedCis;
 
-	/** The impacted cis. */
-	private Integer impactedCis;
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    private Integer totalImpactedCis;
 
-	/** The total impacted cis. */
-	private Integer totalImpactedCis;
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    private Float mantime;
 
-	private float mantime;
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public Long getId() {
+        return id;
+    }
 
-	/** The source. */
-	private String source;
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	/** The userAgent. */
-	private String userAgent;
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public Date getTime() {
+        return time;
+    }
 
-	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public void setTime(Date time) {
+        this.time = time;
+    }
 
-	/**
-	 * Sets the id.
-	 *
-	 * @param id the new id
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public Long getAutid() {
+        return autid;
+    }
 
-	/**
-	 * Gets the time.
-	 *
-	 * @return the time
-	 */
-	public Date getTime() {
-		return time;
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public void setAutid(Long autid) {
+        this.autid = autid;
+    }
 
-	/**
-	 * Sets the time.
-	 *
-	 * @param time the new time
-	 */
-	public void setTime(Date time) {
-		this.time = time;
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public Float getAutotime() {
+        return autotime;
+    }
 
-	/**
-	 * Gets the autid.
-	 *
-	 * @return the autid
-	 */
-	public Long getAutid() {
-		return autid;
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public void setAutotime(Float autotime) {
+        this.autotime = autotime;
+    }
 
-	/**
-	 * Sets the autid.
-	 *
-	 * @param autid the new autid
-	 */
-	public void setAutid(Long autid) {
-		this.autid = autid;
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public Float getSvtime() {
+        return svtime;
+    }
 
-	/**
-	 * Gets the autotime.
-	 *
-	 * @return the autotime
-	 */
-	public Float getAutotime() {
-		return autotime;
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public void setSvtime(Float svtime) {
+        this.svtime = svtime;
+    }
 
-	/**
-	 * Sets the autotime.
-	 *
-	 * @param autotime the new autotime
-	 */
-	public void setAutotime(Float autotime) {
-		this.autotime = autotime;
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public String getTransactionid() {
+        return transactionid;
+    }
 
-	/**
-	 * Gets the svtime.
-	 *
-	 * @return the svtime
-	 */
-	public Float getSvtime() {
-		return svtime;
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public void setTransactionid(String transactionid) {
+        this.transactionid = transactionid == null ? null : transactionid.trim();
+    }
 
-	/**
-	 * Sets the svtime.
-	 *
-	 * @param svtime the new svtime
-	 */
-	public void setSvtime(Float svtime) {
-		this.svtime = svtime;
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public String getTicketid() {
+        return ticketid;
+    }
 
-	/**
-	 * Gets the transactionid.
-	 *
-	 * @return the transactionid
-	 */
-	public String getTransactionid() {
-		return transactionid;
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public void setTicketid(String ticketid) {
+        this.ticketid = ticketid == null ? null : ticketid.trim();
+    }
 
-	/**
-	 * Sets the transactionid.
-	 *
-	 * @param transactionid the new transactionid
-	 */
-	public void setTransactionid(String transactionid) {
-		this.transactionid = transactionid == null ? null : transactionid.trim();
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public Float getSvfte() {
+        return svfte;
+    }
 
-	/**
-	 * Gets the ticketid.
-	 *
-	 * @return the ticketid
-	 */
-	public String getTicketid() {
-		return ticketid;
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public void setSvfte(Float svfte) {
+        this.svfte = svfte;
+    }
 
-	/**
-	 * Sets the ticketid.
-	 *
-	 * @param ticketid the new ticketid
-	 */
-	public void setTicketid(String ticketid) {
-		this.ticketid = ticketid == null ? null : ticketid.trim();
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public Integer getImpactedCis() {
+        return impactedCis;
+    }
 
-	/**
-	 * Gets the svfte.
-	 *
-	 * @return the svfte
-	 */
-	public Float getSvfte() {
-		return svfte;
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public void setImpactedCis(Integer impactedCis) {
+        this.impactedCis = impactedCis;
+    }
 
-	/**
-	 * Sets the svfte.
-	 *
-	 * @param svfte the new svfte
-	 */
-	public void setSvfte(Float svfte) {
-		this.svfte = svfte;
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public Integer getTotalImpactedCis() {
+        return totalImpactedCis;
+    }
 
-	/**
-	 * Gets the impacted cis.
-	 *
-	 * @return the impacted cis
-	 */
-	public Integer getImpactedCis() {
-		return impactedCis;
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public void setTotalImpactedCis(Integer totalImpactedCis) {
+        this.totalImpactedCis = totalImpactedCis;
+    }
 
-	/**
-	 * Sets the impacted cis.
-	 *
-	 * @param impactedCis the new impacted cis
-	 */
-	public void setImpactedCis(Integer impactedCis) {
-		this.impactedCis = impactedCis;
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public Float getMantime() {
+        return mantime;
+    }
 
-	/**
-	 * Gets the total impacted cis.
-	 *
-	 * @return the total impacted cis
-	 */
-	public Integer getTotalImpactedCis() {
-		return totalImpactedCis;
-	}
-
-	/**
-	 * Sets the total impacted cis.
-	 *
-	 * @param totalImpactedCis the new total impacted cis
-	 */
-	public void setTotalImpactedCis(Integer totalImpactedCis) {
-		this.totalImpactedCis = totalImpactedCis;
-	}
-
-	public float getMantime() {
-		return mantime;
-	}
-
-	public void setMantime(float mantime) {
-		this.mantime = mantime;
-	}
-
-	public String getSource() {
-		return source;
-	}
-
-	public void setSource(String source) {
-		this.source = source == null ? null : source.trim();
-	}
-
-	public String getUserAgent() {
-		return userAgent;
-	}
-
-	public void setUserAgent(String userAgent) {
-		this.userAgent = userAgent == null ? null : userAgent.trim();
-	}
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public void setMantime(Float mantime) {
+        this.mantime = mantime;
+    }
 }

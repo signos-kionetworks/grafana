@@ -51,6 +51,7 @@ public class ValidatorCtrl implements IfzValidatorCtrl {
 			final Message message = PhaseInterceptorChain.getCurrentMessage();
 			req = (HttpServletRequest) message.get(AbstractHTTPDestination.HTTP_REQUEST);
 			request.getExtraVars().setUserAgent(req.getHeader("user-agent"));
+			request.getExtraVars().setRemoteHost(req.getRemoteHost());
 			return this.validatorBO.processRequest(request);
 		} catch (final GenericException e) {
 			logger.error(e.getMessage(), e);

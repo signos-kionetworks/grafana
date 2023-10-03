@@ -124,6 +124,8 @@ public class ExtraVars implements Serializable {
 
     private String userAgent = "";
 
+    private String remoteHost = "";
+
     /**
      * Gets the bot name.
      *
@@ -500,5 +502,13 @@ public class ExtraVars implements Serializable {
     @XmlElement(name = "user_agent")
     public void setUserAgent(String userAgent) {
         this.userAgent = userAgent;
+    }
+
+    public String getRemoteHost() {
+        return remoteHost;
+    }
+    @XmlElement(name = "remote_host")
+    public void setRemoteHost(String remoteHost) {
+        this.remoteHost = remoteHost;
     }
 }
