@@ -15,6 +15,7 @@ import java.util.Date;
 
 import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.kio.applications.validator.bo.IfzValidatorBO;
@@ -123,6 +124,9 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/** The automation BO. */
 	@Autowired
 	AutomationBO automationBO;
+
+	@Value("${calculate.time.in}")
+	private String calculateIn;
 
 	/**
 	 * Generate automation.
@@ -253,9 +257,19 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 		indicator.setMantime(value.getExtraVars().getManualTime());
 		indicator.setTime(currentDate);
 		indicator.setTransactionid(simpleDateFormat.format(currentDate));
+		indicator.setUserAgent(value.getExtraVars().getUserAgent());
 
 		if (null != value.getExtraVars().getWoid() && !value.getExtraVars().getWoid().isEmpty()) {
 			indicator.setTicketid(value.getExtraVars().getWoid());
+		}
+
+		if (null != value.getExtraVars().getSource() && !value.getExtraVars().getSource().isEmpty()) {
+			indicator.setSource(value.getExtraVars().getSource());
+		}
+
+		int valueCalculate= 3600 ;
+		if(calculateIn.equalsIgnoreCase("minutes")){
+			valueCalculate = 60;
 		}
 
 		if (null != value.getExtraVars().getPlaybookStartTimestamp()
@@ -268,10 +282,10 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 							"El valor del campo playbook_end_timestamp no puede ser menor que el valor del campo playbook_start_timestamp.");
 				}
 				autotime = (float) ((value.getExtraVars().getPlaybookEndTimestamp()
-						- value.getExtraVars().getPlaybookStartTimestamp()) / 60.0);
+						- value.getExtraVars().getPlaybookStartTimestamp()) / valueCalculate);
 			} else {
 				autotime = (float) ((Instant.now().getEpochSecond() - value.getExtraVars().getPlaybookStartTimestamp())
-						/ 60.0);
+						/ valueCalculate);
 			}
 			float svtime = (value.getExtraVars().getManualTime() - autotime);
 			float svfte = svtime / 150;

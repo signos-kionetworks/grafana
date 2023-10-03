@@ -7,18 +7,7 @@
 */
 package com.kio.applications.validator.dao;
 
-import static com.kio.applications.validator.dao.IndicatorDynamicSqlSupport.autid;
-import static com.kio.applications.validator.dao.IndicatorDynamicSqlSupport.autotime;
-import static com.kio.applications.validator.dao.IndicatorDynamicSqlSupport.id;
-import static com.kio.applications.validator.dao.IndicatorDynamicSqlSupport.impactedCis;
-import static com.kio.applications.validator.dao.IndicatorDynamicSqlSupport.indicator;
-import static com.kio.applications.validator.dao.IndicatorDynamicSqlSupport.mantime;
-import static com.kio.applications.validator.dao.IndicatorDynamicSqlSupport.svfte;
-import static com.kio.applications.validator.dao.IndicatorDynamicSqlSupport.svtime;
-import static com.kio.applications.validator.dao.IndicatorDynamicSqlSupport.ticketid;
-import static com.kio.applications.validator.dao.IndicatorDynamicSqlSupport.time;
-import static com.kio.applications.validator.dao.IndicatorDynamicSqlSupport.totalImpactedCis;
-import static com.kio.applications.validator.dao.IndicatorDynamicSqlSupport.transactionid;
+import static com.kio.applications.validator.dao.IndicatorDynamicSqlSupport.*;
 import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
 
 import java.util.Collection;
@@ -62,7 +51,7 @@ public interface IndicatorMapper {
 
 	/** The select list. */
 	BasicColumn[] selectList = BasicColumn.columnList(id, time, autid, autotime, svtime, transactionid, ticketid, svfte,
-			impactedCis, totalImpactedCis, mantime);
+			impactedCis, totalImpactedCis, mantime, source, userAgent);
 
 	/**
 	 * Update all columns.
@@ -76,7 +65,7 @@ public interface IndicatorMapper {
 				.equalTo(record::getAutotime).set(svtime).equalTo(record::getSvtime).set(transactionid)
 				.equalTo(record::getTransactionid).set(ticketid).equalTo(record::getTicketid).set(svfte)
 				.equalTo(record::getSvfte).set(impactedCis).equalTo(record::getImpactedCis).set(totalImpactedCis)
-				.equalTo(record::getTotalImpactedCis).set(mantime).equalTo(record::getMantime);
+				.equalTo(record::getTotalImpactedCis).set(mantime).equalTo(record::getMantime).set(source).equalTo(record::getSource);
 	}
 
 	/**
@@ -92,7 +81,7 @@ public interface IndicatorMapper {
 				.set(transactionid).equalToWhenPresent(record::getTransactionid).set(ticketid)
 				.equalToWhenPresent(record::getTicketid).set(svfte).equalToWhenPresent(record::getSvfte)
 				.set(impactedCis).equalToWhenPresent(record::getImpactedCis).set(totalImpactedCis)
-				.equalToWhenPresent(record::getTotalImpactedCis).set(mantime).equalToWhenPresent(record::getMantime);
+				.equalToWhenPresent(record::getTotalImpactedCis).set(mantime).equalToWhenPresent(record::getMantime).set(source).equalToWhenPresent(record::getSource).set(userAgent).equalToWhenPresent(record::getUserAgent);
 	}
 
 	/**
@@ -155,7 +144,9 @@ public interface IndicatorMapper {
 						.map(svtime).toProperty("svtime").map(transactionid).toProperty("transactionid").map(ticketid)
 						.toProperty("ticketid").map(svfte).toProperty("svfte").map(impactedCis)
 						.toProperty("impactedCis").map(totalImpactedCis).toProperty("totalImpactedCis").map(mantime)
-						.toProperty("mantime"));
+						.toProperty("mantime").map(source)
+						.toProperty("source").map(userAgent)
+						.toProperty("userAgent"));
 	}
 
 	/**
@@ -180,7 +171,9 @@ public interface IndicatorMapper {
 						.map(svtime).toProperty("svtime").map(transactionid).toProperty("transactionid").map(ticketid)
 						.toProperty("ticketid").map(svfte).toProperty("svfte").map(impactedCis)
 						.toProperty("impactedCis").map(totalImpactedCis).toProperty("totalImpactedCis").map(mantime)
-						.toProperty("mantime"));
+						.toProperty("mantime").map(source)
+						.toProperty("source").map(userAgent)
+						.toProperty("userAgent"));
 	}
 
 	/**
@@ -221,7 +214,9 @@ public interface IndicatorMapper {
 						.toPropertyWhenPresent("svfte", record::getSvfte).map(impactedCis)
 						.toPropertyWhenPresent("impactedCis", record::getImpactedCis).map(totalImpactedCis)
 						.toPropertyWhenPresent("totalImpactedCis", record::getTotalImpactedCis).map(mantime)
-						.toPropertyWhenPresent("mantime", record::getMantime));
+						.toPropertyWhenPresent("mantime", record::getMantime).map(source)
+						.toPropertyWhenPresent("source", record::getSource).map(userAgent)
+						.toPropertyWhenPresent("userAgent", record::getUserAgent));
 	}
 
 	/**
@@ -273,7 +268,9 @@ public interface IndicatorMapper {
 					@Result(column = "svfte", property = "svfte", jdbcType = JdbcType.REAL),
 					@Result(column = "impacted_cis", property = "impactedCis", jdbcType = JdbcType.INTEGER),
 					@Result(column = "total_impacted_cis", property = "totalImpactedCis", jdbcType = JdbcType.INTEGER),
-					@Result(column = "mantime", property = "mantime", jdbcType = JdbcType.REAL) })
+					@Result(column = "mantime", property = "mantime", jdbcType = JdbcType.REAL),
+					@Result(column = "source", property = "source", jdbcType = JdbcType.REAL),
+					@Result(column = "userAgent", property = "userAgent", jdbcType = JdbcType.REAL)})
 	List<Indicator> selectMany(SelectStatementProvider selectStatement);
 
 	/**
@@ -326,7 +323,8 @@ public interface IndicatorMapper {
 				.equalTo(record::getAutotime).set(svtime).equalTo(record::getSvtime).set(transactionid)
 				.equalTo(record::getTransactionid).set(ticketid).equalTo(record::getTicketid).set(svfte)
 				.equalTo(record::getSvfte).set(impactedCis).equalTo(record::getImpactedCis).set(totalImpactedCis)
-				.equalTo(record::getTotalImpactedCis).set(mantime).equalTo(record::getMantime)
+				.equalTo(record::getTotalImpactedCis).set(mantime).equalTo(record::getMantime).set(source).equalTo(record::getSource)
+				.set(userAgent).equalTo(record::getUserAgent)
 				.where(id, isEqualTo(record::getId)));
 	}
 
@@ -342,7 +340,8 @@ public interface IndicatorMapper {
 				.equalToWhenPresent(record::getSvtime).set(transactionid).equalToWhenPresent(record::getTransactionid)
 				.set(ticketid).equalToWhenPresent(record::getTicketid).set(svfte).equalToWhenPresent(record::getSvfte)
 				.set(impactedCis).equalToWhenPresent(record::getImpactedCis).set(totalImpactedCis)
-				.equalToWhenPresent(record::getTotalImpactedCis).set(mantime).equalToWhenPresent(record::getMantime)
+				.equalToWhenPresent(record::getTotalImpactedCis).set(mantime).equalToWhenPresent(record::getMantime).set(source).equalToWhenPresent(record::getSource)
+				.set(userAgent).equalToWhenPresent(record::getUserAgent)
 				.where(id, isEqualTo(record::getId)));
 	}
 }

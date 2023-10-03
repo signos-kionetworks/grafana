@@ -46,6 +46,12 @@ public class Indicator {
 
 	private float mantime;
 
+	/** The source. */
+	private String source;
+
+	/** The userAgent. */
+	private String userAgent;
+
 	/**
 	 * Gets the id.
 	 *
@@ -232,5 +238,21 @@ public class Indicator {
 
 	public void setMantime(float mantime) {
 		this.mantime = mantime;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source == null ? null : source.trim();
+	}
+
+	public String getUserAgent() {
+		return userAgent;
+	}
+
+	public void setUserAgent(String userAgent) {
+		this.userAgent = userAgent == null ? null : userAgent.trim();
 	}
 }

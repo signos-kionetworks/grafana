@@ -56,6 +56,10 @@ public final class IndicatorDynamicSqlSupport {
 		/** The mantime. */
 		public final SqlColumn<Float> mantime = column("mantime", JDBCType.REAL);
 
+		public final SqlColumn<String> source = column("source", JDBCType.VARCHAR);
+
+		public final SqlColumn<String> userAgent = column("user_agent", JDBCType.VARCHAR);
+
 		/**
 		 * Instantiates a new indicator.
 		 */
@@ -99,4 +103,8 @@ public final class IndicatorDynamicSqlSupport {
 
 	/** The Constant mantime. */
 	public static final SqlColumn<Float> mantime = indicator.mantime;
+
+	public static final SqlColumn<String> source = indicator.source;
+
+	public static final SqlColumn<String> userAgent = indicator.userAgent;
 }
