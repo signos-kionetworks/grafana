@@ -243,12 +243,9 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 		indicator.setTime(currentDate);
 		indicator.setTransactionid(simpleDateFormat.format(currentDate));
 
-
 		if (null != value.getExtraVars().getWoid() && !value.getExtraVars().getWoid().isEmpty()) {
 			indicator.setTicketid(value.getExtraVars().getWoid());
 		}
-
-
 
 		int valueCalculate= 3600 ;
 		if(calculateIn.equalsIgnoreCase("minutes")){
