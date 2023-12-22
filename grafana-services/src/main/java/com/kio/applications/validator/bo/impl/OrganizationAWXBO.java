@@ -51,11 +51,7 @@ public class OrganizationAWXBO
 				.selectOne(c -> c.where(
 						com.kio.applications.validator.dao.OrganizationAWXDynamicSqlSupport.id,
 						SqlBuilder.isEqualTo(id)));
-		if (result.isPresent()) {
-			return result.get();
-		} else {
-			return null;
-		}
+        return result.orElse(null);
 	}
 
 	/**
@@ -75,11 +71,7 @@ public class OrganizationAWXBO
 						SqlBuilder.isInCaseInsensitive(
 								value.trim().toUpperCase()))
 						.limit(1));
-		if (result.isPresent()) {
-			return result.get();
-		} else {
-			return null;
-		}
+        return result.orElse(null);
 	}
 
 }

@@ -47,11 +47,7 @@ public class TypeTicketBO implements IfzSelectBO<TypeTicket>, Serializable {
 				.selectOne(c -> c.where(
 						com.kio.applications.validator.dao.TypeTicketDynamicSqlSupport.id,
 						SqlBuilder.isEqualTo(id)));
-		if (result.isPresent()) {
-			return result.get();
-		} else {
-			return null;
-		}
+        return result.orElse(null);
 	}
 
 	/**
@@ -74,11 +70,7 @@ public class TypeTicketBO implements IfzSelectBO<TypeTicket>, Serializable {
 								SqlBuilder.isInCaseInsensitive(
 										value.trim().toUpperCase()))
 						.limit(1));
-		if (result.isPresent()) {
-			return result.get();
-		} else {
-			return null;
-		}
+        return result.orElse(null);
 	}
 
 }

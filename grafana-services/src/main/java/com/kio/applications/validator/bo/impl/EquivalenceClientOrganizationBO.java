@@ -52,11 +52,7 @@ public class EquivalenceClientOrganizationBO
 				.selectOne(c -> c.where(
 						com.kio.applications.validator.dao.EquivalenceClientOrganizationDynamicSqlSupport.idOrganizacionAwx,
 						SqlBuilder.isEqualTo(id)));
-		if (result.isPresent()) {
-			return result.get();
-		} else {
-			return null;
-		}
+        return result.orElse(null);
 	}
 
 }

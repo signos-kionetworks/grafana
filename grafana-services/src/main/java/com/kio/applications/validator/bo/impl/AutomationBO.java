@@ -82,11 +82,7 @@ public class AutomationBO
 						SqlBuilder.isEqualTo(value.getClienteid()))
 				.orderBy(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.id).limit(1));
 
-		if (automation.isPresent()) {
-			return automation.get();
-		} else {
-			return value;
-		}
+        return automation.orElse(value);
 	}
 
 	@Override
@@ -95,11 +91,7 @@ public class AutomationBO
 				.where(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.botname,
 						SqlBuilder.isEqualTo(text))
 				.orderBy(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.id).limit(1));
-		if (automation.isPresent()) {
-			return automation.get();
-		} else {
-			return null;
-		}
+        return automation.orElse(null);
 	}
 
 }

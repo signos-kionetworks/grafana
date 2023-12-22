@@ -61,11 +61,7 @@ public class OperativeCatalogBO
 						.orderBy(
 								com.kio.applications.validator.dao.OperativeCatalogDynamicSqlSupport.id)
 						.limit(1));
-		if (result.isPresent()) {
-			return result.get();
-		} else {
-			return null;
-		}
+        return result.orElse(null);
 	}
 
 }

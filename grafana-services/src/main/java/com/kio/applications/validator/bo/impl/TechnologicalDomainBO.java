@@ -50,11 +50,7 @@ public class TechnologicalDomainBO
 				.selectOne(c -> c.where(
 						com.kio.applications.validator.dao.TechnologicalDomainDynamicSqlSupport.id,
 						SqlBuilder.isEqualTo(id)));
-		if (result.isPresent()) {
-			return result.get();
-		} else {
-			return null;
-		}
+        return result.orElse(null);
 	}
 
 	/**
@@ -78,11 +74,7 @@ public class TechnologicalDomainBO
 								SqlBuilder.isInCaseInsensitive(
 										value.trim().toUpperCase()))
 						.limit(1));
-		if (result.isPresent()) {
-			return result.get();
-		} else {
-			return null;
-		}
+        return result.orElse(null);
 	}
 
 }
