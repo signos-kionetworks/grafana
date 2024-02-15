@@ -371,6 +371,7 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 		operativeCatalog.setCatnivel2(validateLevelOfSpecialization(value));
 		operativeCatalog.setCatnivel3(validateTypeTask(value));
 		operativeCatalog.setProducto(validateTechnology(value));
+		operativeCatalog.setTipo(3); //Por default solo se buscan tipo WO
 
 		operativeCatalog = this.operativeCatalogBO.searchByKey(operativeCatalog);
 
@@ -378,7 +379,7 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 			return operativeCatalog.getId();
 		} else {
 			throw new GenericException(String.format(
-					"No se encontró registro del catálogo operativo con los datos technological_domain = [%s], level_of_specialization = [%s], type_of_task = [%s] y technology = [%s].",
+					"No se encontró registro del catálogo operativo con los datos ticket_type = [3], technological_domain = [%s], level_of_specialization = [%s], type_of_task = [%s] y technology = [%s].",
 					value.getExtraVars().getTechnologicalDomain(), value.getExtraVars().getLevelOfSpecialization(),
 					value.getExtraVars().getTypeOfTask(), value.getExtraVars().getTechnology()));
 		}
