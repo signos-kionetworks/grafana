@@ -47,11 +47,7 @@ public class TechnologyBO implements IfzSelectBO<Technology>, Serializable {
 				.selectOne(c -> c.where(
 						com.kio.applications.validator.dao.TechnologyDynamicSqlSupport.id,
 						SqlBuilder.isEqualTo(id)));
-		if (result.isPresent()) {
-			return result.get();
-		} else {
-			return null;
-		}
+        return result.orElse(null);
 	}
 
 	/**
@@ -74,11 +70,7 @@ public class TechnologyBO implements IfzSelectBO<Technology>, Serializable {
 								SqlBuilder.isInCaseInsensitive(
 										value.trim().toUpperCase()))
 						.limit(1));
-		if (result.isPresent()) {
-			return result.get();
-		} else {
-			return null;
-		}
+        return result.orElse(null);
 	}
 
 }

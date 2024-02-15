@@ -48,11 +48,7 @@ public class ClientBO implements IfzSelectBO<Client>, Serializable {
 				.selectOne(c -> c.where(
 						com.kio.applications.validator.dao.ClientDynamicSqlSupport.id,
 						SqlBuilder.isEqualTo(id)));
-		if (client.isPresent()) {
-			return client.get();
-		} else {
-			return null;
-		}
+        return client.orElse(null);
 	}
 
 	/**
@@ -75,11 +71,7 @@ public class ClientBO implements IfzSelectBO<Client>, Serializable {
 								SqlBuilder.isInCaseInsensitive(
 										value.trim().toUpperCase()))
 						.limit(1));
-		if (client.isPresent()) {
-			return client.get();
-		} else {
-			return null;
-		}
+        return client.orElse(null);
 	}
 
 }

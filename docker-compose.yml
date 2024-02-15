@@ -5,11 +5,11 @@ services:
   ports:
     - "8083:8080"
   environment:
-    - e_database_host=192.168.100.5
+    - e_database_host=192.168.10.6
     - e_database_user=postgres
     - e_database_password=Temporal.1
-    - e_database_port=5432
+    - e_database_port=35432
     - e_database_service=indicadores
   extra_hosts:
-    database.grafana.kionetworks.com: 192.168.100.5
+    database.grafana.kionetworks.com: 192.168.10.6
   restart: always

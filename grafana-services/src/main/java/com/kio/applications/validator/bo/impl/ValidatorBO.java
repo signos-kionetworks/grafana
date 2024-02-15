@@ -13,31 +13,14 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
+import com.kio.applications.validator.model.*;
 import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.kio.applications.validator.bo.IfzValidatorBO;
 import com.kio.applications.validator.exception.GenericException;
-import com.kio.applications.validator.model.Area;
-import com.kio.applications.validator.model.Automation;
-import com.kio.applications.validator.model.Client;
-import com.kio.applications.validator.model.Creator;
-import com.kio.applications.validator.model.EquivalenceClient;
-import com.kio.applications.validator.model.EquivalenceClientOrganization;
-import com.kio.applications.validator.model.Indicator;
-import com.kio.applications.validator.model.LevelOfSpecialization;
-import com.kio.applications.validator.model.OperativeCatalog;
-import com.kio.applications.validator.model.OrganizationAWX;
-import com.kio.applications.validator.model.Platform;
-import com.kio.applications.validator.model.Specialist;
-import com.kio.applications.validator.model.TechnologicalDomain;
-import com.kio.applications.validator.model.Technology;
-import com.kio.applications.validator.model.TokenAWX;
-import com.kio.applications.validator.model.TypeAutomation;
-import com.kio.applications.validator.model.TypeDevelop;
-import com.kio.applications.validator.model.TypeExecution;
-import com.kio.applications.validator.model.TypeTask;
 import com.kio.applications.validator.model.web.ValidatorRequest;
 import com.kio.applications.validator.model.web.ValidatorResponse;
 import com.kio.applications.validator.util.AppConstants;
@@ -63,6 +46,9 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/** The indicator BO. */
 	@Autowired
 	IndicatorBO indicatorBO;
+
+	@Autowired
+	IndicatorInfoBO indicatorInfoBO;
 
 	/** The organization AWXBO. */
 	@Autowired
@@ -123,6 +109,9 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 	/** The automation BO. */
 	@Autowired
 	AutomationBO automationBO;
+
+	@Value("${calculate.time.in}")
+	private String calculateIn;
 
 	/**
 	 * Generate automation.
@@ -258,6 +247,11 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 			indicator.setTicketid(value.getExtraVars().getWoid());
 		}
 
+		int valueCalculate= 3600 ;
+		if(calculateIn.equalsIgnoreCase("minutes")){
+			valueCalculate = 60;
+		}
+
 		if (null != value.getExtraVars().getPlaybookStartTimestamp()
 				&& value.getExtraVars().getPlaybookStartTimestamp() > 0) {
 			float autotime = 0;
@@ -268,10 +262,10 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 							"El valor del campo playbook_end_timestamp no puede ser menor que el valor del campo playbook_start_timestamp.");
 				}
 				autotime = (float) ((value.getExtraVars().getPlaybookEndTimestamp()
-						- value.getExtraVars().getPlaybookStartTimestamp()) / 3600.0);
+						- value.getExtraVars().getPlaybookStartTimestamp()) / valueCalculate);
 			} else {
 				autotime = (float) ((Instant.now().getEpochSecond() - value.getExtraVars().getPlaybookStartTimestamp())
-						/ 3600.0);
+						/ valueCalculate);
 			}
 			float svtime = (value.getExtraVars().getManualTime() - autotime);
 			float svfte = svtime / 150;
@@ -289,6 +283,18 @@ public class ValidatorBO implements IfzValidatorBO, Serializable {
 		}
 
 		indicatorBO.save(indicator);
+
+		IndicatorInfo indicatorInfo = new IndicatorInfo();
+
+		if (null != value.getExtraVars().getSource() && !value.getExtraVars().getSource().isEmpty()) {
+			indicatorInfo.setSource(value.getExtraVars().getSource());
+		}
+
+		indicatorInfo.setUserAgent(value.getExtraVars().getUserAgent());
+		indicatorInfo.setRemoteHost(value.getExtraVars().getRemoteHost());
+		indicatorInfo.setIdIndicador(indicator.getId().intValue());
+
+		indicatorInfoBO.save(indicatorInfo);
 
 		response.setRecordId(indicator.getId().intValue());
 		response.setAutId(automation.getId().intValue());

@@ -79,7 +79,7 @@ public class InputHandler extends AbstractPhaseInterceptor<Message> {
 			if (authorization.startsWith(BEARER)) {
 				try {
 					String bearerToken = authorization.replace(BEARER, "");
-					apiNoctopus.validateTokenAnsible(bearerToken);
+					//apiNoctopus.validateTokenAnsible(bearerToken);
 					TokenAWX token = tokenAWXBO.searchToken(bearerToken);
 					if (null == token) {
 						message.getExchange().put(Response.class,

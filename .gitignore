@@ -5,6 +5,7 @@
 *.classpath
 *.metadata
 *.gitignore
+*.idea
 
 # Log file
 *.log
@@ -35,3 +36,4 @@ Servers/Tomcat v8.5 Server at localhost-config/tomcat-users.xml
 Servers/Tomcat v8.5 Server at localhost-config/web.xml
 Servers/Tomcat v9.0 Server at localhost-config/server.xml
 docker-image.yml
+*/target/*

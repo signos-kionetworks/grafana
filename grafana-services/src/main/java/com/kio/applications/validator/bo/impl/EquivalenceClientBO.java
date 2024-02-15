@@ -62,11 +62,7 @@ public class EquivalenceClientBO
 						SqlBuilder.isInCaseInsensitive(
 								value.trim().toUpperCase()))
 						.limit(1));
-		if (equivalenceClient.isPresent()) {
-			return equivalenceClient.get();
-		} else {
-			return null;
-		}
+        return equivalenceClient.orElse(null);
 	}
 
 }

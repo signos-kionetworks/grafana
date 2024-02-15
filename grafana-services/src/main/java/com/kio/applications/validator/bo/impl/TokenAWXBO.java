@@ -48,11 +48,7 @@ public class TokenAWXBO implements IfzTokenAWXBO, Serializable {
 				.selectOne(c -> c.where(
 						com.kio.applications.validator.dao.TokenAWXDynamicSqlSupport.token,
 						SqlBuilder.isEqualTo(token)));
-		if (result.isPresent()) {
-			return result.get();
-		} else {
-			return null;
-		}
+        return result.orElse(null);
 	}
 
 }
