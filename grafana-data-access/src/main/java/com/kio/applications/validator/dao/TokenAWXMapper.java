@@ -1,33 +1,7 @@
-/*
-* ****************************************************
-* * Grafana *
-* * KIO Networks *
-* * @Author Julio Galindo *
-* ****************************************************
-*/
 package com.kio.applications.validator.dao;
 
-import static com.kio.applications.validator.dao.TokenAWXDynamicSqlSupport.id;
-import static com.kio.applications.validator.dao.TokenAWXDynamicSqlSupport.idArea;
-import static com.kio.applications.validator.dao.TokenAWXDynamicSqlSupport.token;
-import static com.kio.applications.validator.dao.TokenAWXDynamicSqlSupport.tokenAWX;
-import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-
-import org.apache.ibatis.annotations.DeleteProvider;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.UpdateProvider;
+import com.kio.applications.validator.model.TokenAWX;
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import org.mybatis.dynamic.sql.BasicColumn;
 import org.mybatis.dynamic.sql.delete.DeleteDSLCompleter;
@@ -44,254 +18,296 @@ import org.mybatis.dynamic.sql.update.render.UpdateStatementProvider;
 import org.mybatis.dynamic.sql.util.SqlProviderAdapter;
 import org.mybatis.dynamic.sql.util.mybatis3.MyBatis3Utils;
 
-import com.kio.applications.validator.model.TokenAWX;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+
+import static com.kio.applications.validator.dao.TokenAWXDynamicSqlSupport.*;
+import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
 
 /**
- * The Interface TokenAWXMapper.
+ * The interface Token awx mapper.
  */
 @Mapper
 public interface TokenAWXMapper {
+    /**
+     * The Select list.
+     */
 
-	/** The select list. */
-	BasicColumn[] selectList = BasicColumn.columnList(id, token, idArea);
+    BasicColumn[] selectList = BasicColumn.columnList(id, token, idArea, emailUser, idOrigen);
 
-	/**
-	 * Update all columns.
-	 *
-	 * @param record the record
-	 * @param dsl    the dsl
-	 * @return the update DSL
-	 */
-	static UpdateDSL<UpdateModel> updateAllColumns(TokenAWX record, UpdateDSL<UpdateModel> dsl) {
-		return dsl.set(token).equalTo(record::getToken).set(idArea).equalTo(record::getIdArea);
-	}
+    /**
+     * Update all columns update dsl.
+     *
+     * @param record the record
+     * @param dsl    the dsl
+     * @return the update dsl
+     */
+    static UpdateDSL<UpdateModel> updateAllColumns(TokenAWX record, UpdateDSL<UpdateModel> dsl) {
+        return dsl.set(token).equalTo(record::getToken)
+                .set(idArea).equalTo(record::getIdArea)
+                .set(emailUser).equalTo(record::getEmailUser)
+                .set(idOrigen).equalTo(record::getIdOrigen);
+    }
 
-	/**
-	 * Update selective columns.
-	 *
-	 * @param record the record
-	 * @param dsl    the dsl
-	 * @return the update DSL
-	 */
-	static UpdateDSL<UpdateModel> updateSelectiveColumns(TokenAWX record, UpdateDSL<UpdateModel> dsl) {
-		return dsl.set(token).equalToWhenPresent(record::getToken).set(idArea).equalToWhenPresent(record::getIdArea);
-	}
+    /**
+     * Update selective columns update dsl.
+     *
+     * @param record the record
+     * @param dsl    the dsl
+     * @return the update dsl
+     */
+    static UpdateDSL<UpdateModel> updateSelectiveColumns(TokenAWX record, UpdateDSL<UpdateModel> dsl) {
+        return dsl.set(token).equalToWhenPresent(record::getToken)
+                .set(idArea).equalToWhenPresent(record::getIdArea)
+                .set(emailUser).equalToWhenPresent(record::getEmailUser)
+                .set(idOrigen).equalToWhenPresent(record::getIdOrigen);
+    }
 
-	/**
-	 * Count.
-	 *
-	 * @param completer the completer
-	 * @return the long
-	 */
-	default long count(CountDSLCompleter completer) {
-		return MyBatis3Utils.countFrom(this::count, tokenAWX, completer);
-	}
+    /**
+     * Count long.
+     *
+     * @param selectStatement the select statement
+     * @return the long
+     */
+    @SelectProvider(type = SqlProviderAdapter.class, method = "select")
+    long count(SelectStatementProvider selectStatement);
 
-	/**
-	 * Count.
-	 *
-	 * @param selectStatement the select statement
-	 * @return the long
-	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	long count(SelectStatementProvider selectStatement);
+    /**
+     * Delete int.
+     *
+     * @param deleteStatement the delete statement
+     * @return the int
+     */
+    @DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
+    int delete(DeleteStatementProvider deleteStatement);
 
-	/**
-	 * Delete.
-	 *
-	 * @param completer the completer
-	 * @return the int
-	 */
-	default int delete(DeleteDSLCompleter completer) {
-		return MyBatis3Utils.deleteFrom(this::delete, tokenAWX, completer);
-	}
+    /**
+     * Insert int.
+     *
+     * @param insertStatement the insert statement
+     * @return the int
+     */
+    @InsertProvider(type = SqlProviderAdapter.class, method = "insert")
+    @Options(useGeneratedKeys = true, keyProperty = "record.id")
+    int insert(InsertStatementProvider<TokenAWX> insertStatement);
 
-	/**
-	 * Delete.
-	 *
-	 * @param deleteStatement the delete statement
-	 * @return the int
-	 */
-	@DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
-	int delete(DeleteStatementProvider deleteStatement);
+    /**
+     * Insert multiple int.
+     *
+     * @param insertStatement the insert statement
+     * @param records         the records
+     * @return the int
+     */
+    @Insert({
+            "${insertStatement}"
+    })
+    @Options(useGeneratedKeys = true, keyProperty = "records.id")
+    int insertMultiple(@Param("insertStatement") String insertStatement, @Param("records") List<TokenAWX> records);
 
-	/**
-	 * Delete by primary key.
-	 *
-	 * @param id_ the id
-	 * @return the int
-	 */
-	default int deleteByPrimaryKey(Integer id_) {
-		return delete(c -> c.where(id, isEqualTo(id_)));
-	}
+    /**
+     * Insert multiple int.
+     *
+     * @param multipleInsertStatement the multiple insert statement
+     * @return the int
+     */
+    default int insertMultiple(MultiRowInsertStatementProvider<TokenAWX> multipleInsertStatement) {
+        return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
+    }
 
-	/**
-	 * Insert.
-	 *
-	 * @param insertStatement the insert statement
-	 * @return the int
-	 */
-	@InsertProvider(type = SqlProviderAdapter.class, method = "insert")
-	@Options(useGeneratedKeys = true, keyProperty = "record.id")
-	int insert(InsertStatementProvider<TokenAWX> insertStatement);
+    /**
+     * Select one optional.
+     *
+     * @param selectStatement the select statement
+     * @return the optional
+     */
+    @SelectProvider(type = SqlProviderAdapter.class, method = "select")
+    @ResultMap("TokenAWXResult")
+    Optional<TokenAWX> selectOne(SelectStatementProvider selectStatement);
 
-	/**
-	 * Insert.
-	 *
-	 * @param record the record
-	 * @return the int
-	 */
-	default int insert(TokenAWX record) {
-		return MyBatis3Utils.insert(this::insert, record, tokenAWX,
-				c -> c.map(token).toProperty("token").map(idArea).toProperty("idArea"));
-	}
+    /**
+     * Select many list.
+     *
+     * @param selectStatement the select statement
+     * @return the list
+     */
+    @SelectProvider(type = SqlProviderAdapter.class, method = "select")
+    @Results(id = "TokenAWXResult", value = {
+            @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
+            @Result(column = "token", property = "token", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "id_area", property = "idArea", jdbcType = JdbcType.INTEGER),
+            @Result(column = "email_user", property = "emailUser", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "id_origen", property = "idOrigen", jdbcType = JdbcType.INTEGER)
+    })
+    List<TokenAWX> selectMany(SelectStatementProvider selectStatement);
 
-	/**
-	 * Insert multiple.
-	 *
-	 * @param records the records
-	 * @return the int
-	 */
-	default int insertMultiple(Collection<TokenAWX> records) {
-		return MyBatis3Utils.insertMultiple(this::insertMultiple, records, tokenAWX,
-				c -> c.map(token).toProperty("token").map(idArea).toProperty("idArea"));
-	}
+    /**
+     * Update int.
+     *
+     * @param updateStatement the update statement
+     * @return the int
+     */
+    @UpdateProvider(type = SqlProviderAdapter.class, method = "update")
+    int update(UpdateStatementProvider updateStatement);
 
-	/**
-	 * Insert multiple.
-	 *
-	 * @param multipleInsertStatement the multiple insert statement
-	 * @return the int
-	 */
-	default int insertMultiple(MultiRowInsertStatementProvider<TokenAWX> multipleInsertStatement) {
-		return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
-	}
+    /**
+     * Count long.
+     *
+     * @param completer the completer
+     * @return the long
+     */
+    default long count(CountDSLCompleter completer) {
+        return MyBatis3Utils.countFrom(this::count, tokenAWX, completer);
+    }
 
-	/**
-	 * Insert multiple.
-	 *
-	 * @param insertStatement the insert statement
-	 * @param records         the records
-	 * @return the int
-	 */
-	@Insert({ "${insertStatement}" })
-	@Options(useGeneratedKeys = true, keyProperty = "records.id")
-	int insertMultiple(@Param("insertStatement") String insertStatement, @Param("records") List<TokenAWX> records);
+    /**
+     * Delete int.
+     *
+     * @param completer the completer
+     * @return the int
+     */
+    default int delete(DeleteDSLCompleter completer) {
+        return MyBatis3Utils.deleteFrom(this::delete, tokenAWX, completer);
+    }
 
-	/**
-	 * Insert selective.
-	 *
-	 * @param record the record
-	 * @return the int
-	 */
-	default int insertSelective(TokenAWX record) {
-		return MyBatis3Utils.insert(this::insert, record, tokenAWX,
-				c -> c.map(token).toPropertyWhenPresent("token", record::getToken).map(idArea)
-						.toPropertyWhenPresent("idArea", record::getIdArea));
-	}
+    /**
+     * Delete by primary key int.
+     *
+     * @param id_ the id
+     * @return the int
+     */
+    default int deleteByPrimaryKey(Integer id_) {
+        return delete(c ->
+                c.where(id, isEqualTo(id_))
+        );
+    }
 
-	/**
-	 * Select.
-	 *
-	 * @param completer the completer
-	 * @return the list
-	 */
-	default List<TokenAWX> select(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectList(this::selectMany, selectList, tokenAWX, completer);
-	}
+    /**
+     * Insert int.
+     *
+     * @param record the record
+     * @return the int
+     */
+    default int insert(TokenAWX record) {
+        return MyBatis3Utils.insert(this::insert, record, tokenAWX, c ->
+                c.map(token).toProperty("token")
+                        .map(idArea).toProperty("idArea")
+                        .map(emailUser).toProperty("emailUser")
+                        .map(idOrigen).toProperty("idOrigen")
+        );
+    }
 
-	/**
-	 * Select by primary key.
-	 *
-	 * @param id_ the id
-	 * @return the optional
-	 */
-	default Optional<TokenAWX> selectByPrimaryKey(Integer id_) {
-		return selectOne(c -> c.where(id, isEqualTo(id_)));
-	}
+    /**
+     * Insert multiple int.
+     *
+     * @param records the records
+     * @return the int
+     */
+    default int insertMultiple(Collection<TokenAWX> records) {
+        return MyBatis3Utils.insertMultiple(this::insertMultiple, records, tokenAWX, c ->
+                c.map(token).toProperty("token")
+                        .map(idArea).toProperty("idArea")
+                        .map(emailUser).toProperty("emailUser")
+                        .map(idOrigen).toProperty("idOrigen")
+        );
+    }
 
-	/**
-	 * Select distinct.
-	 *
-	 * @param completer the completer
-	 * @return the list
-	 */
-	default List<TokenAWX> selectDistinct(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectDistinct(this::selectMany, selectList, tokenAWX, completer);
-	}
+    /**
+     * Insert selective int.
+     *
+     * @param record the record
+     * @return the int
+     */
+    default int insertSelective(TokenAWX record) {
+        return MyBatis3Utils.insert(this::insert, record, tokenAWX, c ->
+                c.map(token).toPropertyWhenPresent("token", record::getToken)
+                        .map(idArea).toPropertyWhenPresent("idArea", record::getIdArea)
+                        .map(emailUser).toPropertyWhenPresent("emailUser", record::getEmailUser)
+                        .map(idOrigen).toPropertyWhenPresent("idOrigen", record::getIdOrigen)
+        );
+    }
 
-	/**
-	 * Select many.
-	 *
-	 * @param selectStatement the select statement
-	 * @return the list
-	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@Results(
-			id = "TokenAWXResult",
-			value = { @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
-					@Result(column = "token", property = "token", jdbcType = JdbcType.VARCHAR),
-					@Result(column = "id_area", property = "idArea", jdbcType = JdbcType.INTEGER) })
-	List<TokenAWX> selectMany(SelectStatementProvider selectStatement);
+    /**
+     * Select one optional.
+     *
+     * @param completer the completer
+     * @return the optional
+     */
+    default Optional<TokenAWX> selectOne(SelectDSLCompleter completer) {
+        return MyBatis3Utils.selectOne(this::selectOne, selectList, tokenAWX, completer);
+    }
 
-	/**
-	 * Select one.
-	 *
-	 * @param completer the completer
-	 * @return the optional
-	 */
-	default Optional<TokenAWX> selectOne(SelectDSLCompleter completer) {
-		return MyBatis3Utils.selectOne(this::selectOne, selectList, tokenAWX, completer);
-	}
+    /**
+     * Select list.
+     *
+     * @param completer the completer
+     * @return the list
+     */
+    default List<TokenAWX> select(SelectDSLCompleter completer) {
+        return MyBatis3Utils.selectList(this::selectMany, selectList, tokenAWX, completer);
+    }
 
-	/**
-	 * Select one.
-	 *
-	 * @param selectStatement the select statement
-	 * @return the optional
-	 */
-	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
-	@ResultMap("TokenAWXResult")
-	Optional<TokenAWX> selectOne(SelectStatementProvider selectStatement);
+    /**
+     * Select distinct list.
+     *
+     * @param completer the completer
+     * @return the list
+     */
+    default List<TokenAWX> selectDistinct(SelectDSLCompleter completer) {
+        return MyBatis3Utils.selectDistinct(this::selectMany, selectList, tokenAWX, completer);
+    }
 
-	/**
-	 * Update.
-	 *
-	 * @param completer the completer
-	 * @return the int
-	 */
-	default int update(UpdateDSLCompleter completer) {
-		return MyBatis3Utils.update(this::update, tokenAWX, completer);
-	}
+    /**
+     * Select by primary key optional.
+     *
+     * @param id_ the id
+     * @return the optional
+     */
+    default Optional<TokenAWX> selectByPrimaryKey(Integer id_) {
+        return selectOne(c ->
+                c.where(id, isEqualTo(id_))
+        );
+    }
 
-	/**
-	 * Update.
-	 *
-	 * @param updateStatement the update statement
-	 * @return the int
-	 */
-	@UpdateProvider(type = SqlProviderAdapter.class, method = "update")
-	int update(UpdateStatementProvider updateStatement);
+    /**
+     * Update int.
+     *
+     * @param completer the completer
+     * @return the int
+     */
+    default int update(UpdateDSLCompleter completer) {
+        return MyBatis3Utils.update(this::update, tokenAWX, completer);
+    }
 
-	/**
-	 * Update by primary key.
-	 *
-	 * @param record the record
-	 * @return the int
-	 */
-	default int updateByPrimaryKey(TokenAWX record) {
-		return update(c -> c.set(token).equalTo(record::getToken).set(idArea).equalTo(record::getIdArea).where(id,
-				isEqualTo(record::getId)));
-	}
+    /**
+     * Update by primary key int.
+     *
+     * @param record the record
+     * @return the int
+     */
+    default int updateByPrimaryKey(TokenAWX record) {
+        return update(c ->
+                c.set(token).equalTo(record::getToken)
+                        .set(idArea).equalTo(record::getIdArea)
+                        .set(emailUser).equalTo(record::getEmailUser)
+                        .set(idOrigen).equalTo(record::getIdOrigen)
+                        .where(id, isEqualTo(record::getId))
+        );
+    }
 
-	/**
-	 * Update by primary key selective.
-	 *
-	 * @param record the record
-	 * @return the int
-	 */
-	default int updateByPrimaryKeySelective(TokenAWX record) {
-		return update(c -> c.set(token).equalToWhenPresent(record::getToken).set(idArea)
-				.equalToWhenPresent(record::getIdArea).where(id, isEqualTo(record::getId)));
-	}
+    /**
+     * Update by primary key selective int.
+     *
+     * @param record the record
+     * @return the int
+     */
+    default int updateByPrimaryKeySelective(TokenAWX record) {
+        return update(c ->
+                c.set(token).equalToWhenPresent(record::getToken)
+                        .set(idArea).equalToWhenPresent(record::getIdArea)
+                        .set(emailUser).equalToWhenPresent(record::getEmailUser)
+                        .set(idOrigen).equalToWhenPresent(record::getIdOrigen)
+                        .where(id, isEqualTo(record::getId))
+        );
+    }
 }

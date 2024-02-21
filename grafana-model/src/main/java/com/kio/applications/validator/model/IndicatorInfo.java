@@ -1,69 +1,120 @@
 package com.kio.applications.validator.model;
 
-import javax.annotation.Generated;
-
+/**
+ * The type Indicator info.
+ */
 public class IndicatorInfo {
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+
     private Integer id;
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+
     private String source;
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+
     private String userAgent;
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+
     private String remoteHost;
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+
     private Integer idIndicador;
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public Integer getId() {
         return id;
     }
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+
+    /**
+     * Gets source.
+     *
+     * @return the source
+     */
     public String getSource() {
         return source;
     }
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+
+    /**
+     * Sets source.
+     *
+     * @param source the source
+     */
     public void setSource(String source) {
         this.source = source == null ? null : source.trim();
     }
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+
+    /**
+     * Gets user agent.
+     *
+     * @return the user agent
+     */
     public String getUserAgent() {
         return userAgent;
     }
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+
+    /**
+     * Sets user agent.
+     *
+     * @param userAgent the user agent
+     */
     public void setUserAgent(String userAgent) {
         this.userAgent = userAgent == null ? null : userAgent.trim();
     }
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+
+    /**
+     * Gets remote host.
+     *
+     * @return the remote host
+     */
     public String getRemoteHost() {
         return remoteHost;
     }
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+
+    /**
+     * Sets remote host.
+     *
+     * @param remoteHost the remote host
+     */
     public void setRemoteHost(String remoteHost) {
         this.remoteHost = remoteHost == null ? null : remoteHost.trim();
     }
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+
+    /**
+     * Gets id indicador.
+     *
+     * @return the id indicador
+     */
     public Integer getIdIndicador() {
         return idIndicador;
     }
 
-    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+
+    /**
+     * Sets id indicador.
+     *
+     * @param idIndicador the id indicador
+     */
     public void setIdIndicador(Integer idIndicador) {
         this.idIndicador = idIndicador;
     }

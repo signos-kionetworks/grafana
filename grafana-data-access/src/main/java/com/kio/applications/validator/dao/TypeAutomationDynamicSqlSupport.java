@@ -1,53 +1,64 @@
 /*
-* ****************************************************
-* * Grafana *
-* * KIO Networks *
-* * @Author Julio Galindo *
-* ****************************************************
-*/
+ * ****************************************************
+ * * Grafana *
+ * * KIO Networks *
+ * * @Author Julio Galindo *
+ * ****************************************************
+ */
 package com.kio.applications.validator.dao;
-
-import java.sql.JDBCType;
 
 import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
+
+import java.sql.JDBCType;
 
 /**
  * The Class TypeAutomationDynamicSqlSupport.
  */
 public final class TypeAutomationDynamicSqlSupport {
 
-	/**
-	 * The Class TypeAutomation.
-	 */
-	public static final class TypeAutomation extends SqlTable {
-		
-		/** The id. */
-		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
+    /**
+     * The Constant typeAutomation.
+     */
+    public static final TypeAutomation typeAutomation = new TypeAutomation();
+    /**
+     * The Constant id.
+     */
+    public static final SqlColumn<Integer> id = typeAutomation.id;
+    /**
+     * The Constant name.
+     */
+    public static final SqlColumn<String> name = typeAutomation.name;
+    /**
+     * The Constant descr.
+     */
+    public static final SqlColumn<String> descr = typeAutomation.descr;
 
-		/** The name. */
-		public final SqlColumn<String> name = column("name", JDBCType.VARCHAR);
+    /**
+     * The Class TypeAutomation.
+     */
+    public static final class TypeAutomation extends SqlTable {
 
-		/** The descr. */
-		public final SqlColumn<String> descr = column("descr", JDBCType.VARCHAR);
+        /**
+         * The id.
+         */
+        public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
-		/**
-		 * Instantiates a new type automation.
-		 */
-		public TypeAutomation() {
-			super("tipoaut");
-		}
-	}
+        /**
+         * The name.
+         */
+        public final SqlColumn<String> name = column("name", JDBCType.VARCHAR);
 
-	/** The Constant typeAutomation. */
-	public static final TypeAutomation typeAutomation = new TypeAutomation();
+        /**
+         * The descr.
+         */
+        public final SqlColumn<String> descr = column("descr", JDBCType.VARCHAR);
 
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = typeAutomation.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = typeAutomation.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = typeAutomation.descr;
+        /**
+         * Instantiates a new type automation.
+         */
+        public TypeAutomation() {
+            super("tipoaut");
+        }
+    }
 }

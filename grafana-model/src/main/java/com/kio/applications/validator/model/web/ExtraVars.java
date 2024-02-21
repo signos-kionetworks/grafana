@@ -8,16 +8,13 @@
 
 package com.kio.applications.validator.model.web;
 
+import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlElement;
-
-// TODO: Auto-generated Javadoc
 
 /**
  * The Class ExtraVars.
  */
-
 public class ExtraVars implements Serializable {
 
     /**
@@ -120,11 +117,15 @@ public class ExtraVars implements Serializable {
      */
     private String specialist;
 
-    private String source ="";
+    private String source = "";
 
     private String userAgent = "";
 
     private String remoteHost = "";
+
+    private String origin;
+    private String resource_id;
+    private String resource_name;
 
     /**
      * Gets the bot name.
@@ -133,168 +134,6 @@ public class ExtraVars implements Serializable {
      */
     public String getBotName() {
         return botName;
-    }
-
-    /**
-     * Gets the client.
-     *
-     * @return the client
-     */
-    public String getClient() {
-        return client;
-    }
-
-    /**
-     * Gets the creator.
-     *
-     * @return the creator
-     */
-    public String getCreator() {
-        return creator;
-    }
-
-    /**
-     * Gets the level of specialization.
-     *
-     * @return the level of specialization
-     */
-    public String getLevelOfSpecialization() {
-        return levelOfSpecialization;
-    }
-
-    /**
-     * Gets the manual time.
-     *
-     * @return the manual time
-     */
-    public Float getManualTime() {
-        return manualTime;
-    }
-
-    /**
-     * Gets the organization.
-     *
-     * @return the organization
-     */
-    public String getOrganization() {
-        return organization;
-    }
-
-    /**
-     * Gets the platform.
-     *
-     * @return the platform
-     */
-    public String getPlatform() {
-        return platform;
-    }
-
-    /**
-     * Gets the playbook end timestamp.
-     *
-     * @return the playbook end timestamp
-     */
-    public Integer getPlaybookEndTimestamp() {
-        return playbookEndTimestamp;
-    }
-
-    /**
-     * Gets the playbook start timestamp.
-     *
-     * @return the playbook start timestamp
-     */
-    public Integer getPlaybookStartTimestamp() {
-        return playbookStartTimestamp;
-    }
-
-    /**
-     * Gets the specialist.
-     *
-     * @return the specialist
-     */
-    public String getSpecialist() {
-        return specialist;
-    }
-
-    /**
-     * Gets the technological domain.
-     *
-     * @return the technological domain
-     */
-    public String getTechnologicalDomain() {
-        return technologicalDomain;
-    }
-
-    /**
-     * Gets the technology.
-     *
-     * @return the technology
-     */
-    public String getTechnology() {
-        return technology;
-    }
-
-    /**
-     * Gets the total cis.
-     *
-     * @return the total cis
-     */
-    public Integer getTotalCis() {
-        return totalCis;
-    }
-
-    /**
-     * Gets the total impacted cis.
-     *
-     * @return the total impacted cis
-     */
-    public Integer getTotalImpactedCis() {
-        return totalImpactedCis;
-    }
-
-    /**
-     * Gets the type of automation.
-     *
-     * @return the type of automation
-     */
-    public String getTypeOfAutomation() {
-        return typeOfAutomation;
-    }
-
-    /**
-     * Gets the type of develop.
-     *
-     * @return the type of develop
-     */
-    public String getTypeOfDevelop() {
-        return typeOfDevelop;
-    }
-
-    /**
-     * Gets the type of execution.
-     *
-     * @return the type of execution
-     */
-    public String getTypeOfExecution() {
-        return typeOfExecution;
-    }
-
-    /**
-     * Gets the type of task.
-     *
-     * @return the type of task
-     */
-    public String getTypeOfTask() {
-        return typeOfTask;
-    }
-
-    /**
-     * Gets the woid.
-     *
-     * @return the woid
-     */
-    public String getWoid() {
-        return woid;
     }
 
     /**
@@ -308,6 +147,15 @@ public class ExtraVars implements Serializable {
     }
 
     /**
+     * Gets the client.
+     *
+     * @return the client
+     */
+    public String getClient() {
+        return client;
+    }
+
+    /**
      * Sets the client.
      *
      * @param client the new client
@@ -315,6 +163,15 @@ public class ExtraVars implements Serializable {
     @XmlElement(name = "client")
     public void setClient(String client) {
         this.client = client;
+    }
+
+    /**
+     * Gets the creator.
+     *
+     * @return the creator
+     */
+    public String getCreator() {
+        return creator;
     }
 
     /**
@@ -328,6 +185,15 @@ public class ExtraVars implements Serializable {
     }
 
     /**
+     * Gets the level of specialization.
+     *
+     * @return the level of specialization
+     */
+    public String getLevelOfSpecialization() {
+        return levelOfSpecialization;
+    }
+
+    /**
      * Sets the level of specialization.
      *
      * @param levelOfSpecialization the new level of specialization
@@ -335,6 +201,15 @@ public class ExtraVars implements Serializable {
     @XmlElement(name = "level_of_specialization")
     public void setLevelOfSpecialization(String levelOfSpecialization) {
         this.levelOfSpecialization = levelOfSpecialization;
+    }
+
+    /**
+     * Gets the manual time.
+     *
+     * @return the manual time
+     */
+    public Float getManualTime() {
+        return manualTime;
     }
 
     /**
@@ -348,6 +223,15 @@ public class ExtraVars implements Serializable {
     }
 
     /**
+     * Gets the organization.
+     *
+     * @return the organization
+     */
+    public String getOrganization() {
+        return organization;
+    }
+
+    /**
      * Sets the organization.
      *
      * @param organization the new organization
@@ -355,6 +239,15 @@ public class ExtraVars implements Serializable {
     @XmlElement(name = "organization")
     public void setOrganization(String organization) {
         this.organization = organization;
+    }
+
+    /**
+     * Gets the platform.
+     *
+     * @return the platform
+     */
+    public String getPlatform() {
+        return platform;
     }
 
     /**
@@ -368,6 +261,15 @@ public class ExtraVars implements Serializable {
     }
 
     /**
+     * Gets the playbook end timestamp.
+     *
+     * @return the playbook end timestamp
+     */
+    public Integer getPlaybookEndTimestamp() {
+        return playbookEndTimestamp;
+    }
+
+    /**
      * Sets the playbook end timestamp.
      *
      * @param playbookEndTimestamp the new playbook end timestamp
@@ -375,6 +277,15 @@ public class ExtraVars implements Serializable {
     @XmlElement(name = "playbook_end_timestamp")
     public void setPlaybookEndTimestamp(Integer playbookEndTimestamp) {
         this.playbookEndTimestamp = playbookEndTimestamp;
+    }
+
+    /**
+     * Gets the playbook start timestamp.
+     *
+     * @return the playbook start timestamp
+     */
+    public Integer getPlaybookStartTimestamp() {
+        return playbookStartTimestamp;
     }
 
     /**
@@ -388,6 +299,15 @@ public class ExtraVars implements Serializable {
     }
 
     /**
+     * Gets the specialist.
+     *
+     * @return the specialist
+     */
+    public String getSpecialist() {
+        return specialist;
+    }
+
+    /**
      * Sets the specialist.
      *
      * @param specialist the new specialist
@@ -395,6 +315,15 @@ public class ExtraVars implements Serializable {
     @XmlElement(name = "specialist")
     public void setSpecialist(String specialist) {
         this.specialist = specialist;
+    }
+
+    /**
+     * Gets the technological domain.
+     *
+     * @return the technological domain
+     */
+    public String getTechnologicalDomain() {
+        return technologicalDomain;
     }
 
     /**
@@ -408,6 +337,15 @@ public class ExtraVars implements Serializable {
     }
 
     /**
+     * Gets the technology.
+     *
+     * @return the technology
+     */
+    public String getTechnology() {
+        return technology;
+    }
+
+    /**
      * Sets the technology.
      *
      * @param technology the new technology
@@ -415,6 +353,15 @@ public class ExtraVars implements Serializable {
     @XmlElement(name = "technology")
     public void setTechnology(String technology) {
         this.technology = technology;
+    }
+
+    /**
+     * Gets the total cis.
+     *
+     * @return the total cis
+     */
+    public Integer getTotalCis() {
+        return totalCis;
     }
 
     /**
@@ -428,6 +375,15 @@ public class ExtraVars implements Serializable {
     }
 
     /**
+     * Gets the total impacted cis.
+     *
+     * @return the total impacted cis
+     */
+    public Integer getTotalImpactedCis() {
+        return totalImpactedCis;
+    }
+
+    /**
      * Sets the total impacted cis.
      *
      * @param totalImpactedCis the new total impacted cis
@@ -435,6 +391,15 @@ public class ExtraVars implements Serializable {
     @XmlElement(name = "total_impacted_cis")
     public void setTotalImpactedCis(Integer totalImpactedCis) {
         this.totalImpactedCis = totalImpactedCis;
+    }
+
+    /**
+     * Gets the type of automation.
+     *
+     * @return the type of automation
+     */
+    public String getTypeOfAutomation() {
+        return typeOfAutomation;
     }
 
     /**
@@ -448,6 +413,15 @@ public class ExtraVars implements Serializable {
     }
 
     /**
+     * Gets the type of develop.
+     *
+     * @return the type of develop
+     */
+    public String getTypeOfDevelop() {
+        return typeOfDevelop;
+    }
+
+    /**
      * Sets the type of develop.
      *
      * @param typeOfDevelop the new type of develop
@@ -455,6 +429,15 @@ public class ExtraVars implements Serializable {
     @XmlElement(name = "type_of_develop")
     public void setTypeOfDevelop(String typeOfDevelop) {
         this.typeOfDevelop = typeOfDevelop;
+    }
+
+    /**
+     * Gets the type of execution.
+     *
+     * @return the type of execution
+     */
+    public String getTypeOfExecution() {
+        return typeOfExecution;
     }
 
     /**
@@ -468,6 +451,15 @@ public class ExtraVars implements Serializable {
     }
 
     /**
+     * Gets the type of task.
+     *
+     * @return the type of task
+     */
+    public String getTypeOfTask() {
+        return typeOfTask;
+    }
+
+    /**
      * Sets the type of task.
      *
      * @param typeOfTask the new type of task
@@ -475,6 +467,15 @@ public class ExtraVars implements Serializable {
     @XmlElement(name = "type_of_task")
     public void setTypeOfTask(String typeOfTask) {
         this.typeOfTask = typeOfTask;
+    }
+
+    /**
+     * Gets the woid.
+     *
+     * @return the woid
+     */
+    public String getWoid() {
+        return woid;
     }
 
     /**
@@ -487,28 +488,118 @@ public class ExtraVars implements Serializable {
         this.woid = woid;
     }
 
+    /**
+     * Gets source.
+     *
+     * @return the source
+     */
     public String getSource() {
         return source;
     }
 
+    /**
+     * Sets source.
+     *
+     * @param source the source
+     */
     @XmlElement(name = "source")
     public void setSource(String source) {
         this.source = source;
     }
 
+    /**
+     * Gets user agent.
+     *
+     * @return the user agent
+     */
     public String getUserAgent() {
         return userAgent;
     }
+
+    /**
+     * Sets user agent.
+     *
+     * @param userAgent the user agent
+     */
     @XmlElement(name = "user_agent")
     public void setUserAgent(String userAgent) {
         this.userAgent = userAgent;
     }
 
+    /**
+     * Gets remote host.
+     *
+     * @return the remote host
+     */
     public String getRemoteHost() {
         return remoteHost;
     }
+
+    /**
+     * Sets remote host.
+     *
+     * @param remoteHost the remote host
+     */
     @XmlElement(name = "remote_host")
     public void setRemoteHost(String remoteHost) {
         this.remoteHost = remoteHost;
+    }
+
+
+    /**
+     * Gets origin.
+     *
+     * @return the origin
+     */
+    public String getOrigin() {
+        return origin;
+    }
+
+    /**
+     * Sets origin.
+     *
+     * @param origin the origin
+     */
+    @XmlElement(name = "origin")
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    /**
+     * Gets resource id.
+     *
+     * @return the resource id
+     */
+    public String getResourceId() {
+        return resource_id;
+    }
+
+    /**
+     * Sets resource id.
+     *
+     * @param resource_id the resource id
+     */
+    @XmlElement(name = "resource_id")
+    public void setResourceId(String resource_id) {
+        this.resource_id = resource_id;
+    }
+
+    /**
+     * Gets resource name.
+     *
+     * @return the resource name
+     */
+    public String getResourceName() {
+        return resource_name;
+    }
+
+    /**
+     * Sets resource name.
+     *
+     * @param resource_name the resource name
+     */
+    @XmlElement(name = "resource_name")
+    public void setResourceName(String resource_name) {
+        this.resource_name = resource_name;
     }
 }

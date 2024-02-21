@@ -7,47 +7,58 @@
  */
 package com.kio.applications.validator.dao;
 
-import java.sql.JDBCType;
-
 import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
+
+import java.sql.JDBCType;
 
 /**
  * The Class TaskTypeDynamicSqlSupport.
  */
 public final class TypeTaskDynamicSqlSupport {
 
-	/**
-	 * The Class TaskType.
-	 */
-	public static final class TaskType extends SqlTable {
+    /**
+     * The Constant taskType.
+     */
+    public static final TaskType taskType = new TaskType();
+    /**
+     * The Constant id.
+     */
+    public static final SqlColumn<Integer> id = taskType.id;
+    /**
+     * The Constant name.
+     */
+    public static final SqlColumn<String> name = taskType.name;
+    /**
+     * The Constant descr.
+     */
+    public static final SqlColumn<String> descr = taskType.descr;
 
-		/** The id. */
-		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
+    /**
+     * The Class TaskType.
+     */
+    public static final class TaskType extends SqlTable {
 
-		/** The name. */
-		public final SqlColumn<String> name = column("name", JDBCType.VARCHAR);
+        /**
+         * The id.
+         */
+        public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
-		/** The descr. */
-		public final SqlColumn<String> descr = column("descr", JDBCType.VARCHAR);
+        /**
+         * The name.
+         */
+        public final SqlColumn<String> name = column("name", JDBCType.VARCHAR);
 
-		/**
-		 * Instantiates a new task type.
-		 */
-		public TaskType() {
-			super("cocatnivel3");
-		}
-	}
+        /**
+         * The descr.
+         */
+        public final SqlColumn<String> descr = column("descr", JDBCType.VARCHAR);
 
-	/** The Constant taskType. */
-	public static final TaskType taskType = new TaskType();
-
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = taskType.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = taskType.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = taskType.descr;
+        /**
+         * Instantiates a new task type.
+         */
+        public TaskType() {
+            super("cocatnivel3");
+        }
+    }
 }

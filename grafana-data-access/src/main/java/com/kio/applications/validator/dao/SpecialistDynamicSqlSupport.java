@@ -1,53 +1,64 @@
 /*
-* ****************************************************
-* * Grafana *
-* * KIO Networks *
-* * @Author Julio Galindo *
-* ****************************************************
-*/
+ * ****************************************************
+ * * Grafana *
+ * * KIO Networks *
+ * * @Author Julio Galindo *
+ * ****************************************************
+ */
 package com.kio.applications.validator.dao;
-
-import java.sql.JDBCType;
 
 import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
+
+import java.sql.JDBCType;
 
 /**
  * The Class SpecialistDynamicSqlSupport.
  */
 public final class SpecialistDynamicSqlSupport {
 
-	/**
-	 * The Class Specialist.
-	 */
-	public static final class Specialist extends SqlTable {
-		
-		/** The id. */
-		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
+    /**
+     * The Constant specialist.
+     */
+    public static final Specialist specialist = new Specialist();
+    /**
+     * The Constant id.
+     */
+    public static final SqlColumn<Integer> id = specialist.id;
+    /**
+     * The Constant name.
+     */
+    public static final SqlColumn<String> name = specialist.name;
+    /**
+     * The Constant descr.
+     */
+    public static final SqlColumn<String> descr = specialist.descr;
 
-		/** The name. */
-		public final SqlColumn<String> name = column("name", JDBCType.VARCHAR);
+    /**
+     * The Class Specialist.
+     */
+    public static final class Specialist extends SqlTable {
 
-		/** The descr. */
-		public final SqlColumn<String> descr = column("descr", JDBCType.VARCHAR);
+        /**
+         * The id.
+         */
+        public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
-		/**
-		 * Instantiates a new specialist.
-		 */
-		public Specialist() {
-			super("specialist");
-		}
-	}
+        /**
+         * The name.
+         */
+        public final SqlColumn<String> name = column("name", JDBCType.VARCHAR);
 
-	/** The Constant specialist. */
-	public static final Specialist specialist = new Specialist();
+        /**
+         * The descr.
+         */
+        public final SqlColumn<String> descr = column("descr", JDBCType.VARCHAR);
 
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = specialist.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = specialist.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = specialist.descr;
+        /**
+         * Instantiates a new specialist.
+         */
+        public Specialist() {
+            super("specialist");
+        }
+    }
 }

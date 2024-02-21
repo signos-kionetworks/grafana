@@ -41,10 +41,9 @@ public class AutomationBO
 	 *
 	 * @param object the object
 	 * @return the automation
-	 * @throws GenericException the generic exception
 	 */
 	@Override
-	public Automation save(Automation object) throws GenericException {
+	public Automation save(Automation object)  {
 		if (null != object.getId()) {
 			this.automationMapper.updateByPrimaryKey(object);
 			return object;
@@ -59,10 +58,9 @@ public class AutomationBO
 	 *
 	 * @param value the value
 	 * @return the automation
-	 * @throws GenericException the generic exception
 	 */
 	@Override
-	public Automation searchByKey(Automation value) throws GenericException {
+	public Automation searchByKey(Automation value)  {
 		final Optional<Automation> automation = this.automationMapper.selectOne(c -> c
 				.where(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.areaid,
 						SqlBuilder.isEqualTo(value.getAreaid()))
@@ -86,7 +84,7 @@ public class AutomationBO
 	}
 
 	@Override
-	public Automation searchByText(String text) throws GenericException {
+	public Automation searchByText(String text)  {
 		final Optional<Automation> automation = this.automationMapper.selectOne(c -> c
 				.where(com.kio.applications.validator.dao.AutomationDynamicSqlSupport.botname,
 						SqlBuilder.isEqualTo(text))
