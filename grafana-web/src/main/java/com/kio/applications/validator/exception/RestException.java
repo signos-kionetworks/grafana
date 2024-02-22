@@ -24,7 +24,7 @@ public class RestException {
 	private String errorMessage;
 
 	public RestException() {
-		System.out.println("");
+
 	}
 
 	/**
