@@ -43,7 +43,7 @@ public class InputHandler extends AbstractPhaseInterceptor<Message> {
 	@Autowired
 	TokenAWXBO tokenAWXBO;
 
-	private static String BEARER = "Bearer ";
+	private static final String BEARER = "Bearer ";
 
 	/**
 	 * Instantiates a new input handler.
@@ -74,7 +74,7 @@ public class InputHandler extends AbstractPhaseInterceptor<Message> {
 
 		Map<?, ?> protocolHeaders = (TreeMap<?, ?>) message.get(Message.PROTOCOL_HEADERS);
 		List<?> authzHeaders = (ArrayList<?>) protocolHeaders.get("Authorization");
-		if (null != authzHeaders && authzHeaders.size() > 0) {
+		if (null != authzHeaders && !authzHeaders.isEmpty()) {
 			String authorization = (String) authzHeaders.get(0);
 			if (authorization.startsWith(BEARER)) {
 				try {
@@ -83,7 +83,7 @@ public class InputHandler extends AbstractPhaseInterceptor<Message> {
 					TokenAWX token = tokenAWXBO.searchToken(bearerToken);
 					if (null == token) {
 						message.getExchange().put(Response.class,
-								this.buildResponse(Response.Status.UNAUTHORIZED, "Token no registrado en grafana."));
+								this.buildResponse(Response.Status.UNAUTHORIZED, "Token ["+bearerToken+"] no registrado en AutomationID."));
 					} else {
 						message.put(AppConstants.P_TOKEN, token);
 					}
