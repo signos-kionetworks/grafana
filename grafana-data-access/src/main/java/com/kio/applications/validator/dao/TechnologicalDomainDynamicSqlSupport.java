@@ -1,53 +1,64 @@
 /*
-* ****************************************************
-* * Grafana *
-* * KIO Networks *
-* * @Author Julio Galindo *
-* ****************************************************
-*/
+ * ****************************************************
+ * * Grafana *
+ * * KIO Networks *
+ * * @Author Julio Galindo *
+ * ****************************************************
+ */
 package com.kio.applications.validator.dao;
-
-import java.sql.JDBCType;
 
 import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
+
+import java.sql.JDBCType;
 
 /**
  * The Class TechnologicalDomainDynamicSqlSupport.
  */
 public final class TechnologicalDomainDynamicSqlSupport {
 
-	/**
-	 * The Class TechnologicalDomain.
-	 */
-	public static final class TechnologicalDomain extends SqlTable {
-		
-		/** The id. */
-		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
+    /**
+     * The Constant technologicalDomain.
+     */
+    public static final TechnologicalDomain technologicalDomain = new TechnologicalDomain();
+    /**
+     * The Constant id.
+     */
+    public static final SqlColumn<Integer> id = technologicalDomain.id;
+    /**
+     * The Constant name.
+     */
+    public static final SqlColumn<String> name = technologicalDomain.name;
+    /**
+     * The Constant descr.
+     */
+    public static final SqlColumn<String> descr = technologicalDomain.descr;
 
-		/** The name. */
-		public final SqlColumn<String> name = column("name", JDBCType.VARCHAR);
+    /**
+     * The Class TechnologicalDomain.
+     */
+    public static final class TechnologicalDomain extends SqlTable {
 
-		/** The descr. */
-		public final SqlColumn<String> descr = column("descr", JDBCType.VARCHAR);
+        /**
+         * The id.
+         */
+        public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
-		/**
-		 * Instantiates a new technological domain.
-		 */
-		public TechnologicalDomain() {
-			super("cocatnivel1");
-		}
-	}
+        /**
+         * The name.
+         */
+        public final SqlColumn<String> name = column("name", JDBCType.VARCHAR);
 
-	/** The Constant technologicalDomain. */
-	public static final TechnologicalDomain technologicalDomain = new TechnologicalDomain();
+        /**
+         * The descr.
+         */
+        public final SqlColumn<String> descr = column("descr", JDBCType.VARCHAR);
 
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = technologicalDomain.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = technologicalDomain.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = technologicalDomain.descr;
+        /**
+         * Instantiates a new technological domain.
+         */
+        public TechnologicalDomain() {
+            super("cocatnivel1");
+        }
+    }
 }

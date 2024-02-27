@@ -41,7 +41,10 @@ public final class IndicatorDynamicSqlSupport {
     public static final SqlColumn<Integer> totalImpactedCis = indicator.totalImpactedCis;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public static final SqlColumn<Float> mantime = indicator.mantime;
+    public static final SqlColumn<Double> mantime = indicator.mantime;
+
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public static final SqlColumn<Integer> idRecurso = indicator.idRecurso;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public static final class Indicator extends SqlTable {
@@ -65,7 +68,9 @@ public final class IndicatorDynamicSqlSupport {
 
         public final SqlColumn<Integer> totalImpactedCis = column("total_impacted_cis", JDBCType.INTEGER);
 
-        public final SqlColumn<Float> mantime = column("mantime", JDBCType.REAL);
+        public final SqlColumn<Double> mantime = column("mantime", JDBCType.DOUBLE);
+
+        public final SqlColumn<Integer> idRecurso = column("id_recurso", JDBCType.INTEGER);
 
         public Indicator() {
             super("indicadores");

@@ -1,53 +1,64 @@
 /*
-* ****************************************************
-* * Grafana *
-* * KIO Networks *
-* * @Author Julio Galindo *
-* ****************************************************
-*/
+ * ****************************************************
+ * * Grafana *
+ * * KIO Networks *
+ * * @Author Julio Galindo *
+ * ****************************************************
+ */
 package com.kio.applications.validator.dao;
-
-import java.sql.JDBCType;
 
 import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
+
+import java.sql.JDBCType;
 
 /**
  * The Class CreatorDynamicSqlSupport.
  */
 public final class CreatorDynamicSqlSupport {
 
-	/**
-	 * The Class Creator.
-	 */
-	public static final class Creator extends SqlTable {
-		
-		/** The id. */
-		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
+    /**
+     * The Constant creator.
+     */
+    public static final Creator creator = new Creator();
+    /**
+     * The Constant id.
+     */
+    public static final SqlColumn<Integer> id = creator.id;
+    /**
+     * The Constant name.
+     */
+    public static final SqlColumn<String> name = creator.name;
+    /**
+     * The Constant descr.
+     */
+    public static final SqlColumn<String> descr = creator.descr;
 
-		/** The name. */
-		public final SqlColumn<String> name = column("name", JDBCType.VARCHAR);
+    /**
+     * The Class Creator.
+     */
+    public static final class Creator extends SqlTable {
 
-		/** The descr. */
-		public final SqlColumn<String> descr = column("descr", JDBCType.VARCHAR);
+        /**
+         * The id.
+         */
+        public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
-		/**
-		 * Instantiates a new creator.
-		 */
-		public Creator() {
-			super("creador");
-		}
-	}
+        /**
+         * The name.
+         */
+        public final SqlColumn<String> name = column("name", JDBCType.VARCHAR);
 
-	/** The Constant creator. */
-	public static final Creator creator = new Creator();
+        /**
+         * The descr.
+         */
+        public final SqlColumn<String> descr = column("descr", JDBCType.VARCHAR);
 
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = creator.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = creator.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = creator.descr;
+        /**
+         * Instantiates a new creator.
+         */
+        public Creator() {
+            super("creador");
+        }
+    }
 }

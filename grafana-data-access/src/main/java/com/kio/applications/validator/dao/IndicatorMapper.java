@@ -38,7 +38,7 @@ import org.mybatis.dynamic.sql.util.mybatis3.MyBatis3Utils;
 @Mapper
 public interface IndicatorMapper {
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    BasicColumn[] selectList = BasicColumn.columnList(id, time, autid, autotime, svtime, transactionid, ticketid, svfte, impactedCis, totalImpactedCis, mantime);
+    BasicColumn[] selectList = BasicColumn.columnList(id, time, autid, autotime, svtime, transactionid, ticketid, svfte, impactedCis, totalImpactedCis, mantime, idRecurso);
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
@@ -83,7 +83,8 @@ public interface IndicatorMapper {
         @Result(column="svfte", property="svfte", jdbcType=JdbcType.REAL),
         @Result(column="impacted_cis", property="impactedCis", jdbcType=JdbcType.INTEGER),
         @Result(column="total_impacted_cis", property="totalImpactedCis", jdbcType=JdbcType.INTEGER),
-        @Result(column="mantime", property="mantime", jdbcType=JdbcType.DOUBLE)
+        @Result(column="mantime", property="mantime", jdbcType=JdbcType.DOUBLE),
+        @Result(column="id_recurso", property="idRecurso", jdbcType=JdbcType.INTEGER)
     })
     List<Indicator> selectMany(SelectStatementProvider selectStatement);
 
@@ -121,6 +122,7 @@ public interface IndicatorMapper {
             .map(impactedCis).toProperty("impactedCis")
             .map(totalImpactedCis).toProperty("totalImpactedCis")
             .map(mantime).toProperty("mantime")
+            .map(idRecurso).toProperty("idRecurso")
         );
     }
 
@@ -137,6 +139,7 @@ public interface IndicatorMapper {
             .map(impactedCis).toProperty("impactedCis")
             .map(totalImpactedCis).toProperty("totalImpactedCis")
             .map(mantime).toProperty("mantime")
+            .map(idRecurso).toProperty("idRecurso")
         );
     }
 
@@ -153,6 +156,7 @@ public interface IndicatorMapper {
             .map(impactedCis).toPropertyWhenPresent("impactedCis", record::getImpactedCis)
             .map(totalImpactedCis).toPropertyWhenPresent("totalImpactedCis", record::getTotalImpactedCis)
             .map(mantime).toPropertyWhenPresent("mantime", record::getMantime)
+            .map(idRecurso).toPropertyWhenPresent("idRecurso", record::getIdRecurso)
         );
     }
 
@@ -194,7 +198,8 @@ public interface IndicatorMapper {
                 .set(svfte).equalTo(record::getSvfte)
                 .set(impactedCis).equalTo(record::getImpactedCis)
                 .set(totalImpactedCis).equalTo(record::getTotalImpactedCis)
-                .set(mantime).equalTo(record::getMantime);
+                .set(mantime).equalTo(record::getMantime)
+                .set(idRecurso).equalTo(record::getIdRecurso);
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
@@ -208,7 +213,8 @@ public interface IndicatorMapper {
                 .set(svfte).equalToWhenPresent(record::getSvfte)
                 .set(impactedCis).equalToWhenPresent(record::getImpactedCis)
                 .set(totalImpactedCis).equalToWhenPresent(record::getTotalImpactedCis)
-                .set(mantime).equalToWhenPresent(record::getMantime);
+                .set(mantime).equalToWhenPresent(record::getMantime)
+                .set(idRecurso).equalToWhenPresent(record::getIdRecurso);
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
@@ -224,6 +230,7 @@ public interface IndicatorMapper {
             .set(impactedCis).equalTo(record::getImpactedCis)
             .set(totalImpactedCis).equalTo(record::getTotalImpactedCis)
             .set(mantime).equalTo(record::getMantime)
+            .set(idRecurso).equalTo(record::getIdRecurso)
             .where(id, isEqualTo(record::getId))
         );
     }
@@ -241,6 +248,7 @@ public interface IndicatorMapper {
             .set(impactedCis).equalToWhenPresent(record::getImpactedCis)
             .set(totalImpactedCis).equalToWhenPresent(record::getTotalImpactedCis)
             .set(mantime).equalToWhenPresent(record::getMantime)
+            .set(idRecurso).equalToWhenPresent(record::getIdRecurso)
             .where(id, isEqualTo(record::getId))
         );
     }

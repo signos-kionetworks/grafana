@@ -66,7 +66,7 @@ public class TypeTaskBO implements IfzSelectBO<TypeTask>, Serializable {
 						com.kio.applications.validator.dao.TypeTaskDynamicSqlSupport.name,
 						SqlBuilder.isInCaseInsensitive(
 								value.trim().toUpperCase()))
-						.or(com.kio.applications.validator.dao.ClientDynamicSqlSupport.descr,
+						.or(com.kio.applications.validator.dao.TypeTaskDynamicSqlSupport.descr,
 								SqlBuilder.isInCaseInsensitive(
 										value.trim().toUpperCase()))
 						.limit(1));

@@ -66,7 +66,7 @@ public class PlatformBO implements IfzSelectBO<Platform>, Serializable {
 						com.kio.applications.validator.dao.PlatformDynamicSqlSupport.name,
 						SqlBuilder.isInCaseInsensitive(
 								value.trim().toUpperCase()))
-						.or(com.kio.applications.validator.dao.ClientDynamicSqlSupport.descr,
+						.or(com.kio.applications.validator.dao.PlatformDynamicSqlSupport.descr,
 								SqlBuilder.isInCaseInsensitive(
 										value.trim().toUpperCase()))
 						.limit(1));

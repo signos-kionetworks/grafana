@@ -1,53 +1,64 @@
 /*
-* ****************************************************
-* * Grafana *
-* * KIO Networks *
-* * @Author Julio Galindo *
-* ****************************************************
-*/
+ * ****************************************************
+ * * Grafana *
+ * * KIO Networks *
+ * * @Author Julio Galindo *
+ * ****************************************************
+ */
 package com.kio.applications.validator.dao;
-
-import java.sql.JDBCType;
 
 import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
+
+import java.sql.JDBCType;
 
 /**
  * The Class TaskTypeDynamicSqlSupport.
  */
 public final class TaskTypeDynamicSqlSupport {
 
-	/**
-	 * The Class TaskType.
-	 */
-	public static final class TaskType extends SqlTable {
-		
-		/** The id. */
-		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
+    /**
+     * The Constant taskType.
+     */
+    public static final TaskType taskType = new TaskType();
+    /**
+     * The Constant id.
+     */
+    public static final SqlColumn<Integer> id = taskType.id;
+    /**
+     * The Constant name.
+     */
+    public static final SqlColumn<String> name = taskType.name;
+    /**
+     * The Constant descr.
+     */
+    public static final SqlColumn<String> descr = taskType.descr;
 
-		/** The name. */
-		public final SqlColumn<String> name = column("name", JDBCType.VARCHAR);
+    /**
+     * The Class TaskType.
+     */
+    public static final class TaskType extends SqlTable {
 
-		/** The descr. */
-		public final SqlColumn<String> descr = column("descr", JDBCType.VARCHAR);
+        /**
+         * The id.
+         */
+        public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
-		/**
-		 * Instantiates a new task type.
-		 */
-		public TaskType() {
-			super("cocatnivel3");
-		}
-	}
+        /**
+         * The name.
+         */
+        public final SqlColumn<String> name = column("name", JDBCType.VARCHAR);
 
-	/** The Constant taskType. */
-	public static final TaskType taskType = new TaskType();
+        /**
+         * The descr.
+         */
+        public final SqlColumn<String> descr = column("descr", JDBCType.VARCHAR);
 
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = taskType.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = taskType.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = taskType.descr;
+        /**
+         * Instantiates a new task type.
+         */
+        public TaskType() {
+            super("cocatnivel3");
+        }
+    }
 }

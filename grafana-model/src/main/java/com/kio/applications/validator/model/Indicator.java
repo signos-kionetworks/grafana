@@ -35,7 +35,10 @@ public class Indicator {
     private Integer totalImpactedCis;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    private Float mantime;
+    private Double mantime;
+
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    private Integer idRecurso;
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
     public Long getId() {
@@ -138,12 +141,22 @@ public class Indicator {
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public Float getMantime() {
+    public Double getMantime() {
         return mantime;
     }
 
     @Generated("org.mybatis.generator.api.MyBatisGenerator")
-    public void setMantime(Float mantime) {
+    public void setMantime(Double mantime) {
         this.mantime = mantime;
+    }
+
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public Integer getIdRecurso() {
+        return idRecurso;
+    }
+
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public void setIdRecurso(Integer idRecurso) {
+        this.idRecurso = idRecurso;
     }
 }

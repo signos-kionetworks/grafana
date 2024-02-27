@@ -1,53 +1,64 @@
 /*
-* ****************************************************
-* * Grafana *
-* * KIO Networks *
-* * @Author Julio Galindo *
-* ****************************************************
-*/
+ * ****************************************************
+ * * Grafana *
+ * * KIO Networks *
+ * * @Author Julio Galindo *
+ * ****************************************************
+ */
 package com.kio.applications.validator.dao;
-
-import java.sql.JDBCType;
 
 import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
+
+import java.sql.JDBCType;
 
 /**
  * The Class TypeTicketDynamicSqlSupport.
  */
 public final class TypeTicketDynamicSqlSupport {
 
-	/**
-	 * The Class TypeTicket.
-	 */
-	public static final class TypeTicket extends SqlTable {
-		
-		/** The id. */
-		public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
+    /**
+     * The Constant typeTicket.
+     */
+    public static final TypeTicket typeTicket = new TypeTicket();
+    /**
+     * The Constant id.
+     */
+    public static final SqlColumn<Integer> id = typeTicket.id;
+    /**
+     * The Constant name.
+     */
+    public static final SqlColumn<String> name = typeTicket.name;
+    /**
+     * The Constant descr.
+     */
+    public static final SqlColumn<String> descr = typeTicket.descr;
 
-		/** The name. */
-		public final SqlColumn<String> name = column("name", JDBCType.VARCHAR);
+    /**
+     * The Class TypeTicket.
+     */
+    public static final class TypeTicket extends SqlTable {
 
-		/** The descr. */
-		public final SqlColumn<String> descr = column("descr", JDBCType.VARCHAR);
+        /**
+         * The id.
+         */
+        public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
-		/**
-		 * Instantiates a new type ticket.
-		 */
-		public TypeTicket() {
-			super("cotipoticket");
-		}
-	}
+        /**
+         * The name.
+         */
+        public final SqlColumn<String> name = column("name", JDBCType.VARCHAR);
 
-	/** The Constant typeTicket. */
-	public static final TypeTicket typeTicket = new TypeTicket();
+        /**
+         * The descr.
+         */
+        public final SqlColumn<String> descr = column("descr", JDBCType.VARCHAR);
 
-	/** The Constant id. */
-	public static final SqlColumn<Integer> id = typeTicket.id;
-
-	/** The Constant name. */
-	public static final SqlColumn<String> name = typeTicket.name;
-
-	/** The Constant descr. */
-	public static final SqlColumn<String> descr = typeTicket.descr;
+        /**
+         * Instantiates a new type ticket.
+         */
+        public TypeTicket() {
+            super("cotipoticket");
+        }
+    }
 }
