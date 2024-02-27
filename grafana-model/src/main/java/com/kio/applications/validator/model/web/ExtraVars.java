@@ -123,9 +123,9 @@ public class ExtraVars implements Serializable {
 
     private String remoteHost = "";
 
-    private String origin;
-    private String resource_id;
-    private String resource_name;
+    private String origin = "";
+    private String resource_id = "";
+    private String resource_name = "";
 
     /**
      * Gets the bot name.

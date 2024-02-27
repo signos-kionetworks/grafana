@@ -19,7 +19,7 @@
 	<bean id="wadlProvider"
 		class="org.apache.cxf.jaxrs.model.wadl.WadlGenerator">
 		<property name="applicationTitle"
-			value="Grafana Application Services" />
+			value="Automation Application Services" />
 	</bean>
 	<bean id="jsonProvider"
 		class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider" />
